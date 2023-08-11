@@ -1,0 +1,257 @@
+{
+    "swagger":"2.0",
+    "info":{
+       "description":"This is the swagger node.js API project",
+       "version":"1.0.0",
+       "title":"Authentication API ES "
+    },
+    "schemas":[
+       "http"
+    ],
+    "host":"localhost:4000",
+    "paths":{
+       "/user/signUp":{
+          "post":{
+             "summary":"user signUp",
+             "description":"creation of user",
+             "produces":[
+                "application/json"
+             ],
+             "parameters":[
+                {
+                   "in":"body",
+                   "name":"user",
+                   "description":"user object",
+                   "required":true,
+                   "schema":{
+                        "type":"object",
+                        "$ref":"#/definitions/user"
+                        
+                      
+                   }
+                }
+             ],
+             "responses":{
+                "201":{
+                   "description":"user created sccussfully",
+                   "sechema":{
+                      "type":"object",
+                       "$ref":"#/definitions/userResponse"
+                      
+                   }
+                },
+                "409":{
+                   "description":"user alredy exist",
+                   "sechema":{
+                      "$ref":"#/definitions/userResponse"
+                   }
+                },
+                "500":{
+                    "description":"something went wrong",
+                    "sechema":{
+                       "$ref":"#/definitions/userResponse"
+                    }
+                }
+             }
+          }
+       },
+       "/user/login":{
+          "post":{
+             "summary":"user login",
+             "description":"login user ",
+             "produces":[
+                "application/json"
+             ],
+             "consumes":[
+                "application/json"
+             ],
+             "parameters":[
+                {
+                   "in":"body",
+                   "name":"body",
+                   "description":"userLogin object",
+                   "required":true,
+                   "schema":{
+                    "type":"object",
+                    "$ref":"#/definitions/userLogin"
+                      
+                
+                }
+            }
+             ],
+             "responses":{
+                "201":{
+                   "description":"user login is done",
+                   "schema":{
+                      "type":"object",
+                         "$ref":"#/definitions/userResponse"
+                      
+                   }
+                },
+                "401":{
+                   "description":"Invalid Email or Password",
+                   "schema":{
+                      "$ref":"#/definitions/userResponse"
+                   }
+                },
+                "404":{
+                    "description":"user doesnot exist",
+                    "schema":{
+                       "$ref":"#/definitions/userResponse"
+                    }
+                 },
+                 "500":{
+                    "description":"something went wrong please try again",
+                    "schema":{
+                       "$ref":"#/definitions/InvalidResponse"
+                    }
+                 }
+             }
+          }
+       },
+
+    "/user/createInquiry":{
+      "post":{
+         "summary":"creation of Inquiry",
+         "description":"creation of inquiry",
+         "produces":[
+            "application/json"
+         ],
+         "parameters":[
+            {
+               "in":"body",
+               "name":"carInquiry",
+               "description":"inquiry object",
+               "required":true,
+               "schema":{
+                    "type":"object",
+                    "$ref":"#/definitions/inquiry"
+                    
+                  
+               }
+            }
+         ],
+         "responses":{
+            "201":{
+               "description":"carInquiry created sccussfully",
+               "sechema":{
+                  "type":"object",
+                   "$ref":"#/definitions/userResponse"
+                  
+               }
+            },
+            "500":{
+                "description":"something went wrong",
+                "sechema":{
+                   "$ref":"#/definitions/userResponse"
+                }
+            }
+         }
+      }
+}
+    },
+    "definitions":{
+       "userResponse":{
+          "type":"object",
+          "properties":{
+             "status":{
+                "type":"integer"
+             },
+             "message":{
+                "type":"string"
+             }
+             
+          }
+       },
+       "inquiry":{
+         "type":"object",
+          "properties":{
+            "id":{
+               "type":"objectId"
+            },
+            "carName":{
+               "type":"string"
+            },
+            "startDate": {
+               "type":"Date"
+            },
+            "endDate":{
+               "type":"Date"
+            },
+            "pickUpLoc":{
+               "type":"string"
+            },
+            "dropLocation":{
+               "type":"string"
+            },
+            "phoneNumber":{
+               "type":"string"
+            },
+            "area":{
+               "type":"string"
+            }
+             
+          }
+
+       },
+       "user":{
+          "type":"object",
+          "properties":{
+             "id":{
+                "type":"objectId"
+             },
+             "userName":{
+                "type":"string"
+             },
+             "email":{
+                "type":"string"
+             },
+             "password":{
+                "type":"string"
+             },
+             "phoneNumber":{
+                "type":"string"
+             },
+             "address":{
+               "type":"string"
+             },
+             "locality":{
+               "type":"string"
+             },
+             "area":{
+               "type":"string"
+             },
+             "zipcode":{
+               "type":"string"
+             },
+             "city":{
+               "type":"string"
+             }
+
+          }
+        },
+          "userLogin":{
+            "type":"object",
+            "properties":{
+              
+               "email":{
+                  "type":"string"
+               },
+               "password":{
+                  "type":"string"
+               }
+            }
+       },
+       "InvalidResponse":{
+          "type":"object",
+          "properties":{
+             "statusCode":{
+                "type":"string"
+             },
+             "message":{
+                "type":"string"
+             }
+          }
+       }
+    }
+ }
