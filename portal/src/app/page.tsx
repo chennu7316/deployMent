@@ -1,13 +1,17 @@
-import Image from 'next/image'
-import Typography from '@mui/material/Typography'
+// import FormComponent from "@/components/signup-form/SignupForm";
+import Navlinks from "@/components/navlinks/NavLinks";
+import Navbar from "@/components/navbar/Navbar";
+import Slider from "@/components/slider-banner/Slider";
+// import EnquiryForm from "@/components/enquiry-form/EnquiryForm";
 
 export default function Home() {
   return (
-   <>
-   <Typography variant="h1" >
-    Hello There !
-    Welcome to the Car rental world!!!
-   </Typography>
-   </>
-  )
+    <>
+      <Navbar />
+      <Navlinks />
+      <Slider />
+      {/* <FormComponent /> */}
+      {/* <EnquiryForm /> */}
+    </>
+  );
 }
