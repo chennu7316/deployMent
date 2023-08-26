@@ -1,0 +1,10 @@
+.overview_text p {
+    color: black;
+    font-family: sans-serif;
+    font-size: 19px;
+    text-align: justify;
+}
+
+.company_overview{
+    margin: 25px 0px;
+}

@@ -1,0 +1,41 @@
+.footer {
+    background-color:
+        #152153;
+        padding: 25px 0px;
+}
+
+p.foot_text {
+    color: #ffffffb5;
+    font-size: 16px;
+    text-align: justify;
+    padding: 0px 10px;
+    font-family: sans-serif;
+}
+
+.foot_icons {
+    text-align: center;
+}
+
+.link_two {
+    text-align: center;
+}
+
+.link_two h4 {
+    font-size: 25px;
+    margin: 0px;
+    color: #ffffffb5;
+    padding: 5px 0px;
+}
+
+.link_two li {
+    list-style-type: none;
+    color: #ffffffb5;
+    padding: 3px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.link_two ul {
+    padding:0;
+}

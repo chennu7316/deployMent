@@ -16,6 +16,8 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import EnquiryForm from "../enquiry-form/EnquiryForm";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import {useRouter} from "next/navigation"
 
 interface Props {
   /**
@@ -31,6 +33,9 @@ const navItems = ["Home", "About", "Contact", "Services", "Blogs"];
 function Navbar(props: Props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const router = useRouter();
+  console.log("new commit")
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -49,6 +54,7 @@ function Navbar(props: Props) {
               <ListItemText primary={item}  />
             </ListItemButton>
           </ListItem>
+
         ))}
       </List>
     </Box>
@@ -78,12 +84,13 @@ function Navbar(props: Props) {
               <img src="/injaz-logo-two.png" alt="logo" />
             </Typography>
             
-            <Box sx={{ display: { xs: "none", sm: "block" } }}>
-              {navItems.map((item) => (
+            <Box className="header_links" sx={{ display: { xs: "none", sm: "block" } }}>
+              {/* {navItems.map((item) => (
                 <Button key={item} sx={{ color: "#fff" }}>
                   {item} 
                 </Button>
-              ))}
+              ))} */}
+              <Button onClick={() => router.push("/signup")} className="signLog_btn" variant="contained" sx={{ color: "#fff" }}><AccountCircleIcon className="login_icon"/>Login / Signup</Button>
             <EnquiryForm />
               
             </Box>

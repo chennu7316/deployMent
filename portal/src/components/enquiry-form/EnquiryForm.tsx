@@ -6,13 +6,13 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Container } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import '../enquiry-form/enquiryForm.css'
 
 function EnquiryForm() {
   const [open, setOpen] = React.useState(false);
@@ -26,11 +26,13 @@ function EnquiryForm() {
   };
 
   return (
-    <Container maxWidth="sm">
+    // <Container maxWidth="sm" sx={{textAlign:"right"}}>
+    <>
       <Button
         variant="outlined"
         onClick={handleClickOpen}
-        sx={{ color: "white" }}
+        // sx={{ color: "white" }}
+        className="enquiry_btn"
       >
         Enquiry
       </Button>
@@ -147,11 +149,12 @@ function EnquiryForm() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Submit</Button>
+          <Button variant="contained" size="small" onClick={handleClose}>Cancel</Button>
+          <Button variant="contained" size="small" onClick={handleClose}>Submit</Button>
         </DialogActions>
       </Dialog>
-    </Container>
+      </>
+    // </Container>
   );
 }
 
