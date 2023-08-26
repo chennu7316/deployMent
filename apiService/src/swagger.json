@@ -54,7 +54,8 @@
                 }
              }
           }
-       },
+       }
+       ,
        "/user/login":{
           "post":{
              "summary":"user login",
@@ -148,7 +149,828 @@
             }
          }
       }
+},
+
+"/user/createCategory":{
+   "post":{
+      "summary":"creation of Category",
+      "description":"creation of Category",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carCategory",
+            "description":"inquiry object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/carCategory"
+                 
+               
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carCategory created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllCategoryes":{
+   "get":{
+      "summary":"getAll of Categoryes",
+      "description":"getAll of Categoryes",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"carCategory created sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/carCategory"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createBrand":{
+   "post":{
+      "summary":"creation of Brand",
+      "description":"creation of Brand",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carBrand",
+            "description":"inquiry object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/carCategory"
+                 
+               
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carBrand created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllBrands":{
+   "get":{
+      "summary":"getAll of Brands",
+      "description":"getAll of Brands",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"carBrands created sccussfully",
+            "sechema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/carCategory"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createNewCar":{
+   "post":{
+      "summary":"creation of newCar",
+      "description":"creation of newCar",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"newCar",
+            "description":"newCar object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/newCar"  
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"newCar created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/addCarModel":{
+   "post":{
+      "summary":"creation of CarModel",
+      "description":"creation of CarModel",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"addCarModel",
+            "description":"addCarModel object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addCarModel"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"CarModel created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllCarModel":{
+   "get":{
+      "summary":"getAll of CarModel",
+      "description":"getAll of CarModel",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"getAll of CarModel sccussfully",
+            "sechema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/addCarModel"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createCarFeatures":{
+   "post":{
+      "summary":"creation of CarFeatures",
+      "description":"creation of CarFeatures",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"CarFeatures",
+            "description":"CarFeatures object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/CarFeatures"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"CarFeatures created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllCarFeatures":{
+   "get":{
+      "summary":"getAll of CarFeatures",
+      "description":"getAll of CarFeatures",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"CarFeatures get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/CarFeatures"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createCarServices":{
+   "post":{
+      "summary":"creation of CarServices",
+      "description":"creation of CarServices",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"CarServices",
+            "description":"CarServices object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/CarServices"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"CarServices created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllCarServices":{
+   "get":{
+      "summary":"getAll of CarServices",
+      "description":"getAll of CarServices",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"CarServices get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/CarServices"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createcarEngineCapacities":{
+   "post":{
+      "summary":"creation of carEngineCapacities",
+      "description":"creation of carEngineCapacities",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carEngineCapacities",
+            "description":"carEngineCapacities object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/carEngineCapacities"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"carEngineCapacities created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllcarEngineCapacities":{
+   "get":{
+      "summary":"getAll of carEngineCapacities",
+      "description":"getAll of carEngineCapacities",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"carEngineCapacities get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/carEngineCapacities"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createcarDocument":{
+   "post":{
+      "summary":"creation of carDocument",
+      "description":"creation of carDocument",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carDocument",
+            "description":"carDocument object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/carDocument"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"carDocument created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createcarLoaction":{
+   "post":{
+      "summary":"creation of carLoaction",
+      "description":"creation of carLoaction",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carLoaction",
+            "description":"carLoaction object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/carLoaction"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"carLoaction created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllcarDocument":{
+   "get":{
+      "summary":"getAll of carDocument",
+      "description":"getAll of carDocument",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"carDocument get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/carDocument"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllcarLoaction":{
+   "get":{
+      "summary":"getAll of carLoaction",
+      "description":"getAll of carLoaction",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"carLoaction get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/carLoaction"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/createFAQS":{
+   "post":{
+      "summary":"creation of FAQS",
+      "description":"creation of FAQS",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"FAQS",
+            "description":"FAQS object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/FAQS"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"FAQS created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getAllFAQS":{
+   "get":{
+      "summary":"getAll of FAQS",
+      "description":"getAll of FAQS",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"FAQS get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/FAQS"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/getInquirys":{
+   "get":{
+      "summary":"getAll of Inquirys",
+      "description":"getAll of Inquirys",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"Inquirys get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/inquiry"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/driver/signUp":{
+   "post":{
+      "summary":"user signUp",
+      "description":"creation of user",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"user",
+            "description":"user object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/user"
+                 
+               
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"user created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "409":{
+            "description":"user alredy exist",
+            "sechema":{
+               "$ref":"#/definitions/userResponse"
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/driver/login":{
+   "post":{
+      "summary":"user login",
+      "description":"login user ",
+      "produces":[
+         "application/json"
+      ],
+      "consumes":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"body",
+            "description":"userLogin object",
+            "required":true,
+            "schema":{
+             "type":"object",
+             "$ref":"#/definitions/userLogin"
+               
+         
+         }
+     }
+      ],
+      "responses":{
+         "201":{
+            "description":"user login is done",
+            "schema":{
+               "type":"object",
+                  "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "401":{
+            "description":"Invalid Email or Password",
+            "schema":{
+               "$ref":"#/definitions/userResponse"
+            }
+         },
+         "404":{
+             "description":"user doesnot exist",
+             "schema":{
+                "$ref":"#/definitions/userResponse"
+             }
+          },
+          "500":{
+             "description":"something went wrong please try again",
+             "schema":{
+                "$ref":"#/definitions/InvalidResponse"
+             }
+          }
+      }
+   }
+},
+"/driver/createNewlist":{
+   "post":{
+      "summary":"creation of NewList",
+      "description":"creation of NewList",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"NewList",
+            "description":"NewList object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/newCar"  
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"NewList created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/driver/addContactInfo":{
+   "post":{
+      "summary":"creation of addContactInfo",
+      "description":"creation of addContactInfo",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"addContactInfo",
+            "description":"addContactInfo object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addContactInfo"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"ContactInfo created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
 }
+
+
+
     },
     "definitions":{
        "userResponse":{
@@ -242,6 +1064,27 @@
                }
             }
        },
+       "carCategory":{
+         "type":"object",
+         "properties":{
+           
+            "name":{
+               "type":"string"
+            },
+            "status":{
+               "type":"string"
+            },
+            "slag":{
+               "type":"string"
+            },
+            "createdDate":{
+               "type":"Date"
+            },
+            "updatedDate":{
+               "type":"Date"
+            }
+         }
+       },
        "InvalidResponse":{
           "type":"object",
           "properties":{
@@ -252,6 +1095,284 @@
                 "type":"string"
              }
           }
-       }
+       },
+         "newCar": {
+            "type": "object",
+            "properties": {
+              "selectCar": {
+                "type": "object",
+                "properties": {
+                  "carBrand": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "string"
+                  },
+                  "makeYear": {
+                    "type": "string"
+                  }
+                }
+              },
+              "carSpecs": {
+                "type": "object",
+                "properties": {
+                  "AvalibleColors": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "carfeaturs": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "specs": {
+                    "type": "string"
+                  },
+                  "CruiseControl": {
+                    "type": "boolean"
+                  },
+                  "FuelType": {
+                    "type": "string"
+                  },
+                  "EngineCapacity": {
+                    "type": "string"
+                  },
+                  "BootCapacity": {
+                    "type": "string"
+                  }
+                }
+              },
+              "PRICING": {
+                "type": "object",
+                "properties": {
+                  "PricePerDay": {
+                    "type": "string"
+                  },
+                  "MinimumDayBooking": {
+                    "type": "string"
+                  },
+                  "PricePerWeek": {
+                    "type": "string"
+                  },
+                  "ExtraMillingCost": {
+                    "type": "string"
+                  },
+                  "CDW": {
+                    "type": "string"
+                  }
+                }
+              },
+              "RentalTerms": {
+                "type": "object",
+                "properties": {
+                  "Security": {
+                    "type": "string"
+                  },
+                  "ExcessClaim": {
+                    "type": "string"
+                  },
+                  "Delivery": {
+                    "type": "string"
+                  },
+                  "SpecialNote": {
+                    "type": "string"
+                  }
+                }
+              },
+              "MonthlyPricing": {
+                "type": "object",
+                "properties": {
+                  "1month": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "3months": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "6months": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "12months": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "CDW": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          },
+          "addCarModel":{
+            "type":"object",
+            "properties":{
+               "Name":{
+                  "type":"string"
+               },
+               "Brand":{
+                  "type":"string"
+               },
+               "Status":{
+                  "type":"string"
+               },
+               "slug":{
+                  "type":"string"
+               },
+               "CreatedDate":{
+                  "type":"string"
+               },
+               "UpdatedDate":{
+                  "type":"string"
+               }
+            }
+
+          },
+          "CarFeatures":{
+            "type":"object",
+            "properties":{
+
+            "Title":{
+               "type":"string"
+            },
+            "Status":{
+               "type":"string"
+            },
+            "CreatedDate":{
+               "type":"string"
+            },
+            "UpdatedDate":{
+               "type":"string"
+            }
+         }
+
+          },
+          "CarServices":{
+            "type":"object",
+            "properties":{
+
+            "Title":{
+               "type":"string"
+            },
+            "Status":{
+               "type":"string"
+            },
+            "CreatedDate":{
+               "type":"string"
+            },
+            "UpdatedDate":{
+               "type":"string"
+            }          
+         }
+      },
+      "carEngineCapacities":{
+         "type":"object",
+         "properties":{
+
+         "Capacity":{
+            "type":"string"
+         },
+         "Status":{
+            "type":"string"
+         },
+         "CreatedDate":{
+            "type":"string"
+         }       
+      }
+   },
+   "carDocument":{
+      "type":"object",
+      "properties":{
+
+      "Title":{
+         "type":"string"
+      },
+      "Status":{
+         "type":"string"
+      },
+      "CreatedDate":{
+         "type":"string"
+      },
+      "UpdatedDate":{
+         "type":"string"
+      }          
+   }
+},
+"carLoaction":{
+   "type":"object",
+   "properties":{
+
+   "Name":{
+      "type":"string"
+   },
+   "Status":{
+      "type":"string"
+   },
+   "CreatedDate":{
+      "type":"string"
+   },
+   "UpdatedDate":{
+      "type":"string"
+   }          
+}
+},
+"FAQS":{
+   "type":"object",
+   "properties":{
+
+   "Question":{
+      "type":"string"
+   },
+   "Answer":{
+      "type":"string"
+   },
+   "CreatedDate":{
+      "type":"string"
+   },
+   "UpdatedDate":{
+      "type":"string"
+   }          
+}
+
+},
+"addContactInfo":{
+   "type":"object",
+   "properties":{
+   "Email":{
+      "type":"string"
+   },
+   "WhatsupNo":{
+      "type":"string"
+   },
+   "SMSNotificationNo":{
+      "type":"string"
+   },
+   "MainAdress":{
+      "type":"string"
+   },
+   "MainAdressArabic":{
+      "type":"string"
+   },
+   "PhoneNo":{
+      "type":"string"
+   }              
+}
+
+}
+
+ 
+       
     }
  }

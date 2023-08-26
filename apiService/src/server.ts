@@ -1,6 +1,8 @@
 import express from "express";
 import { connectToDatabase } from "./services/database.service"
 import { carsRouter } from "./routes/cars.router";
+import {  driverRouters} from "./routes/driver.routes";
+
 import * as dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from "./swagger.json";
@@ -12,6 +14,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 connectToDatabase()
     .then(() => {
         app.use("/user", carsRouter);
+        app.use("/driver",driverRouters)
 
         app.listen(port, () => {
             console.log(`Server started at http://localhost:${port}`);

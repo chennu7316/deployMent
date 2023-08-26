@@ -2,9 +2,6 @@ import { type ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 
 
-export default class Car {
-    constructor(public name: string, public price: number, public category: string, public id?: ObjectId) {}
-}
 
 export  class Auth{
     constructor(public userName: string, public email: string, public password: string,public phoneNumber: string,public address:string,public city:string,public locality:string,public area:string,public zipcode:string) {
@@ -74,45 +71,8 @@ export  class Auth{
         }
     }
 }
-export class CarInquiry{
 
-
-    constructor(carName:string,startDate: Date,endDate:Date,pickUpLoc:string,dropLocation:string,phoneNumber:string,area:string){
-        return {
-            carName:carName,startDate:startDate,endDate:endDate,pickUpLoc:pickUpLoc,dropLocation:dropLocation,phoneNumber:phoneNumber,area:area
-        }
-
-    }
-}
-export class Categoryes{
-    constructor(public name:string, public status:string,public slag:string,public createdDate:Date,public updatedDate:Date){
-        if (!this.isValidString(name)) {
-            throw  Error(JSON.stringify({message:"Invalid username. Username must be a non-empty string."}));
-        }
-        if (!this.isValidString(status)) {
-            throw  Error(JSON.stringify({message:"Invalid username. Username must be a non-empty string."}));
-        }
-        this.returnData()
-
-        
-
-    }
-    public returnData()
-    {
-        return {
-            name:this.name,status:this.status,slag:this.slag,createdDate:this.createdDate,updatedDate:this.updatedDate
-        }
-    }
-    private isValidString(userName: string): boolean {
-        return typeof userName === 'string' && userName.trim().length > 0;
-    }
-    
-
-
-}
-
-    
-export interface CarData {
+export interface Newlist {
     selecrCar: {
       carBrand: string;
       version: string;
@@ -149,57 +109,11 @@ export interface CarData {
     };
   
 }
-
-
-export interface CarModel {
-    Name: string;
-    Brand: string;
-    Status?: string;
-    slug?: string;
-    CreatedDate: string;
-    UpdatedDate: string;
+export interface ContactInfo   {
+    Emai:string,
+    WhatsupNo:string,
+    SMSNotificationNo:string,
+    MainAdress:string,
+    MainAdressArabic:string,
+    PhoneNo:string
   }
-
-
-
-  export interface carFeatures {
-    Title: string;
-    Status?: string;
-    CreatedDate: string;
-    UpdatedDate: string;
-  }
-
-  export interface carServices {
-    Title: string;
-    Status?: string;
-    CreatedDate: string;
-    UpdatedDate: string;
-  }
-
-
-  export interface carEngineCapacities {
-    Capacity: string;
-    Status?: string;
-    CreatedDate: string;
-  }
-
-  export interface carDocument {
-    Title: string;
-    Status?: string;
-    CreatedDate: string;
-    UpdatedDate: string;
-  }
-
-   export interface carLoaction{
-    Name: string;
-    Status?: string;
-    CreatedDate: string;
-    UpdatedDate: string;
-   }
-
-   export interface addFAQS{
-    Question: string;
-    Answer?: string;
-    CreatedDate: string;
-    UpdatedDate: string;
-   }
