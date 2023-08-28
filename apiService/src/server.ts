@@ -14,7 +14,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 connectToDatabase()
     .then(() => {
         app.use("/user", carsRouter);
-        app.use("/driver",driverRouters)
+        app.use("/driver",driverRouters);
 
         app.listen(port, () => {
             console.log(`Server started at http://localhost:${port}`);

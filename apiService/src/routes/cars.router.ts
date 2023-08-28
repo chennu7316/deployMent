@@ -620,6 +620,32 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
           }
         
           })
+          carsRouter.get("/dashBoard",async(req:Request,res:Response)=>{
+
+            const cars= await collections.cars.count()  
+            const Categoryes=await collections.carCategory.count()
+            const  brands=await collections.carBrands.count()
+            const enquiryes=await collections.carInquiry.count()
+            const contactInquires=await collections.contactInfo.count()
+            const location=await collections.addCarLoaction.count()
+            const result={
+              totalCars:cars,
+              totalCategoryes:Categoryes,
+              totalBrands:brands,
+              totalEnquiryes:enquiryes,
+              totalContactInquires:contactInquires,
+              totalLocation:location
+            }
+          
+            if(result){
+              return res.status(200).send(result)
+            }
+            else{
+              return res.status(400).send({message:"getAllFAQS Failed"})
+            }
+          
+            })
+        
 
 
   export default carsRouter;

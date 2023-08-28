@@ -795,6 +795,33 @@
       }
    }
 },
+"/user/dashBoard":{
+   "get":{
+      "summary":"getAll of dashBoard",
+      "description":"getAll of dashBoard",
+      "produces":[
+         "application/json"
+      ],
+      "responses":{
+         "201":{
+            "description":"dashBoard get sccussfully",
+            "schema":{
+               "type":"array",
+               "items":{
+                  "type":"object",
+                  "$ref":"#/definitions/dashBoard"
+               }
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
 "/driver/signUp":{
    "post":{
       "summary":"user signUp",
@@ -1367,6 +1394,30 @@
    },
    "PhoneNo":{
       "type":"string"
+   }              
+}
+
+},
+"dashBoard":{
+   "type":"object",
+   "properties":{
+   "totalCars":{
+      "type":"number"
+   },
+   "totalCategoryes":{
+      "type":"number"
+   },
+   "totalBrands":{
+      "type":"number"
+   },
+   "totalEnquiryes":{
+      "type":"number"
+   },
+   "totalContactInquires":{
+      "type":"number"
+   },
+   "totalLocation":{
+      "type":"number"
    }              
 }
 
