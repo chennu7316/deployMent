@@ -1,6 +1,6 @@
 "use client";
-import { Container } from "@material-ui/core";
-import { Stack, Button, Menu, MenuItem } from "@mui/material";
+// import { Container } from "@material-ui/core";
+import { Stack, Button, Menu, MenuItem, Box } from "@mui/material";
 import React from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 
@@ -37,7 +37,7 @@ function Navlinks() {
     <>
       <div className="Navlink" style={{backgroundColor: "#f1f3f4",
     padding: "10px 0px"}}>
-        <Container>
+        <Box>
           <Stack spacing={5} direction="row">
             <Button variant="text">ABOUT US</Button>
             <Button
@@ -141,7 +141,7 @@ function Navlinks() {
             <Button variant="text">FAQ </Button>
             <Button variant="text">CONTACT US</Button>
           </Stack>
-        </Container>
+        </Box>
       </div>
     </>
   );

@@ -5,10 +5,9 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { Container } from "@material-ui/core";
+// import { Container } from "@material-ui/core";
 import "../car-cards/carCard.css";
-import { Grid } from "@mui/material";
+import { Box, Grid,Typography } from "@mui/material";
 // import './globals.css'
 
 
@@ -32,7 +31,7 @@ export default function RecipeReviewCard() {
 
   return (
     <div className="card_section">
-      <Container maxWidth="lg">
+      <Box maxWidth="lg">
         <div className="card_heading">
           <h1>Find car rental services near you</h1>
         </div>
@@ -405,7 +404,7 @@ export default function RecipeReviewCard() {
         <div className="car_des_con" >
             <p>Tired of searching for a <b>‘rent a car near me’</b>? You have reached just the right place. INJAZ.COM is a leading <b>car rental</b> marketplace in <b>Dubai</b> featuring budget-friendly car hire deals from reliable rental car companies in the region. You can choose from our extensive inventory of over 2000 vehicles listed by trusted car rental businesses in the UAE. Whether you’re a tourist looking for a car facility or a resident in search of long term rentals, we assure you the cheapest rent cars at the best prices starting as low as <b>AED 30 per day.</b></p>
         </div>
-      </Container>
+      </Box>
     </div>
   );
 }
