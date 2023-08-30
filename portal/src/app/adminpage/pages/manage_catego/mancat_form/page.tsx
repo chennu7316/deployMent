@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -25,8 +26,6 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
-import "../adminpage/adminhome.css";
 
 const drawerWidth = 240;
 
@@ -79,7 +78,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function AdminHome() {
+export default function EngineCapacities() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [topen, setTopen] = React.useState(false);
@@ -151,11 +150,7 @@ export default function AdminHome() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => router.push("/adminpage/pages/admin_cars")}
-          >
+          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_cars")}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -179,8 +174,8 @@ export default function AdminHome() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }}>
-            <ListItemButton onClick={handleClick}>
+          <ListItem disablePadding sx={{ display: "block" }} >
+            <ListItemButton onClick={handleClick} >
               <ListItemIcon sx={{ minWidth: "52px" }}>
                 <SettingsIcon sx={{ marginLeft: "4px" }} />
               </ListItemIcon>
@@ -193,10 +188,7 @@ export default function AdminHome() {
             </ListItemButton>
             <Collapse in={topen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton
-                  sx={{ pl: 4, fontSize: "5px" }}
-                  onClick={() => router.push("/adminpage/pages/manage_catego")}
-                >
+                <ListItemButton sx={{ pl: 4, fontSize: "5px" }} onClick={()=>router.push("/adminpage/pages/manage_catego")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
@@ -205,59 +197,37 @@ export default function AdminHome() {
                     primary="Manage Categories"
                   />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() => router.push("/adminpage/pages/car_brands")}
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_brands")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
                   <ListItemText primary="Car Brands" />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() => router.push("/adminpage/pages/car_models")}
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_models")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
                   <ListItemText primary="Car Models" />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() => router.push("/adminpage/pages/car_features")}
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_features")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
                   <ListItemText primary="Car Features" />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() =>
-                    router.push("/adminpage/pages/manage_services")
-                  }
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/manage_services")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
                   <ListItemText primary="Manage Services" />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() =>
-                    router.push("/adminpage/pages/engine_capacities")
-                  }
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/engine_capacities")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
                   <ListItemText primary="Engine Capacities" />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() => router.push("/adminpage/pages/required_docs")}
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/required_docs")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
@@ -280,21 +250,13 @@ export default function AdminHome() {
             </ListItemButton>
             <Collapse in={eopen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() => router.push("/adminpage/pages/car_enquiries")}
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_enquiries")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
                   <ListItemText primary="Car Enquiries" />
                 </ListItemButton>
-                <ListItemButton
-                  sx={{ pl: 4 }}
-                  onClick={() =>
-                    router.push("/adminpage/pages/contact_enquiries")
-                  }
-                >
+                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/contact_enquiries")}>
                   {/* <ListItemIcon>
                                         <StarBorder />
                                     </ListItemIcon> */}
@@ -303,11 +265,7 @@ export default function AdminHome() {
               </List>
             </Collapse>
           </ListItem>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => router.push("/adminpage/pages/admin_location")}
-          >
+          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_location")}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -330,11 +288,7 @@ export default function AdminHome() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem
-            disablePadding
-            sx={{ display: "block" }}
-            onClick={() => router.push("/adminpage/pages/admin_faqs")}
-          >
+          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_faqs")}>
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -358,214 +312,7 @@ export default function AdminHome() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Container maxWidth="lg">
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/car-icon-png-25.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#00800091",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      37
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Cars
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/745197.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#ff0000a1",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      7
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Categories
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/745197.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "yellow",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      6
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Brands
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/envelope-icon-14.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#0000ff73",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      102
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Enquiries
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/earth.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#0000ff73",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      5
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Contact Enquiries
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/pin.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "yellow",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      2
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Locations
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
+        <h1>Add New Category</h1>
       </Main>
     </Box>
   );

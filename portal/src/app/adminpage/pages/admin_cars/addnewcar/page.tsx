@@ -7,6 +7,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
+import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -25,8 +26,7 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
-import "../adminpage/adminhome.css";
+import AddCarForm from "./AddCarForm";
 
 const drawerWidth = 240;
 
@@ -79,7 +79,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function AdminHome() {
+export default function AddCarform() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [topen, setTopen] = React.useState(false);
@@ -356,216 +356,9 @@ export default function AdminHome() {
           </ListItem>
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={open} sx={{backgroundColor:"#f1f3f4"}}>
         <DrawerHeader />
-        <Container maxWidth="lg">
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/car-icon-png-25.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#00800091",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      37
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Cars
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/745197.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#ff0000a1",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      7
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Categories
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/745197.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "yellow",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      6
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Brands
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/envelope-icon-14.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#0000ff73",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      102
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Enquiries
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/earth.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "#0000ff73",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      5
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Contact Enquiries
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={4} md={4} lg={4}>
-              <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
-                  <Grid item xs={4} sm={4} md={4} lg={4}>
-                    <CardMedia
-                      component="img"
-                      image="/pin.png"
-                      alt="Live from space album cover"
-                      sx={{
-                        backgroundColor: "yellow",
-                        width: 110,
-                        padding: "10px",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item xs={8} sm={8} md={8} lg={8}>
-                    <Typography
-                      sx={{
-                        fontSize: 25,
-                        textAlign: "center",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      2
-                    </Typography>
-                    <Typography
-                      sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
-                    >
-                      Total Locations
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
-          </Grid>
-        </Container>
+        <AddCarForm />
       </Main>
     </Box>
   );
