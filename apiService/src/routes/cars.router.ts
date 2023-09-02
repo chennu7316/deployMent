@@ -107,13 +107,13 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
             const transporter = nodemailer.createTransport({
                 service: `gmail`,
                 auth: {
-                  user: '',
-                  pass: '',
+                  user: ' ',
+                  pass: ' ',
                 },
               });
               const mailOptions = {
-                  from: '',
-                  to: '',
+                  from: ' ',
+                  to: ' ',
                   subject: 'INQUIRY Successfully  CREATED',
                   text: `Hi inquiry is created here is the details carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area}`,
                 };
@@ -133,6 +133,47 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
         console.error(error);
         return res.status(500).send({message:"Internal Server Error"});
     }
+});
+carsRouter.get("/getInquiry/:id", async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+      const result = await collections.carInquiry.findOne({_id:objectId})
+      console.log(result)
+      return res.status(201).send(result||{});
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+  }
+});
+carsRouter.delete("/deleteInquiry/:id", async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+      const result = await collections.carInquiry.deleteOne({_id:objectId})
+      return res.status(201).send({message:`Delete Inquiry is done with ${req.params.id}`});
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send({message:"Internal Server Error"});
+  }
+});
+carsRouter.put("/updateInquiry", async (req: Request, res: Response) => {
+  try {
+    const { carName, startDate,endDate,pickUpLoc,dropLocation,phoneNumber,area,_id} = req.body;
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(_id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+      
+      const result = await collections.carInquiry.updateOne({_id: objectId},{$set:{ carName:carName, startDate:startDate,endDate:endDate,pickUpLoc:pickUpLoc,dropLocation:dropLocation,phoneNumber:phoneNumber,area:area}})
+      return res.status(201).send({message:`Delete Inquiry is done with ${req.params.id}`});
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send({message:"Internal Server Error"});
+  }
 });
 carsRouter.get("/getInquirys", async (req: Request, res: Response) => {
   try {

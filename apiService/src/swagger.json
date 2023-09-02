@@ -150,6 +150,115 @@
          }
       }
 },
+"/user/getInquiry/{id}":{
+   "get":{
+      "summary":"creation of Inquiry",
+      "description":"creation of inquiry",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"path",
+            "name":"id",
+            "description":"get Inquiry data for specific Id",
+            "required":true,
+            "type":"string"
+           
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carInquiry created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/inquiry"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/deleteInquiry/{id}":{
+   "delete":{
+      "summary":"creation of Inquiry",
+      "description":"creation of inquiry",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"path",
+            "name":"id",
+            "description":"get Inquiry data for specific Id",
+            "required":true,
+            "type":"string"
+           
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carInquiry created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/updateInquiry":{
+   "put":{
+      "summary":"creation of Inquiry",
+      "description":"creation of inquiry",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carInquiry",
+            "description":"inquiry object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/inquiry"
+                 
+               
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carInquiry created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
 
 "/user/createCategory":{
    "post":{
