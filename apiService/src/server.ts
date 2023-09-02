@@ -2,7 +2,7 @@ import express from "express";
 import { connectToDatabase } from "./services/database.service"
 import { carsRouter } from "./routes/cars.router";
 import {  driverRouters} from "./routes/driver.routes";
-
+const cors=require('cors')
 import * as dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from "./swagger.json";
@@ -10,6 +10,16 @@ dotenv.config()
 const port = process.env.PORT
 const app= express();
 // eslint-disable-next-line 
+
+const corsOptions = {
+    origin: '*', // Allow requests from this origin
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
+  
+  app.use(cors(corsOptions));
+
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 connectToDatabase()
     .then(() => {

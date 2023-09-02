@@ -622,7 +622,7 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
           })
           carsRouter.get("/dashBoard",async(req:Request,res:Response)=>{
 
-            const cars= await collections.cars.count()  
+            const cars= await collections.carData.count()  
             const Categoryes=await collections.carCategory.count()
             const  brands=await collections.carBrands.count()
             const enquiryes=await collections.carInquiry.count()

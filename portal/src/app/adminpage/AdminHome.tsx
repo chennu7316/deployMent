@@ -1,5 +1,7 @@
-"use client";
+"use client"
 import * as React from "react";
+import axios from 'axios'
+import { useState ,useEffect} from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -80,12 +82,26 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function AdminHome() {
+
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [topen, setTopen] = React.useState(false);
-  const [eopen, setEopen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [topen, setTopen] = useState(false);
+  const [eopen, setEopen] = useState(false);
+  const[datas,setdatas]=useState({});
 
   const router = useRouter();
+
+  
+  useEffect(()=>{
+    axios.get("http://localhost:4000/user/dashBoard")
+    .then(res => {
+      setdatas(res.data);   
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+    });
+
+  },[])
 
   const handleClick = () => {
     setTopen(!topen);
@@ -383,7 +399,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      37
+                    {datas.totalCars}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -417,7 +433,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      7
+                      {datas.totalCategoryes}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -451,7 +467,8 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      6
+                {datas.totalBrands}
+
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -485,7 +502,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      102
+                         {datas.totalEnquiryes}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -519,7 +536,8 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      5
+                {datas.totalContactInquires}
+
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -553,7 +571,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      2
+                      {datas.totalLocation}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
