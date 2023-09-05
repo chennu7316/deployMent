@@ -26,6 +26,9 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
+import ManServDataTable from "./ManServDateTable";
+import { Button } from "@mui/material";
+import './ManageServ.css'
 
 const drawerWidth = 240;
 
@@ -196,9 +199,6 @@ export default function ManageServices() {
                   sx={{ pl: 4, fontSize: "5px" }}
                   onClick={() => router.push("/adminpage/pages/manage_catego")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText
                     sx={{ fontSize: "5px" }}
                     primary="Manage Categories"
@@ -208,45 +208,40 @@ export default function ManageServices() {
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_brands")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Brands" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_models")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Models" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_features")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Features" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/manage_services")}>
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/manage_services")
+                  }
+                >
                   <ListItemText primary="Manage Services" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/engine_capacities")}>
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/engine_capacities")
+                  }
+                >
                   <ListItemText primary="Engine Capacities" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/required_docs")}>
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/required_docs")}
+                >
                   <ListItemText primary="Required Documents" />
                 </ListItemButton>
               </List>
@@ -266,22 +261,28 @@ export default function ManageServices() {
             </ListItemButton>
             <Collapse in={eopen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_enquiries")}>
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_enquiries")}
+                >
                   <ListItemText primary="Car Enquiries" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/contact_enquiries")}>
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/contact_enquiries")
+                  }
+                >
                   <ListItemText primary="Contact Enquiries" />
                 </ListItemButton>
               </List>
             </Collapse>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_location")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_location")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -304,7 +305,11 @@ export default function ManageServices() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_faqs")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_faqs")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -328,36 +333,23 @@ export default function ManageServices() {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <h1>Manage Services</h1>
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+        <div className="mang_serv_data_table">
+          <div className="mang_serv_table_text">
+            <h1>Car Features</h1>
+          </div>
+          <div className="mang_serv_table_btn">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                router.push("/adminpage/pages/manage_services/manage_serv_form")
+              }
+            >
+              Add New
+            </Button>
+          </div>
+        </div>
+        <ManServDataTable />
       </Main>
     </Box>
   );

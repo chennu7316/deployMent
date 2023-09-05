@@ -5,26 +5,69 @@ import {
   Container,
   FormControlLabel,
   FormGroup,
+  FormHelperText,
   Grid,
   TextField,
 } from "@mui/material";
 import React from "react";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import "../AdminCars.css";
+import { useForm, Controller } from "react-hook-form";
+
+interface carFormData {
+  name: string;
+  brand: string;
+  category: string;
+  year: string;
+  location: string;
+  vehicleType: string;
+  featuredCar: string;
+  status: string;
+  description: string;
+  pricing: string;
+  discountedPrice: string;
+  actualPrice: string;
+  discountedPriceWeekly: string;
+  actualPriceMonthly: string;
+  discountedPriceMonthly: string;
+  engineCapacity: string;
+  laggage: string;
+  transmission: string;
+  cruiseControl: string;
+  unlimitedMileage: string;
+  paiInsuranceDaily: string;
+  paiInsuranceMonthly: string;
+  freeCancellation: string;
+  freeDelivery: string;
+  customerSupport: string;
+  scdwPerMonth: string;
+  engineSize: string;
+  bluetooth: string;
+  aux: string;
+  seater: string;
+  navigation: string;
+  parkingSense: string;
+}
 
 const AddCarForm = () => {
-    const handleSubmit = ()=> {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<carFormData>();
 
-    }
+  const onSubmit = (data: carFormData) => {
+    console.log(data);
+  };
   return (
     <div className="addcar_form">
       <Box>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Container className="formcontbox">
             <div className="pageheading">
               <h1>Add a new car</h1>
@@ -37,24 +80,39 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("name", { required: true })}
+                      error={!!errors.name}
+                      helperText={errors.name && "field is required"}
                     />
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Brand</InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Brand"
-                    >
-                      <MenuItem value={10}>Hyundai</MenuItem>
-                      <MenuItem value={20}>Kia</MenuItem>
-                      <MenuItem value={30}>Mazda</MenuItem>
-                      <MenuItem value={30}>Mitsubushi</MenuItem>
-                      <MenuItem value={30}>Nissan</MenuItem>
-                      <MenuItem value={30}>Toyota</MenuItem>
-                    </Select>
+                    <Controller
+                      name="brand"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Slug"
+                          {...field}
+                        >
+                          <MenuItem value="Hyundai">Hyundai</MenuItem>
+                          <MenuItem value="Kia">Kia</MenuItem>
+                          <MenuItem value="Mazda">Mazda</MenuItem>
+                          <MenuItem value="Mitsubushi">Mitsubushi</MenuItem>
+                          <MenuItem value="Nissan">Nissan</MenuItem>
+                          <MenuItem value="Toyota">Toyota</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.brand?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
@@ -76,41 +134,64 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Category
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Category"
-                    >
-                      <MenuItem value={10}>Crossover</MenuItem>
-                      <MenuItem value={20}>Hatchback</MenuItem>
-                      <MenuItem value={30}>Luxury Cars</MenuItem>
-                      <MenuItem value={30}>Luxury Suv</MenuItem>
-                      <MenuItem value={30}>Sedan</MenuItem>
-                      <MenuItem value={30}>Small Sedan</MenuItem>
-                      <MenuItem value={30}>SUV</MenuItem>
-                    </Select>
+                    <Controller
+                      name="category"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Category"
+                          {...field}
+                        >
+                          <MenuItem value="Crossover">Crossover</MenuItem>
+                          <MenuItem value="Hatchback">Hatchback</MenuItem>
+                          <MenuItem value="Luxury Cars">Luxury Cars</MenuItem>
+                          <MenuItem value="Luxury Suv">Luxury Suv</MenuItem>
+                          <MenuItem value="Sedan">Sedan</MenuItem>
+                          <MenuItem value="Small Sedan">Small Sedan</MenuItem>
+                          <MenuItem value="SUV">SUV</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.brand?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Year</InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Year"
-                    >
-                      <MenuItem value={10}>2013</MenuItem>
-                      <MenuItem value={20}>2014</MenuItem>
-                      <MenuItem value={30}>2015</MenuItem>
-                      <MenuItem value={30}>2016</MenuItem>
-                      <MenuItem value={30}>2017</MenuItem>
-                      <MenuItem value={30}>2018</MenuItem>
-                      <MenuItem value={30}>2019</MenuItem>
-                      <MenuItem value={30}>2020</MenuItem>
-                      <MenuItem value={30}>2021</MenuItem>
-                      <MenuItem value={30}>2022</MenuItem>
-                      <MenuItem value={30}>2023</MenuItem>
-                    </Select>
+                    <Controller
+                      name="year"
+                      control={control}
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Year"
+                          {...field}
+                        >
+                          <MenuItem value="2013">2013</MenuItem>
+                          <MenuItem value="2014">2014</MenuItem>
+                          <MenuItem value="2015">2015</MenuItem>
+                          <MenuItem value="2016">2016</MenuItem>
+                          <MenuItem value="2017">2017</MenuItem>
+                          <MenuItem value="2018">2018</MenuItem>
+                          <MenuItem value="2019">2019</MenuItem>
+                          <MenuItem value="2020">2020</MenuItem>
+                          <MenuItem value="2021">2021</MenuItem>
+                          <MenuItem value="2022">2022</MenuItem>
+                          <MenuItem value="2023">2023</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.year?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
@@ -122,21 +203,30 @@ const AddCarForm = () => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
-                  <FormControl sx={{ minWidth: "100%" }}>
-                    <Grid container spacing={1} sx={{ textAlign: "center" }}>
-                      <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <FormControlLabel
-                          control={<Checkbox />}
-                          label="Abu Dhabi"
-                        />
-                      </Grid>
-                      <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <FormControlLabel
-                          control={<Checkbox />}
-                          label="Dubai"
-                        />
-                      </Grid>
-                    </Grid>
+                  <FormControl sx={{ minWidth: "100%" }} size="small">
+                    <InputLabel id="demo-select-small-label">
+                      Location
+                    </InputLabel>
+                    <Controller
+                      name="location"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Location"
+                          {...field}
+                        >
+                          <MenuItem value="Abu Dhabi">Abu Dhabi</MenuItem>
+                          <MenuItem value="Dubai">Dubai</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.location?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
@@ -144,15 +234,27 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Vehicle Type
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Vehicle Type"
-                    >
-                      <MenuItem value={10}>Economy</MenuItem>
-                      <MenuItem value={20}>Luxury</MenuItem>
-                      <MenuItem value={30}>SUV</MenuItem>
-                    </Select>
+                    <Controller
+                      name="vehicleType"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Vehicle Type"
+                          {...field}
+                        >
+                          <MenuItem value="Economy">Economy</MenuItem>
+                          <MenuItem value="Luxury">Luxury</MenuItem>
+                          <MenuItem value="30">SUV</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.vehicleType?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
@@ -160,32 +262,55 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Featured Car ?
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Featured Car ?"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="featuredCar"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Featured Car"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.featuredCar?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Status</InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Status"
-                    >
-                      <MenuItem value={10}>Active</MenuItem>
-                      <MenuItem value={20}>Inactive</MenuItem>
-                    </Select>
+                    <Controller
+                      name="status"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Status"
+                          {...field}
+                        >
+                          <MenuItem value="Active">Active</MenuItem>
+                          <MenuItem value="Inactive">Inactive</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.status?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
               </Grid>
             </div>
-
             <div className="car_services">
               <h4>Services</h4>
               <Grid container spacing={2}>
@@ -216,6 +341,9 @@ const AddCarForm = () => {
                 multiline
                 rows={4}
                 sx={{ width: "100%" }}
+                {...register("description", { required: true })}
+                error={!!errors.description}
+                helperText={errors.description && "field is required"}
               />
             </div>
             <div className="car_pricing">
@@ -229,6 +357,9 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("pricing", { required: true })}
+                      error={!!errors.pricing}
+                      helperText={errors.pricing && "field is required"}
                     />
                   </FormControl>
                 </Grid>
@@ -240,6 +371,9 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("discountedPrice", { required: true })}
+                      error={!!errors.discountedPrice}
+                      helperText={errors.discountedPrice && "field is required"}
                     />
                   </FormControl>
                 </Grid>
@@ -251,6 +385,9 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("actualPrice", { required: true })}
+                      error={!!errors.actualPrice}
+                      helperText={errors.actualPrice && "field is required"}
                     />
                   </FormControl>
                 </Grid>
@@ -262,6 +399,11 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("discountedPriceWeekly", { required: true })}
+                      error={!!errors.discountedPriceWeekly}
+                      helperText={
+                        errors.discountedPriceWeekly && "field is required"
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -273,6 +415,11 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("actualPriceMonthly", { required: true })}
+                      error={!!errors.actualPriceMonthly}
+                      helperText={
+                        errors.actualPriceMonthly && "field is required"
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -284,6 +431,13 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("discountedPriceMonthly", {
+                        required: true,
+                      })}
+                      error={!!errors.discountedPriceMonthly}
+                      helperText={
+                        errors.discountedPriceMonthly && "field is required"
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -294,39 +448,79 @@ const AddCarForm = () => {
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
                   <h5>Transmission</h5>
-                  <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Manual" />
-                    <FormControlLabel
-                      control={<Checkbox />}
-                      label="Automatic"
+                  <FormControl sx={{ minWidth: "100%" }} size="small">
+                    <Controller
+                      name="transmission"
+                      control={control}
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          {...field}
+                        >
+                          <MenuItem value="Manual">Manual</MenuItem>
+                          <MenuItem value="Automatic">Automatic</MenuItem>
+                        </Select>
+                      )}
                     />
-                  </FormGroup>
+                    <FormHelperText error>
+                      {errors.transmission?.message}
+                    </FormHelperText>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
                   <h5>Cruise Control</h5>
-                  <FormGroup>
-                    <FormControlLabel control={<Checkbox />} label="Yes" />
-                    <FormControlLabel control={<Checkbox />} label="No" />
-                  </FormGroup>
+                  <FormControl sx={{ minWidth: "100%" }} size="small">
+                    <Controller
+                      name="cruiseControl"
+                      control={control}
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.cruiseControl?.message}
+                    </FormHelperText>
+                  </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
                   <h5>Engine Capacity</h5>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                    >
-                      <MenuItem value={10}>1.2</MenuItem>
-                      <MenuItem value={20}>1.3</MenuItem>
-                      <MenuItem value={30}>1.5</MenuItem>
-                      <MenuItem value={30}>1.6</MenuItem>
-                      <MenuItem value={30}>1.8</MenuItem>
-                      <MenuItem value={30}>2.0</MenuItem>
-                      <MenuItem value={30}>2.4</MenuItem>
-                      <MenuItem value={30}>2.5</MenuItem>
-                      <MenuItem value={30}>2.7</MenuItem>
-                      <MenuItem value={30}>5.7</MenuItem>
-                    </Select>
+                    <Controller
+                      name="engineCapacity"
+                      control={control}
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          {...field}
+                        >
+                          <MenuItem value="1.2">1.2</MenuItem>
+                          <MenuItem value="1.3">1.3</MenuItem>
+                          <MenuItem value="1.5">1.5</MenuItem>
+                          <MenuItem value="1.6">1.6</MenuItem>
+                          <MenuItem value="1.8">1.8</MenuItem>
+                          <MenuItem value="2.0">2.0</MenuItem>
+                          <MenuItem value="2.4">2.4</MenuItem>
+                          <MenuItem value="2.5">2.5</MenuItem>
+                          <MenuItem value="2.7">2.7</MenuItem>
+                          <MenuItem value="5.7">5.7</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.engineCapacity?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
@@ -337,6 +531,11 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("laggage", {
+                        required: true,
+                      })}
+                      error={!!errors.laggage}
+                      helperText={errors.laggage && "field is required"}
                     />
                   </FormControl>
                 </Grid>
@@ -399,14 +598,26 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Unlimited Mileage
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Unlimited Mileage"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="unlimitedMileage"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Unlimited Mileage"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="20">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.unlimitedMileage?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
@@ -417,6 +628,13 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("paiInsuranceDaily", {
+                        required: true,
+                      })}
+                      error={!!errors.paiInsuranceDaily}
+                      helperText={
+                        errors.paiInsuranceDaily && "field is required"
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -428,6 +646,13 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("paiInsuranceMonthly", {
+                        required: true,
+                      })}
+                      error={!!errors.paiInsuranceMonthly}
+                      helperText={
+                        errors.paiInsuranceMonthly && "field is required"
+                      }
                     />
                   </FormControl>
                 </Grid>
@@ -436,14 +661,26 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Free Cancellation
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Free Cancellation"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="freeCancellation"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Free Cancellation"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.freeCancellation?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
@@ -451,14 +688,26 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Free Delivery (30 Days and Above)
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Free Delivery (30 Days and Above)"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="freeDelivery"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Free Delivery (30 Days and Above)"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.freeDelivery?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
@@ -466,14 +715,26 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       24x7 Customer Support
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="24x7 Customer Support"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="customerSupport"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="24x7 Customer Support"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.customerSupport?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={3} md={3} lg={3}>
@@ -484,6 +745,11 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("scdwPerMonth", {
+                        required: true,
+                      })}
+                      error={!!errors.scdwPerMonth}
+                      helperText={errors.scdwPerMonth && "field is required"}
                     />
                   </FormControl>
                 </Grid>
@@ -520,6 +786,11 @@ const AddCarForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
+                      {...register("engineSize", {
+                        required: true,
+                      })}
+                      error={!!errors.engineSize}
+                      helperText={errors.engineSize && "field is required"}
                     />
                   </FormControl>
                 </Grid>
@@ -528,40 +799,74 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Bluetooth
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Bluetooth"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="bluetooth"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Bluetooth"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.bluetooth?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Aux</InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Aux"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="aux"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Aux"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>{errors.aux?.message}</FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Seater</InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Seater"
-                    >
-                      <MenuItem value={10}>5 Seater</MenuItem>
-                      <MenuItem value={20}>7 Seater</MenuItem>
-                    </Select>
+                    <Controller
+                      name="seater"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Seater"
+                          {...field}
+                        >
+                          <MenuItem value="5 Seater">5 Seater</MenuItem>
+                          <MenuItem value="7 Seater">7 Seater</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.seater?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
@@ -569,14 +874,26 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Navigation
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Navigation"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="navigation"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Navigation"
+                          {...field}
+                        >
+                          <MenuItem value="Yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.navigation?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
@@ -584,14 +901,26 @@ const AddCarForm = () => {
                     <InputLabel id="demo-select-small-label">
                       Parking Sense
                     </InputLabel>
-                    <Select
-                      labelId="demo-select-small-label"
-                      id="demo-select-small"
-                      label="Parking Sense"
-                    >
-                      <MenuItem value={10}>Yes</MenuItem>
-                      <MenuItem value={20}>No</MenuItem>
-                    </Select>
+                    <Controller
+                      name="parkingSense"
+                      control={control}
+                      defaultValue=""
+                      rules={{ required: "field is required" }}
+                      render={({ field }) => (
+                        <Select
+                          labelId="demo-select-small-label"
+                          id="demo-select-small"
+                          label="Parking Sense"
+                          {...field}
+                        >
+                          <MenuItem value="yes">Yes</MenuItem>
+                          <MenuItem value="No">No</MenuItem>
+                        </Select>
+                      )}
+                    />
+                    <FormHelperText error>
+                      {errors.parkingSense?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
               </Grid>
@@ -660,10 +989,15 @@ const AddCarForm = () => {
               </Grid>
             </div>
             <div className="carformbtn">
-              <Button variant="contained" className="submitbtn" color="primary">
+              <Button
+                type="submit"
+                variant="contained"
+                className="submitbtn"
+                color="primary"
+              >
                 Submit
               </Button>
-              <Button type="submit" variant="contained" color="error">
+              <Button variant="contained" color="error">
                 Cancel
               </Button>
             </div>

@@ -28,6 +28,7 @@ import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
 import ManCat from "./ManCat";
 import { Button } from "@mui/material";
+import "../admin_cars/AdminCars.css"
 
 const drawerWidth = 240;
 

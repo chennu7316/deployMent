@@ -7,35 +7,36 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import "../car_models/ModelsDataTable.css"
 
 function createData(
-  name: string,
-  slug: string,
+  model: string,
+  brand: string,
   status: string,
   createdDate: string,
   updatedDate: string,
 ) {
-  return { name, slug, status, createdDate, updatedDate };
+  return { model, brand, status, createdDate, updatedDate };
 }
 
 const rows = [
-  createData("Suv Cars For Rent", "suv-cars-for-rent-", "Active", "30/08/2023", "30/08/2023"),
-  createData("Suv Cars For Rent", "suv-cars-for-rent-", "Active", "30/08/2023", "30/08/2023"),
-  createData("Suv Cars For Rent", "suv-cars-for-rent-", "Active", "30/08/2023", "30/08/2023"),
-  createData("Suv Cars For Rent", "suv-cars-for-rent-", "Active", "30/08/2023", "30/08/2023"),
-  createData("Suv Cars For Rent", "suv-cars-for-rent-", "Active", "30/08/2023", "30/08/2023"),
-  createData("Suv Cars For Rent", "suv-cars-for-rent-", "Active", "30/08/2023", "30/08/2023"),
+  createData("Compass", "Jeep", "Active", "30/08/2023", "30/08/2023"),
+  createData("Compass", "Jeep", "Active", "30/08/2023", "30/08/2023"),
+  createData("Compass", "Jeep", "Active", "30/08/2023", "30/08/2023"),
+  createData("Compass", "Jeep", "Active", "30/08/2023", "30/08/2023"),
+  createData("Compass", "Jeep", "Active", "30/08/2023", "30/08/2023"),
+  createData("Compass", "Jeep", "Active", "30/08/2023", "30/08/2023"),
 ];
 
-export default function ManCat() {
+const ModelsDataTable = () => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: "bold" }}>Name</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Model</TableCell>
             <TableCell sx={{ fontWeight: "bold" }} align="center">
-              Slug
+              Brand
             </TableCell>
             <TableCell sx={{ fontWeight: "bold" }} align="center">
               Status
@@ -51,13 +52,13 @@ export default function ManCat() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.model}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.model}
               </TableCell>
-              <TableCell align="center">{row.slug}</TableCell>
+              <TableCell align="center">{row.brand}</TableCell>
               <TableCell align="center">{row.status}</TableCell>
               <TableCell align="center">{row.createdDate}</TableCell>
               <TableCell align="center">{row.updatedDate}</TableCell>
@@ -66,5 +67,7 @@ export default function ManCat() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }
+
+export default ModelsDataTable

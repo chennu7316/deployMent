@@ -26,9 +26,9 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
-import CarDataTable from "./FeatDataTable";
-import { Button } from "@mui/material";
-import "./CarFeatures.css"
+import EngCapForm from "./EngCapForm";
+
+
 
 const drawerWidth = 240;
 
@@ -81,7 +81,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export default function CarFeatures() {
+export default function EngineCapacityForm() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [topen, setTopen] = React.useState(false);
@@ -153,7 +153,11 @@ export default function CarFeatures() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_cars")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_cars")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -177,8 +181,8 @@ export default function CarFeatures() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} >
-            <ListItemButton onClick={handleClick} >
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton onClick={handleClick}>
               <ListItemIcon sx={{ minWidth: "52px" }}>
                 <SettingsIcon sx={{ marginLeft: "4px" }} />
               </ListItemIcon>
@@ -191,28 +195,53 @@ export default function CarFeatures() {
             </ListItemButton>
             <Collapse in={topen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4, fontSize: "5px" }} onClick={()=>router.push("/adminpage/pages/manage_catego")}>
+                <ListItemButton
+                  sx={{ pl: 4, fontSize: "5px" }}
+                  onClick={() => router.push("/adminpage/pages/manage_catego")}
+                >
                   <ListItemText
                     sx={{ fontSize: "5px" }}
                     primary="Manage Categories"
                   />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_brands")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_brands")}
+                >
                   <ListItemText primary="Car Brands" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_models")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_models")}
+                >
                   <ListItemText primary="Car Models" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_features")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_features")}
+                >
                   <ListItemText primary="Car Features" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/manage_services")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/manage_services")
+                  }
+                >
                   <ListItemText primary="Manage Services" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/engine_capacities")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/engine_capacities")
+                  }
+                >
                   <ListItemText primary="Engine Capacities" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/required_docs")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/required_docs")}
+                >
                   <ListItemText primary="Required Documents" />
                 </ListItemButton>
               </List>
@@ -232,16 +261,28 @@ export default function CarFeatures() {
             </ListItemButton>
             <Collapse in={eopen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_enquiries")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_enquiries")}
+                >
                   <ListItemText primary="Car Enquiries" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/contact_enquiries")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/contact_enquiries")
+                  }
+                >
                   <ListItemText primary="Contact Enquiries" />
                 </ListItemButton>
               </List>
             </Collapse>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_location")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_location")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -264,7 +305,11 @@ export default function CarFeatures() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_faqs")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_faqs")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -286,25 +331,9 @@ export default function CarFeatures() {
           </ListItem>
         </List>
       </Drawer>
-      <Main open={open}>
+      <Main open={open} className="mancat_main">
         <DrawerHeader />
-        <div className="feature_data_table">
-          <div className="feature_table_text">
-            <h1>Car Features</h1>
-          </div>
-          <div className="feature_table_btn">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                router.push("/adminpage/pages/car_features/car_feature_from")
-              }
-            >
-              Add New
-            </Button>
-          </div>
-        </div>
-        <CarDataTable/>
+        <EngCapForm />
       </Main>
     </Box>
   );
