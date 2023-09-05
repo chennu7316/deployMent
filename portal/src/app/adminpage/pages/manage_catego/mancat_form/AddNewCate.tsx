@@ -11,7 +11,6 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import { useState ,useEffect} from "react";
 import React from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -19,7 +18,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import "../ManCat.css";
 import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
 
 interface CateFormData {
   name: string;
@@ -30,14 +28,6 @@ interface CateFormData {
 }
 
 const AddNewCate = () => {
-
-  const [data,setdata]=useState({
-    name:"",
-    status:"",
-    slag:"testing",
-    createdDate:"1/2/2020",
-    updatedDate:"2/2/2023"
-  })
 
   const {
     register,
@@ -50,39 +40,10 @@ const AddNewCate = () => {
     console.log(data);
   };
 
-  const handle=(e)=>{
-    console.log("welcomeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
-    const newData:any={...data}
-    newData[e.target.name]=e.target.value
-    setdata(newData)
-   console.log(newData,"newDAatattttttttttttttt")
-  }
-
-  const Submit=(e)=>{
-    e.preventDefault()
-    axios.post("http://localhost:4000/user/createCategory",{
-      name:data.name,
-      status:data.status,
-      slag:data.slag,
-      createdDate:data.createdDate,
-      updatedDate:data.updatedDate
-    })
-    .then((res)=>{
-      console.log(res.data)
-      setdata({
-        name:"",
-        status:"",
-        slag:"testing",
-        createdDate:"1/2/2020",
-        updatedDate:"2/2/2023"
-      })
-    })
-
-  }
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={(e)=>Submit(e)} >
+        <form>
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add new category</h1>
@@ -97,8 +58,6 @@ const AddNewCate = () => {
                       size="small"
                       name="name"
                       sx={{ height: "50px" }}
-                      onChange={(e)=>handle(e)}
-                      value={data.name}
                       error={!!errors.name}
                       helperText={errors.name && "This name field is required"}
                     />
@@ -142,8 +101,6 @@ const AddNewCate = () => {
         id="status"
         label="Status"
         name="status"
-        value={data.status} // Bind the value to data.status
-        onChange={(e)=>handle(e)} // Handle the change event
       >
         <MenuItem value={"active"}>Active</MenuItem>
         <MenuItem value={"inactive"}>Inactive</MenuItem>
