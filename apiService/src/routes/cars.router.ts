@@ -44,7 +44,7 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
         const existingUser = await collections.cars.findOne({ email });
 
         if (existingUser) {
-            return res.status(409).send({message:"Email already exists. Please choose a different email."});
+            return res.status(409).send({status:409,message:"Email already exists. Please choose a different email."});
         }
 
         // If the email is unique, create a new Auth instance
@@ -52,12 +52,11 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
 
         // Save the new user to the database
         const result = await collections.cars.insertOne(newUser);
-        console.log(result)
 
         if (result) {
-            return res.status(201).send({message:`Successfully created a new User with id ${result.insertedId}`});
+            return res.status(201).send({status:201,message:`Successfully created a new User with id ${result.insertedId}`});
         } else {
-            return res.status(500).send({message:"Failed to create a new User."});
+            return res.status(500).send({status:500,message:"Failed to create a new User."});
         }
     } catch (error) {
         console.error(error);
@@ -74,21 +73,21 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
         const user = await collections.cars.findOne({ email });
         console.log(user)
         if (!user) {
-            return res.status(404).send({message:"User not found. Please check your email or sign up."});
+            return res.status(404).send({status:400,message:"User not found. Please check your email or sign up."});
         }
 
         // Compare the provided password with the hashed password from the database
         const passwordMatch = await bcrypt.compareSync(password, user.password);
         console.log(passwordMatch,"passwordMatchpasswordMatch")
         if (!passwordMatch) {
-            return res.status(401).send({message:"Invalid password. Please check your password and try again."});
+            return res.status(401).send({status:401,message:"Invalid password. Please check your password and try again."});
         }
 
         // At this point, the login is successful.
-        return res.status(200).send({message:"Login successful!"});
+        return res.status(200).send({status:200,message:"Login successful!"});
     } catch (error) {
         console.error(error);
-        return res.status(500).send({message:"Internal Server Error"});
+        return res.status(500).send({status:500,message:"Internal Server Error"});
     }
 });
 
@@ -124,14 +123,14 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
                     console.log('Email sent:', info.response);
                   }
                 });
-            return res.status(201).send({message:`Successfully created a inquiry  and sent email `});
+            return res.status(201).send({status:201,message:`Successfully created a inquiry  and sent email `});
         } else {
-            return res.status(500).send({message:"Failed to create a inquiry."});
+            return res.status(500).send({status:500,message:"Failed to create a inquiry."});
         }
         
     } catch (error) {
         console.error(error);
-        return res.status(500).send({message:"Internal Server Error"});
+        return res.status(500).send({status:500,message:"Internal Server Error"});
     }
 });
 carsRouter.get("/getInquiry/:id", async (req: Request, res: Response) => {
@@ -183,12 +182,12 @@ carsRouter.get("/getInquirys", async (req: Request, res: Response) => {
       // Compare the provided password with the hashed password from the database
       const result = await collections.carInquiry.find().toArray()
 
-          return res.status(201).send(result);
+          return res.status(201).send({status:201,message:"getInquirys sucessfully",data:result});
        
       
   } catch (error) {
       console.error(error);
-      return res.status(500).send({message:"Internal Server Error"});
+      return res.status(500).send({status:500,message:"Internal Server Error"});
   }
 });
 carsRouter.post("/createCategory", async (req: Request, res: Response) => {
@@ -204,9 +203,9 @@ carsRouter.post("/createCategory", async (req: Request, res: Response) => {
         const result = await collections.carCategory.insertOne(newCategory);
 
         if (result) {
-            return res.status(201).send({message:`Successfully created a new Category with id ${result.insertedId}`});
+            return res.status(201).send({status:201,message:`Successfully created a new Category with id ${result.insertedId}`});
         } else {
-            return res.status(500).send({message:"Failed to create a new Category."});
+            return res.status(500).send({status:500,message:"Failed to create a new Category."});
         }
     } catch (error) {
         console.error(error);
@@ -220,7 +219,7 @@ carsRouter.get("/getAllCategoryes", async (req: Request, res: Response) => {
         // Save the new user to the database
         const result = await collections.carCategory.find({}).toArray()
 
-            return res.status(201).send(result);
+            return res.status(201).send({status:201,message:"getAllCategoryes sucessfully",data:result});
     } catch (error) {
         console.error(error);
         return res.status(400).send((error as Error).message); // Respond with the error message from the validation
@@ -239,9 +238,9 @@ carsRouter.post("/createBrand", async (req: Request, res: Response) => {
         const result = await collections.carBrands.insertOne(newBrand);
 
         if (result) {
-            return res.status(201).send({message:`Successfully created a new Brand with id ${result.insertedId}`});
+            return res.status(201).send({status:201,message:`Successfully created a new Brand with id ${result.insertedId}`});
         } else {
-            return res.status(500).send({message:"Failed to create a new Brand."});
+            return res.status(500).send({status:500,message:"Failed to create a new Brand."});
         }
     } catch (error) {
         console.error(error);
@@ -255,7 +254,7 @@ carsRouter.get("/getAllBrands", async (req: Request, res: Response) => {
         // Save the new user to the database
         const result = await collections.carBrands.find({}).toArray()
 
-            return res.status(201).send(result);
+            return res.status(201).send({status:201,message:"getAllBrands sucessfully",data:result});
     } catch (error) {
         console.error(error);
         return res.status(400).send((error as Error).message); // Respond with the error message from the validation
@@ -273,21 +272,21 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
         const user = await collections.cars.findOne({ email });
         console.log(user)
         if (!user) {
-            return res.status(404).send({message:"User not found. Please check your email or sign up."});
+            return res.status(404).send({status:404,message:"User not found. Please check your email or sign up."});
         }
 
         // Compare the provided password with the hashed password from the database
         const passwordMatch = await bcrypt.compareSync(password, user.password);
         console.log(passwordMatch,"passwordMatchpasswordMatch")
         if (!passwordMatch) {
-            return res.status(401).send({message:"Invalid password. Please check your password and try again."});
+            return res.status(401).send({status:401,message:"Invalid password. Please check your password and try again."});
         }
 
         // At this point, the login is successful.
-        return res.status(200).send({message:"Login successful!"});
+        return res.status(200).send({status:200,message:"Login successful!"});
     } catch (error) {
         console.error(error);
-        return res.status(500).send({message:"Internal Server Error"});
+        return res.status(500).send({status:500,message:"Internal Server Error"});
     }
 });
 carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
@@ -322,14 +321,14 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
                     console.log('Email sent:', info.response);
                   }
                 });
-            return res.status(201).send({message:`Successfully created a inquiry  and sent email `});
+            return res.status(201).send({status:201,message:`Successfully created a inquiry  and sent email `});
         } else {
-            return res.status(500).send({message:"Failed to create a inquiry."});
+            return res.status(500).send({status:500,message:"Failed to create a inquiry."});
         }
         
     } catch (error) {
         console.error(error);
-        return res.status(500).send({message:"Internal Server Error"});
+        return res.status(500).send({status:500,message:"Internal Server Error"});
     }
 });
 
@@ -386,9 +385,9 @@ carsRouter.post('/createNewCar', async (req: Request, res: Response) => {
       
       if (result) {
         
-        return res.status(201).send({ message: 'createNewCar successfully.' });
+        return res.status(201).send({status:201,message: 'createNewCar successfully.' });
       } else {
-        return res.status(500).send({ message: 'Failed to add car data.' });
+        return res.status(500).send({status:500,message: 'Failed to add car data.' });
       }
     } catch (error) {
       console.error(error);
@@ -405,7 +404,7 @@ carsRouter.post('/addCarModel', async (req: Request, res: Response) => {
 
     // Validate the required fields
     if (!carData.Name || !carData.Brand || !carData.CreatedDate || !carData.UpdatedDate) {
-      return res.status(400).send({ message: 'Required fields are missing.' });
+      return res.status(400).send({status:400, message: 'Required fields are missing.' });
     }
 
     // Get a reference to the 'cars' collection
@@ -415,15 +414,85 @@ carsRouter.post('/addCarModel', async (req: Request, res: Response) => {
     const result = await collections.carModel.insertOne(carData);
 
     if (result) {
-      return res.status(201).send({ message: 'Car Model added successfully.' });
+      return res.status(201).send({ status:201,message: 'Car Model added successfully.' });
     } else {
-      return res.status(500).send({ message: 'Failed to add car data.' });
+      return res.status(500).send({ status:500,message: 'Failed to add car data.' });
     }
   } catch (error) {
     console.error(error);
     return res.status(400).send((error as Error).message);
   }
 });
+carsRouter.get('/getCarModel/:id', async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+      const result = await collections.carModel.findOne({_id:objectId})
+      console.log(result)
+      return res.status(201).send({status:201,message:"getCarModel sucessfully",data:result}
+      );
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send({});
+  }
+
+});
+carsRouter.put('/updateCarModel', async (req: Request, res: Response) => {
+  //try {
+  //   const carData: CarModel = req.body;
+
+  //   // Validate the required fields
+  //   if (!carData.Name || !carData.Brand || !carData.CreatedDate || !carData.UpdatedDate) {
+  //     return res.status(400).send({ message: 'Required fields are missing.' });
+  //   }
+
+  //   // Get a reference to the 'cars' collection
+  //   // const carCollection = getCollection('cars'); // Adjust the collection name as needed
+
+  //   // Insert the car data into the collection
+  //   const result = await collections.carModel.insertOne(carData);
+
+  //   if (result) {
+  //     return res.status(201).send({ message: 'Car Model added successfully.' });
+  //   } else {
+  //     return res.status(500).send({ message: 'Failed to add car data.' });
+  //   }
+    
+  // } catch (error) {
+  //   console.error(error);
+  //   return res.status(400).send((error as Error).message);
+  // }
+  try{
+  const { Name, Brand,CreatedDate ,UpdatedDate,_id} = req.body;
+  console.log(req.params.id); // Corrected statement
+  const objectId = new ObjectId(_id); // Convert to ObjectId
+  console.log(objectId); // Log the converted ObjectId
+    
+    const result = await collections.carModel.updateOne({_id: objectId},{$set:{ Name:Name,Brand:Brand,CreatedDate:CreatedDate,UpdatedDate:UpdatedDate}})
+    return res.status(201).send({status:201,message:`update carModel is done with ${req.params.id}`});
+} catch (error) {
+    console.error(error);
+    return res.status(500).send({status:500,message:"Internal Server Error"});
+}
+});
+
+carsRouter.delete('/deleteCarModel/:id', async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+      const result = await collections.carModel.deleteOne({_id:objectId})
+      return res.status(201).send({status:201,message:`Delete carModel is done with ${req.params.id}`});
+  } catch (error) {
+      console.error(error);
+      return res.status(500).send({status:500,message:"Internal Server Error"});
+  }
+
+});
+
 
 
 carsRouter.get("/getAllCarModel",async(req:Request,res:Response)=>{
@@ -431,10 +500,11 @@ carsRouter.get("/getAllCarModel",async(req:Request,res:Response)=>{
 
         const test= await collections.carModel.find({}).toArray()
         if(test){
-            return res.status(201).send(test)
+            return res.status(201).send({status:201,message:"getAllCarModel sucessfully",data:test}
+            )
         }
         else{
-            res.status(400).send({ message: 'Failed to get car Model.' })
+            res.status(400).send({status:400, message: 'Failed to get car Model.',data:{} })
         }
 
     }
@@ -457,9 +527,9 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
         const result = await collections.carFeatures.insertOne(data);
   
       if (result) {
-        return res.status(201).send({ message: 'CarFeatures added successfully.' });
+        return res.status(201).send({status:201, message: 'CarFeatures added successfully.' });
       } else {
-        return res.status(500).send({ message: 'Failed to add data.' });
+        return res.status(500).send({status:500, message: 'Failed to add data.' });
       }
     } catch (error) {
       console.error(error);
@@ -473,11 +543,12 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
   const result= await collections.carFeatures.find({}).toArray()    
 
   if(result){
-    return res.status(200).send(result)
+    return res.status(200).send({status:200,message:"getAllCarFeatures sucessfully",data:result}
+    )
 
   }
   else{
-    return res.status(400).send({message:"getAllCarFeatures Failed"})
+    return res.status(400).send({status:400,message:"getAllCarFeatures Failed",data:{}})
   }
 
   })
@@ -489,14 +560,14 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
       const data: carServices = req.body;
   
       if (!data.Title || !data.CreatedDate || !data.UpdatedDate) {
-        return res.status(400).send({ message: 'Required fields are missing.' });
+        return res.status(400).send({status:400, message: 'Required fields are missing.' });
       }
         const result = await collections.addCarServices.insertOne(data);
   
       if (result) {
-        return res.status(201).send({ message: 'CarServices added successfully.' });
+        return res.status(201).send({status:201, message: 'CarServices added successfully.' });
       } else {
-        return res.status(500).send({ message: 'Failed to add CarServices.' });
+        return res.status(500).send({status:500, message: 'Failed to add CarServices.' });
       }
     } catch (error) {
       console.error(error);
@@ -510,11 +581,12 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
     const result= await collections.addCarServices.find({}).toArray()    
   
     if(result){
-      return res.status(200).send(result)
+      return res.status(200).send({status:200,message:"getAllCarServices sucessfully",data:result}
+      )
   
     }
     else{
-      return res.status(400).send({message:"getAllCarServices Failed"})
+      return res.status(400).send({status:400,message:"getAllCarServices Failed",data:{}})
     }
   
     })
@@ -525,14 +597,14 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
         const data: carEngineCapacities = req.body;
     
         if (!data.Capacity || !data.CreatedDate) {
-          return res.status(400).send({ message: 'Required fields are missing.' });
+          return res.status(400).send({status:400, message: 'Required fields are missing.' });
         }
           const result = await collections.addCarEngineCapacities.insertOne(data);
     
         if (result) {
-          return res.status(201).send({ message: 'carEngineCapacities added successfully.' });
+          return res.status(201).send({status:201, message: 'carEngineCapacities added successfully.' });
         } else {
-          return res.status(500).send({ message: 'Failed to add carEngineCapacities.' });
+          return res.status(500).send({ status:500,message: 'Failed to add carEngineCapacities.' });
         }
       } catch (error) {
         console.error(error);
@@ -546,11 +618,12 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
       const result= await collections.addCarEngineCapacities.find({}).toArray()    
     
       if(result){
-        return res.status(200).send(result)
+        return res.status(200).send({status:200,message:"getAllcarEngineCapacities sucessfully",data:result}
+        )
     
       }
       else{
-        return res.status(400).send({message:"getAllcarEngineCapacities Failed"})
+        return res.status(400).send({status:400,message:"getAllcarEngineCapacities Failed",data:{}})
       }
     
       })
@@ -562,14 +635,14 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
           const data: carDocument = req.body;
       
           if (!data.Title ||   !data.CreatedDate || !data.UpdatedDate) {
-            return res.status(400).send({ message: 'Required fields are missing.' });
+            return res.status(400).send({status:400, message: 'Required fields are missing.' });
           }
             const result = await collections.addCarDocument.insertOne(data);
       
           if (result) {
-            return res.status(201).send({ message: 'carDocument added successfully.' });
+            return res.status(201).send({status:201, message: 'carDocument added successfully.' });
           } else {
-            return res.status(500).send({ message: 'Failed to add carDocument.' });
+            return res.status(500).send({status:500, message: 'Failed to add carDocument.' });
           }
         } catch (error) {
           console.error(error);
@@ -583,11 +656,12 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
         const result= await collections.addCarDocument.find({}).toArray()    
       
         if(result){
-          return res.status(200).send(result)
+          return res.status(200).send({status:200,message:"getAllcarDocument sucessfully",data:result}
+          )
       
         }
         else{
-          return res.status(400).send({message:"getAllcarDocument Failed"})
+          return res.status(400).send({status:400,message:"getAllcarDocument Failed",data:{}})
         }
       
         })
@@ -599,14 +673,14 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
           const data: carLoaction = req.body;
       
           if (!data.Name ||   !data.CreatedDate || !data.UpdatedDate) {
-            return res.status(400).send({ message: 'Required fields are missing.' });
+            return res.status(400).send({status:400, message: 'Required fields are missing.' });
           }
             const result = await collections.addCarLoaction.insertOne(data);
       
           if (result) {
-            return res.status(201).send({ message: 'carLoaction added successfully.' });
+            return res.status(201).send({status:201, message: 'carLoaction added successfully.' });
           } else {
-            return res.status(500).send({ message: 'Failed to add carLoaction.' });
+            return res.status(500).send({ status:500,message: 'Failed to add carLoaction.' });
           }
         } catch (error) {
           console.error(error);
@@ -620,11 +694,12 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
         const result= await collections.addCarLoaction.find({}).toArray()    
       
         if(result){
-          return res.status(200).send(result)
+          return res.status(200).send({status:200,message:"getAllcarLoaction sucessfully",data:result}
+          )
       
         }
         else{
-          return res.status(400).send({message:"getAllcarLoaction Failed"})
+          return res.status(400).send({status:400,message:"getAllcarLoaction Failed",data:{}})
         }
       
         })
@@ -634,14 +709,14 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
             const data: addFAQS = req.body;
         
             if (!data.Question || !data.Answer || !data.CreatedDate || !data.UpdatedDate) {
-              return res.status(400).send({ message: 'Required fields are missing.' });
+              return res.status(400).send({status:400, message: 'Required fields are missing.' });
             }
               const result = await collections.addFAQS.insertOne(data);
         
             if (result) {
-              return res.status(201).send({ message: 'createFAQS added successfully.' });
+              return res.status(201).send({status:201, message: 'createFAQS added successfully.' });
             } else {
-              return res.status(500).send({ message: 'Failed to add createFAQS.' });
+              return res.status(500).send({ status:500,message: 'Failed to add createFAQS.' });
             }
           } catch (error) {
             console.error(error);
@@ -654,10 +729,11 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
           const result= await collections.addFAQS.find({}).toArray()    
         
           if(result){
-            return res.status(200).send(result)
+            return res.status(200).send({status:200,message:"getAllFAQS sucessfully",data:result}
+            )
           }
           else{
-            return res.status(400).send({message:"getAllFAQS Failed"})
+            return res.status(400).send({status:400,message:"getAllFAQS Failed",data:{}})
           }
         
           })
@@ -679,10 +755,11 @@ carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
             }
           
             if(result){
-              return res.status(200).send(result)
+              return res.status(200).send({status:200,message:"getdashBoard sucessfully",data:result}
+              )
             }
             else{
-              return res.status(400).send({message:"getAllFAQS Failed"})
+              return res.status(400).send({status:400,message:"getdashBoard Failed",data:{}})
             }
           
             })

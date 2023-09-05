@@ -466,6 +466,115 @@
       }
    }
 },
+"/user/getCarModel/{id}":{
+   "get":{
+      "summary":"creation of Inquiry",
+      "description":"creation of inquiry",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"path",
+            "name":"id",
+            "description":"get Inquiry data for specific Id",
+            "required":true,
+            "type":"string"
+           
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carInquiry created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/addCarModel"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/deleteCarModel/{id}":{
+   "delete":{
+      "summary":"creation of Inquiry",
+      "description":"creation of inquiry",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"path",
+            "name":"id",
+            "description":"get Inquiry data for specific Id",
+            "required":true,
+            "type":"string"
+           
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carInquiry created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/user/updateCarModel":{
+   "put":{
+      "summary":"creation of Inquiry",
+      "description":"creation of inquiry",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"carInquiry",
+            "description":"inquiry object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addCarModel"
+                 
+               
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"carInquiry created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
 "/user/getAllCarModel":{
    "get":{
       "summary":"getAll of CarModel",
@@ -1103,6 +1212,154 @@
          }
       }
    }
+},
+"/driver/addtradeLicence":{
+   "post":{
+      "summary":"creation of addtradeLicence",
+      "description":"creation of addtradeLicence",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"addtradeLicence",
+            "description":"addtradeLicence object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addtradeLicence"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"addtradeLicence created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/driver/addCorporateVedio":{
+   "post":{
+      "summary":"creation of addCorporateVedio",
+      "description":"creation of addCorporateVedio",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"addCorporateVedio",
+            "description":"addCorporateVedio object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addCorporateVedio"  
+            }
+         }
+      ],
+      "responses":{
+         "200":{
+            "description":"addCorporateVedio created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "400":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/driver/addCharges":{
+   "post":{
+      "summary":"creation of addCharges",
+      "description":"creation of addCharges",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"addCharges",
+            "description":"addCharges object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addCharges"  
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"addCharges created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
+},
+"/driver/addDeliveryOptions":{
+   "post":{
+      "summary":"creation of addDeliveryOptions",
+      "description":"creation of addDeliveryOptions",
+      "produces":[
+         "application/json"
+      ],
+      "parameters":[
+         {
+            "in":"body",
+            "name":"addDeliveryOptions",
+            "description":"addDeliveryOptions object",
+            "required":true,
+            "schema":{
+                 "type":"object",
+                 "$ref":"#/definitions/addDeliveryOptions"  
+            }
+         }
+      ],
+      "responses":{
+         "201":{
+            "description":"addDeliveryOptions created sccussfully",
+            "sechema":{
+               "type":"object",
+                "$ref":"#/definitions/userResponse"
+               
+            }
+         },
+         "500":{
+             "description":"something went wrong",
+             "sechema":{
+                "$ref":"#/definitions/userResponse"
+             }
+         }
+      }
+   }
 }
 
 
@@ -1507,6 +1764,28 @@
 }
 
 },
+"addtradeLicence":{
+   "type":"object",
+   "properties":{
+   "UploadTradLicense":{
+      "type":"string"
+   },
+   "LicenseExpiryDate":{
+      "type":"string"
+   }          
+}
+
+},
+"addCorporateVedio":{
+   "type":"object",
+   "properties":{
+   "CORPORATE_VIDEO":{
+      "type":"string"
+   }          
+}
+
+}
+,
 "dashBoard":{
    "type":"object",
    "properties":{
@@ -1530,9 +1809,66 @@
    }              
 }
 
-}
+},
 
+
+"addCharges": {
+   "type": "object",
+   "properties": {
+      "DefaultCharges":{
+         "type": "object",
+         "properties": {
+          
+           
+   
+         "Spes":{"type":"string"},
+         "ExtaMillageCost":{"type":"string"},
+         "ExcessClaim":{"type":"string"},
+         "MilleagePerDay":{"type":"string"},
+         "MilleagePerMonth":{"type":"string"},
+         "MilleagePerWeek":{"type":"string"},
+         "SecurityDeposite":{"type":"string"},
+        "AcceptedIn":{"type":"string"},
+        "MinimumCustomers":{"type":"string"},
+        "RequiredDriving":{"type":"string"},
+       "SpecialNoteFor":{"type":"string"}
+         }
+   },
+   "ExtraCharges":{
+      "type": "object",
+      "properties": {
+   
+     "GPSDevice":{"type":"string"},
+     "CDWPerDayCost":{"type":"string"},
+     "CDWPerMonthCost":{"type":"string"},
+     "Salik":{"type":"string"},
+    "AdditionalDriverInsurance":{"type":"string"},
+     "BabySeat":{"type":"string"}
+      }
+   }
+   }
+ },
  
-       
+ "addDeliveryOptions": {
+   "type": "object",
+   "properties": {
+      "DeliveryTerms":{
+         "type": "object",
+         "properties": {
+   
+         "DeliverywithinEmirate":{"type":"string"},
+         "DeliveryatAirport":{"type":"string"},
+         "DeliveryPickupCharges":{"type":"string"}   
+         }
+   },
+   "FastDelivery":{
+      "type": "object",
+      "properties": {
+   
+     "deliveryItem":{"type":"string"}
+      }
+   }
+   }
+ }  
     }
  }

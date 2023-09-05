@@ -3,7 +3,7 @@ import { ObjectId } from "mongodb";
 import { collections } from "../services/database.service";
 import bcrypt from "bcrypt";
 import  nodemailer from "nodemailer"
-import {Auth, ContactInfo, Newlist} from "../models/driver"
+import {Auth, ContactInfo, Newlist, addCharges, addDeliveryOptions, corporateVedio, tradeLicence} from "../models/driver"
 
 
 
@@ -21,7 +21,7 @@ driverRouters.post("/signUp", async (req: Request, res: Response) => {
         const existingUser = await collections.driver.findOne({ email });
 
         if (existingUser) {
-            return res.status(409).send({message:"Email already exists. Please choose a different email."});
+            return res.status(409).send({status:409,message:"Email already exists. Please choose a different email."});
         }
 
         // If the email is unique, create a new Auth instance
@@ -32,9 +32,9 @@ driverRouters.post("/signUp", async (req: Request, res: Response) => {
         console.log(result)
 
         if (result) {
-            return res.status(201).send({message:`Successfully created a new User with id ${result.insertedId}`});
+            return res.status(201).send({status:201,message:`Successfully created a new User with id ${result.insertedId}`});
         } else {
-            return res.status(500).send({message:"Failed to create a new User."});
+            return res.status(500).send({status:500,message:"Failed to create a new User."});
         }
     } catch (error) {
         console.error(error);
@@ -51,21 +51,21 @@ driverRouters.post("/login", async (req: Request, res: Response) => {
         const user = await collections.driver.findOne({ email });
         console.log(user)
         if (!user) {
-            return res.status(404).send({message:"User not found. Please check your email or sign up."});
+            return res.status(404).send({status:404,message:"User not found. Please check your email or sign up."});
         }
 
         // Compare the provided password with the hashed password from the database
         const passwordMatch = await bcrypt.compareSync(password, user.password);
         console.log(passwordMatch,"passwordMatchpasswordMatch")
         if (!passwordMatch) {
-            return res.status(401).send({message:"Invalid password. Please check your password and try again."});
+            return res.status(401).send({status:401,message:"Invalid password. Please check your password and try again."});
         }
 
         // At this point, the login is successful.
-        return res.status(200).send({message:"Login successful!"});
+        return res.status(200).send({status:200,message:"Login successful!"});
     } catch (error) {
         console.error(error);
-        return res.status(500).send({message:"Internal Server Error"});
+        return res.status(500).send({status:500,message:"Internal Server Error"});
     }
 });
 
@@ -84,9 +84,9 @@ driverRouters.post('/createNewlist', async (req: Request, res: Response) => {
       
       if (result) {
         
-        return res.status(201).send({ message: 'createNewList successfully.' });
+        return res.status(201).send({status:201, message: 'createNewList successfully.' });
       } else {
-        return res.status(500).send({ message: 'Failed to createNewList.' });
+        return res.status(500).send({ status:500,message: 'Failed to createNewList.' });
       }
     } catch (error) {
       console.error(error);
@@ -103,13 +103,102 @@ driverRouters.post('/addContactInfo', async (req: Request, res: Response) => {
       const result = await collections.contactInfo.insertOne(carData);
   
       if (result) {
-        return res.status(201).send({ message: 'contactInfo added successfully.' });
+        return res.status(201).send({status:201,message: 'contactInfo added successfully.' });
       } else {
-        return res.status(500).send({ message: 'Failed to addContactInfo' });
+        return res.status(500).send({ status:500,message: 'Failed to addContactInfo' });
       }
     } catch (error) {
       console.error(error);
       return res.status(400).send((error as Error).message);
     }
   });
+
+
+
+  
+  driverRouters.post('/addtradeLicence', async (req: Request, res: Response) => {
+    try {
+      const tradedata: tradeLicence = req.body;
+  
+      const result = await collections.tradeLicence.insertOne(tradedata);
+  
+      if (result) {
+        return res.status(201).send({status:201,message: 'tradeLicence added successfully.' });
+      } else {
+        return res.status(500).send({status:500, message: 'Failed to tradeLicence' });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(400).send((error as Error).message);
+    }
+  });
+
+
+  driverRouters.post('/addCorporateVedio', async (req: Request, res: Response) => {
+    try {
+      const CorporateVediodata: corporateVedio = req.body;
+  
+      const result = await collections.corporateVedio.insertOne(CorporateVediodata);
+  
+      if (result) {
+        return res.status(201).send({status:201, message: 'corporateVedio added successfully.' });
+      } else {
+        return res.status(500).send({status:500, message: 'Failed to corporateVedio' });
+      }
+    } catch (error) {
+      console.error(error);
+      return res.status(400).send((error as Error).message);
+    }
+  });
+
+
+  
+
+driverRouters.post('/addCharges', async (req: Request, res: Response) => {
+  try {
+
+    const addCharges: addCharges[] = req.body;
+
+    // const carCollection = getDatabase().collection('cars'); // Replace with your collection name
+
+    // Insert the car data into the collection
+    const result = await collections.addCharges.insertOne(addCharges)
+    
+    if (result) {
+      
+      return res.status(201).send({ status:201,message: 'addCharges successfully.' });
+    } else {
+      return res.status(500).send({status:500, message: 'Failed to addCharges.' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send((error as Error).message);
+  }
+});
+
+
+
+driverRouters.post('/addDeliveryOptions', async (req: Request, res: Response) => {
+  try {
+
+    const deliveryOptions: addDeliveryOptions[] = req.body;
+
+    // const carCollection = getDatabase().collection('cars'); // Replace with your collection name
+
+    // Insert the car data into the collection
+    const result = await collections.addDeliveryOptions.insertOne(deliveryOptions)
+    
+    if (result) {
+      
+      return res.status(201).send({status:201, message: 'addDeliveryOptions successfully.' });
+    } else {
+      return res.status(500).send({status:500, message: 'Failed to addDeliveryOptions.' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send((error as Error).message);
+  }
+});
+
+
 export default driverRouters;

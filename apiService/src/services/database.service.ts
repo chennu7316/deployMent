@@ -1,7 +1,7 @@
 import * as mongoDB from 'mongodb';
 import * as dotenv from 'dotenv';
 
-export const collections: { cars?: mongoDB.Collection,carInquiry?: mongoDB.Collection,carCategory?: mongoDB.Collection,carBrands?: mongoDB.Collection,carData?:mongoDB.Collection,carModel?:mongoDB.Collection,carFeatures?:mongoDB.Collection,addCarServices?:mongoDB.Collection,addCarEngineCapacities?:mongoDB.Collection,addCarDocument?:mongoDB.Collection,addCarLoaction?:mongoDB.Collection,addFAQS?:mongoDB.Collection,driver?:mongoDB.Collection,newList?:mongoDB.Collection,contactInfo?:mongoDB.Collection} = {};
+export const collections: { cars?: mongoDB.Collection,carInquiry?: mongoDB.Collection,carCategory?: mongoDB.Collection,carBrands?: mongoDB.Collection,carData?:mongoDB.Collection,carModel?:mongoDB.Collection,carFeatures?:mongoDB.Collection,addCarServices?:mongoDB.Collection,addCarEngineCapacities?:mongoDB.Collection,addCarDocument?:mongoDB.Collection,addCarLoaction?:mongoDB.Collection,addFAQS?:mongoDB.Collection,driver?:mongoDB.Collection,newList?:mongoDB.Collection,contactInfo?:mongoDB.Collection,tradeLicence?:mongoDB.Collection,corporateVedio?:mongoDB.Collection,addCharges?:mongoDB.Collection,addDeliveryOptions?:mongoDB.Collection} = {};
 export async function connectToDatabase() {
   dotenv.config();
 
@@ -66,6 +66,22 @@ export async function connectToDatabase() {
     process.env.CONTACT_INFO
   )
 
+   const tradeLicence:mongoDB.Collection=db.collection(
+    process.env.TRADE_LICENCE
+  )
+
+  const corporateVedio:mongoDB.Collection=db.collection(
+    process.env.CORPORATE_VIDEO
+  )
+  const addCharges:mongoDB.Collection=db.collection(
+    process.env.ADD_CHARGES
+  )
+
+  const addDeliveryOptions:mongoDB.Collection=db.collection(
+    process.env.ADD_DELIVERY_OPTIONS
+  )
+
+  
   collections.cars = carsCollection;
   collections.driver=driverCollections;
   collections.carInquiry=carsInquiry;
@@ -81,6 +97,10 @@ export async function connectToDatabase() {
   collections.addFAQS=addFAQS
   collections.newList=newLists
   collections.contactInfo=contactInfo
+  collections.tradeLicence=tradeLicence
+  collections.corporateVedio=corporateVedio
+  collections.addCharges=addCharges
+  collections.addDeliveryOptions=addDeliveryOptions
   console.log(
     `Successfully connected to database: ${db.databaseName} and collection: ${carsCollection.collectionName}`,
   );

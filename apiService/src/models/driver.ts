@@ -117,3 +117,74 @@ export interface ContactInfo   {
     MainAdressArabic:string,
     PhoneNo:string
   }
+
+
+  export interface tradeLicence   {
+    UploadTradLicense:string,
+    LicenseExpiryDate:string,
+   
+  }
+
+  export interface corporateVedio   {
+    CORPORATE_VIDEO:string,
+   
+  }
+
+
+
+
+  export interface addDeliveryOptions {
+    DeliveryTerms: {
+        DeliverywithinEmirate: string;
+        DeliveryatAirport: string;
+        DeliveryPickupCharges: string;
+    };
+    FastDelivery: {
+      deliveryItem:string;
+  
+    };
+  
+}
+
+
+export interface addCharges {
+
+    DefaultCharges: {
+        Spes: string;
+        ExtaMillageCost: string;
+        ExcessClaim: string;
+        MilleagePerDay: string;
+        MilleagePerMonth: string;
+        MilleagePerWeek: string;
+        SecurityDeposite: string;
+        AcceptedIn: string;
+        MinimumCustomers: string;
+        RequiredDriving: string;
+        SpecialNoteFor: string;
+    };
+
+    ExtraCharges: {
+        GPSDevice: string;
+        CDWPerDayCost: string;
+        CDWPerMonthCost: string;
+        Salik: string;
+        AdditionalDriverInsurance: string;
+        BabySeat: string;
+    };
+}
+
+
+
+export interface addDeliveryOptions {
+    DeliveryTerms: {
+        DeliverywithinEmirate: string;
+        DeliveryatAirport: string;
+        DeliveryPickupCharges: string;
+    };
+    FastDelivery: {
+      deliveryItem:string;
+  
+    };
+  
+}
+
