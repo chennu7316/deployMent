@@ -11,6 +11,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
+import { useState ,useEffect} from "react";
 import React from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -18,6 +19,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import "../ManCat.css";
 import { useForm, Controller } from "react-hook-form";
+import axios from "axios";
 
 interface CateFormData {
   name: string;
@@ -28,6 +30,15 @@ interface CateFormData {
 }
 
 const AddNewCate = () => {
+
+  const [data,setdata]=useState({
+    name:"",
+    status:"",
+    slag:"testing",
+    createdDate:"1/2/2020",
+    updatedDate:"2/2/2023"
+  })
+
   const {
     register,
     handleSubmit,
@@ -39,10 +50,39 @@ const AddNewCate = () => {
     console.log(data);
   };
 
+  const handle=(e)=>{
+    console.log("welcomeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    const newData:any={...data}
+    newData[e.target.name]=e.target.value
+    setdata(newData)
+   console.log(newData,"newDAatattttttttttttttt")
+  }
+
+  const Submit=(e)=>{
+    e.preventDefault()
+    axios.post("http://localhost:4000/user/createCategory",{
+      name:data.name,
+      status:data.status,
+      slag:data.slag,
+      createdDate:data.createdDate,
+      updatedDate:data.updatedDate
+    })
+    .then((res)=>{
+      console.log(res.data)
+      setdata({
+        name:"",
+        status:"",
+        slag:"testing",
+        createdDate:"1/2/2020",
+        updatedDate:"2/2/2023"
+      })
+    })
+
+  }
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={(e)=>Submit(e)} >
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add new category</h1>
@@ -51,12 +91,14 @@ const AddNewCate = () => {
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }}>
                     <TextField
-                      id="outlined-basic"
+                      id="name"
                       label="Name"
                       variant="outlined"
                       size="small"
+                      name="name"
                       sx={{ height: "50px" }}
-                      {...register("name", { required: true })}
+                      onChange={(e)=>handle(e)}
+                      value={data.name}
                       error={!!errors.name}
                       helperText={errors.name && "This name field is required"}
                     />
@@ -93,7 +135,24 @@ const AddNewCate = () => {
                   </FormControl>
                 </Grid> */}
                 <Grid item xs={12} sm={6} md={6} lg={6}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
+                <FormControl sx={{ minWidth: "100%" }} size="small">
+         <InputLabel id="demo-select-small-label">Status</InputLabel>
+      <Select
+        labelId="demo-select-small-label"
+        id="status"
+        label="Status"
+        name="status"
+        value={data.status} // Bind the value to data.status
+        onChange={(e)=>handle(e)} // Handle the change event
+      >
+        <MenuItem value={"active"}>Active</MenuItem>
+        <MenuItem value={"inactive"}>Inactive</MenuItem>
+      </Select>
+      <FormHelperText error>
+      {errors.status?.message}
+      </FormHelperText>
+    </FormControl>
+                {/* <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Status</InputLabel>
                     <Controller
                       name="status"
@@ -105,7 +164,10 @@ const AddNewCate = () => {
                           labelId="demo-select-small-label"
                           id="demo-select-small"
                           label="Status"
-                          {...field}
+                          
+                         {...field}
+                         value={data.status}
+                         onChange={(e)=>handle(e)}
                         >
                           <MenuItem value={"active"}>Active</MenuItem>
                           <MenuItem value={"inactive"}>Inactive</MenuItem>
@@ -115,7 +177,7 @@ const AddNewCate = () => {
                     <FormHelperText error>
                       {errors.status?.message}
                     </FormHelperText>
-                  </FormControl>
+                  </FormControl> */}
                 </Grid>
                 {/* <Grid item xs={12} sm={4} md={4} lg={4}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">

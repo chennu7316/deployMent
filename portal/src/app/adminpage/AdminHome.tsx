@@ -96,6 +96,7 @@ export default function AdminHome() {
     axios.get("http://localhost:4000/user/dashBoard")
     .then(res => {
       setdatas(res.data);   
+      console.log(datas,"datasdatasdatasdatasdatasdatasdatasdatas")
     })
     .catch(error => {
       console.error("Error fetching data:", error);
@@ -399,7 +400,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                    {datas.totalCars}
+                    {datas.data?.totalCars || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -433,7 +434,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      {datas.totalCategoryes}
+                      {datas.data?.totalCategoryes || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -467,7 +468,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                {datas.totalBrands}
+                {datas.data?.totalBrands || 0}
 
                     </Typography>
                     <Typography
@@ -502,7 +503,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                         {datas.totalEnquiryes}
+                         {datas.data?.totalEnquiryes || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -536,7 +537,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                {datas.totalContactInquires}
+                {datas.data?.totalContactInquires || 0}
 
                     </Typography>
                     <Typography
@@ -571,7 +572,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                      {datas.totalLocation}
+                      {datas.data?.totalLocation || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
