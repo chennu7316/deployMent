@@ -29,7 +29,7 @@ export async function connectToDatabase() {
     process.env.CAR_CATEGORYES,
   );
   const carBrand: mongoDB.Collection=db.collection(
-    process.env.CAR_CATEGORYES,
+    process.env.CAR_BRNDS,
   );
   
    const carData:mongoDB.Collection=db.collection(

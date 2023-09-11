@@ -4,7 +4,9 @@ import { collections } from "../services/database.service";
 import Car, { carFeatures } from "../models/car";
 import { Auth, CarInquiry, Categoryes, CarData, CarModel, carServices, carEngineCapacities, carDocument, carLoaction, addFAQS } from "../models/car"
 import bcrypt from "bcrypt";
-import nodemailer from "nodemailer"
+import  nodemailer from "nodemailer"
+import   {format}  from "date-fns";
+
 
 
 export const carsRouter = express.Router();
@@ -92,37 +94,39 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
 });
 
 carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
-  try {
-    const { carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area } = req.body;
+    try {
+        const { carName, startDate,endDate,pickUpLoc,dropLocation,phoneNumber,area,email} = req.body;
 
-    // Find the user with the provided email in the database
+        // Find the user with the provided email in the database
+      
+         const inquiry=new CarInquiry(carName, startDate,endDate,pickUpLoc,dropLocation,phoneNumber,area)
+        // Compare the provided password with the hashed password from the database
+        inquiry["email"]=email
+        console.log(inquiry)
+        const result = await collections.carInquiry.insertOne(inquiry)
 
-    const inquiry = new CarInquiry(carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area)
-    // Compare the provided password with the hashed password from the database
-    console.log(inquiry)
-    const result = await collections.carInquiry.insertOne(inquiry)
+        if (result) {
+            const transporter = nodemailer.createTransport({
+                service: `gmail`,
+                auth: {
+                  user: ' ',
+                  pass: ' ',
+                },
+              });
+              const mailOptions = {
+                  from: ' ',
+                  to: email,
+                  subject: 'INQUIRY Successfully  CREATED',
+                  text: `Hi inquiry is created here is the details carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area}`,
+                };
+                transporter.sendMail(mailOptions, (error, info) => {
+                  if (error) {
+                    console.error('Error sending email:', error);
+                  } else {
+                    console.log('Email sent:', info.response);
+                  }
+                });
 
-    if (result) {
-      const transporter = nodemailer.createTransport({
-        service: `gmail`,
-        auth: {
-          user: ' ',
-          pass: ' ',
-        },
-      });
-      const mailOptions = {
-        from: ' ',
-        to: ' ',
-        subject: 'INQUIRY Successfully  CREATED',
-        text: `Hi inquiry is created here is the details carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area}`,
-      };
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Error sending email:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
-      });
       return res.status(201).send({ status: 201, message: `Successfully created a inquiry  and sent email ` });
     } else {
       return res.status(500).send({ status: 500, message: "Failed to create a inquiry." });
@@ -205,9 +209,15 @@ carsRouter.get("/getInquirys", async (req: Request, res: Response) => {
 });
 carsRouter.post("/createCategory", async (req: Request, res: Response) => {
   try {
-    const { name, status, slag, createdDate, updatedDate } = req.body;
+    let { name, status, slag, createdDate, updatedDate } = req.body;
 
 
+        // If the email is unique, create a new Auth instance
+        const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+         const formattedDate = format(date, 'dd/MM/yyyy');
+        createdDate=formattedDate
+        updatedDate=formattedDate
 
     // If the email is unique, create a new Auth instance
     const newCategory = new Categoryes(name, status, slag, createdDate, updatedDate);
@@ -228,12 +238,12 @@ carsRouter.post("/createCategory", async (req: Request, res: Response) => {
 carsRouter.get("/getAllCategoryes", async (req: Request, res: Response) => {
   try {
 
-
-    // Save the new user to the database
-    const result = await collections.carCategory.find({}).toArray()
-    if (result) {
-      return res.status(201).send({ status: 201, message: "getAllCategoryes sucessfully", data: result });
-    }
+        // Save the new user to the database
+        const result = await collections.carCategory.find({}).toArray()
+        if(result) 
+        {
+            return res.status(201).send({status:201,message:"getAllCategoryes sucessfully",data:result});
+       } 
     else {
       return res.status(400).send({ status: 201, message: "No data found", data: result });
 
@@ -244,8 +254,14 @@ carsRouter.get("/getAllCategoryes", async (req: Request, res: Response) => {
   }
 });
 carsRouter.post("/createBrand", async (req: Request, res: Response) => {
-  try {
-    const { name, status, slag, createdDate, updatedDate } = req.body;
+    try {
+      let  { name,status,slag,createdDate,updatedDate} = req.body;
+        const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+        let  formattedDate = format(date, 'dd/MM/yyyy');
+      createdDate=formattedDate
+      updatedDate=formattedDate
+
 
 
 
@@ -311,48 +327,7 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
     return res.status(500).send({ status: 500, message: "Internal Server Error" });
   }
 });
-carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
-  try {
-    const { carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area } = req.body;
 
-    // Find the user with the provided email in the database
-
-    const inquiry = new CarInquiry(carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area)
-    // Compare the provided password with the hashed password from the database
-    console.log(inquiry)
-    const result = await collections.carInquiry.insertOne(inquiry)
-
-    if (result) {
-      const transporter = nodemailer.createTransport({
-        service: `gmail`,
-        auth: {
-          user: 'ganesh527@@sasi.ac.in',
-          pass: 'Chennu7316',
-        },
-      });
-      const mailOptions = {
-        from: 'jhansimannidi@gmail.com',
-        to: 'jhansimannidi@gmail.com',
-        subject: 'INQUIRY Successfully  CREATED',
-        text: `Hi inquiry is created here is the details carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area}`,
-      };
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error('Error sending email:', error);
-        } else {
-          console.log('Email sent:', info.response);
-        }
-      });
-      return res.status(201).send({ status: 201, message: `Successfully created a inquiry  and sent email ` });
-    } else {
-      return res.status(500).send({ status: 500, message: "Failed to create a inquiry." });
-    }
-
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send({ status: 500, message: "Internal Server Error" });
-  }
-});
 
 // carsRouter.put("/:id", async (req: Request, res: Response) => {
 //     const id = req?.params?.id;
@@ -433,6 +408,11 @@ carsRouter.post('/addCarModel', async (req: Request, res: Response) => {
     // const carCollection = getCollection('cars'); // Adjust the collection name as needed
 
     // Insert the car data into the collection
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    carData.CreatedDate=formattedDate
+    carData.UpdatedDate=formattedDate
     const result = await collections.carModel.insertOne(carData);
 
     if (result) {
@@ -544,14 +524,18 @@ carsRouter.get("/getAllCarModel", async (req: Request, res: Response) => {
 
 
 carsRouter.post('/createCarFeatures', async (req: Request, res: Response) => {
-  try {
-    const data: carFeatures = req.body;
+    try {
+      const data: carFeatures = req.body;
+  
+      if (!data.Title || !data.CreatedDate || !data.UpdatedDate) {
+        return res.status(400).send({ message: 'Required fields are missing.' });
+      }
+      const date = new Date(); // Note: Months are zero-based (8 represents September)
 
-    if (!data.Title || !data.CreatedDate || !data.UpdatedDate) {
-      return res.status(400).send({ message: 'Required fields are missing.' });
-    }
-    const result = await collections.carFeatures.insertOne(data);
-
+      const formattedDate = format(date, 'dd/MM/yyyy');
+      data.CreatedDate=formattedDate
+      data.UpdatedDate=formattedDate
+      const result = await collections.carFeatures.insertOne(data);
     if (result) {
       return res.status(201).send({ status: 201, message: 'CarFeatures added successfully.' });
     } else {

@@ -85,7 +85,7 @@ export class CarInquiry{
     }
 }
 export class Categoryes{
-    constructor(public name:string, public status:string,public slag:string,public createdDate:Date,public updatedDate:Date){
+    constructor(public name:string, public status:string,public slag:string,public createdDate:string,public updatedDate:string){
         if (!this.isValidString(name)) {
             throw  Error(JSON.stringify({message:"Invalid username. Username must be a non-empty string."}));
         }

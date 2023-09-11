@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import "../CarFeatures.css"
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 interface FeatureFormData {
   title: string;
@@ -20,9 +22,15 @@ interface FeatureFormData {
 }
 
 const CarFeatForm = () => {
+  const [data,setdata]=useState({
+    Title:"",
+    Status:"",
+    CreatedDate:"11/09/2023",
+    UpdatedDate:"11/09/2023"
+
+  })
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<FeatureFormData>();
@@ -31,10 +39,36 @@ const CarFeatForm = () => {
     console.log(data);
   };
 
+   const handle=(e)=>{
+    const newdata:any={...data}
+    newdata[e.target.name]=e.target.value 
+    setdata(newdata)
+    console.log(data)
+   }
+   const handleSubmit=(e)=>{
+    axios.post("http://localhost:4000/user/createCarFeatures",{
+      Title:data.Title,
+    Status:data.Status,
+    CreatedDate:"11/09/2023",
+    UpdatedDate:"11/09/2023"
+    })
+    .then((res)=>{
+      setdata({
+        Title:"",
+        Status:"",
+        CreatedDate:"11/09/2023",
+        UpdatedDate:"11/09/2023"
+      })
+      
+    })
+    .catch((err)=>{
+        console.log(err)
+    })
+   }
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={(e)=>handleSubmit(e)}>
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add New Feature</h1>
@@ -48,7 +82,9 @@ const CarFeatForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
-                      {...register("title", { required: true })}
+                      name="Title"
+                      value={data.Title}
+                      onChange={(e)=>handle(e)}
                       error={!!errors.title}
                       helperText={errors.title && "This name field is required"}
                     />
@@ -57,23 +93,19 @@ const CarFeatForm = () => {
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Status</InputLabel>
-                    <Controller
-                      name="status"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This status field is required" }}
-                      render={({ field }) => (
+                  
                         <Select
                           labelId="demo-select-small-label"
                           id="demo-select-small"
                           label="Status"
-                          {...field}
+                          name="Status"
+                          value={data.Status}
+                          onChange={(e)=>handle(e)}
                         >
                           <MenuItem value={"active"}>Active</MenuItem>
                           <MenuItem value={"inactive"}>Inactive</MenuItem>
                         </Select>
-                      )}
-                    />
+
                     <FormHelperText error>
                       {errors.status?.message}
                     </FormHelperText>

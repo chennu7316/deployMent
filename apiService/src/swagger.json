@@ -1404,6 +1404,9 @@
             },
             "area":{
                "type":"string"
+            },
+            "email":{
+               "type":"string"
             }
              
           }

@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useState ,useEffect} from "react";
+import axios from "axios";
 
 function createData(
   brand: string,
@@ -17,17 +19,20 @@ function createData(
 ) {
   return { brand, slug, status, createdDate, updatedDate };
 }
-
-const rows = [
-  createData("Toyota", "toyoto", "Active", "30/08/2023", "30/08/2023"),
-  createData("Toyota", "toyoto", "Active", "30/08/2023", "30/08/2023"),
-  createData("Toyota", "toyoto", "Active", "30/08/2023", "30/08/2023"),
-  createData("Toyota", "toyoto", "Active", "30/08/2023", "30/08/2023"),
-  createData("Toyota", "toyoto", "Active", "30/08/2023", "30/08/2023"),
-  createData("Toyota", "toyoto", "Active", "30/08/2023", "30/08/2023"),
-];
-
 const CarDataTable = () => {
+  const [rows,setrows]=useState([])
+
+  useEffect(()=>{
+    axios.get("http://localhost:4000/user/getAllBrands")
+    .then((res)=>{
+      console.log(res.data.data,"dataaaaaaaaaaaaaaaaaaaaa")
+      setrows(res.data.data)
+      console.log(rows,"rowssssssssssssssssssssss")
+    })
+    .catch((err)=>{
+      console.log("ddddddddddddd")
+    })
+  },[])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -51,13 +56,13 @@ const CarDataTable = () => {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.brand}
+              key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.brand}
+                {row.name}
               </TableCell>
-              <TableCell align="center">{row.slug}</TableCell>
+              <TableCell align="center">{row.slag}</TableCell>
               <TableCell align="center">{row.status}</TableCell>
               <TableCell align="center">{row.createdDate}</TableCell>
               <TableCell align="center">{row.updatedDate}</TableCell>

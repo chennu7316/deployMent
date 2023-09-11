@@ -12,12 +12,14 @@ import {
   TextField,
 } from "@mui/material";
 import React from "react";
+import { useState ,useEffect} from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
 import { useForm, Controller } from "react-hook-form";
 import "../ModelsDataTable.css"
+import axios from "axios";
 
 interface ModelFormData {
   name: string;
@@ -28,9 +30,17 @@ interface ModelFormData {
 }
 
 const ModelForm = () => {
+  const [data,setdata]=useState({
+    Name:"",
+    Brand:"",
+    Status:"",
+    slug:"test",
+    CreatedDate:"11/09/2023",
+    UpdatedDate:"11/09/2023"
+  })
+  
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<ModelFormData>();
@@ -39,10 +49,40 @@ const ModelForm = () => {
     console.log(data);
   };
 
+  const handle=(e)=>{
+    const newData:any={...data}
+    newData[e.target.name]=e.target.value
+    setdata(newData)
+  }
+
+  const handleSubmit=(e)=>{
+    axios.post("http://localhost:4000/user/addCarModel",{
+      Name:data.Name,
+      Brand:data.Brand,
+      Status:data.Status,
+      slug:"test",
+      CreatedDate:"11/09/2023",
+      UpdatedDate:"11/09/2023"
+    })
+    .then((res)=>{
+      setdata({
+        Name:"",
+        Brand:"",
+        Status:"",
+        slug:"test",
+        CreatedDate:"11/09/2023",
+        UpdatedDate:"11/09/2023"
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+  }
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={(e)=>handleSubmit(e)}>
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add New Model</h1>
@@ -53,10 +93,12 @@ const ModelForm = () => {
                     <TextField
                       id="outlined-basic"
                       label="Name"
+                      name="Name"
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
-                      {...register("name", { required: true })}
+                      value={data.Name}
+                      onChange={(e)=>handle(e)}
                       error={!!errors.name}
                       helperText={errors.name && "This name field is required"}
                     />
@@ -65,17 +107,13 @@ const ModelForm = () => {
                 <Grid item xs={12} sm={4} md={4} lg={4}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Brand</InputLabel>
-                    <Controller
-                      name="brand"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This slug field is required" }}
-                      render={({ field }) => (
                         <Select
                           labelId="demo-select-small-label"
                           id="demo-select-small"
+                          name="Brand"
                           label="Slug"
-                          {...field}
+                          value={data.Brand}
+                          onChange={(e)=>handle(e)}
                         >
                           <MenuItem value={"toyota"}>Toyota</MenuItem>
                           <MenuItem value={"nissan"}>Nissan</MenuItem>
@@ -85,8 +123,7 @@ const ModelForm = () => {
                           <MenuItem value={"hyundai"}>Hyundai</MenuItem>
                           <MenuItem value={"honda"}>Honda</MenuItem>
                         </Select>
-                      )}
-                    />
+                
                     <FormHelperText error>
                       {errors.brand?.message}
                     </FormHelperText>
@@ -94,24 +131,19 @@ const ModelForm = () => {
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-select-small-label">Status</InputLabel>
-                    <Controller
-                      name="status"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This status field is required" }}
-                      render={({ field }) => (
+                    <InputLabel id="demo-select-small-label">Status</InputLabel>               
                         <Select
                           labelId="demo-select-small-label"
                           id="demo-select-small"
                           label="Status"
-                          {...field}
+                          name="Status"
+                          value={data.Status}
+                          onChange={(e)=>handle(e)}
                         >
                           <MenuItem value={"active"}>Active</MenuItem>
                           <MenuItem value={"inactive"}>Inactive</MenuItem>
                         </Select>
-                      )}
-                    />
+                    
                     <FormHelperText error>
                       {errors.status?.message}
                     </FormHelperText>
