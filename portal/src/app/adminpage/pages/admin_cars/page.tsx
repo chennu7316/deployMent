@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import AdminCars from "./AdminCars";
 import { Button } from "@mui/material";
 import './AdminCars.css'
+import AdminCarTable from "./AdminCarTable";
 
 const drawerWidth = 240;
 
@@ -195,9 +196,6 @@ export default function AdminHome() {
                   sx={{ pl: 4, fontSize: "5px" }}
                   onClick={() => router.push("/adminpage/pages/manage_catego")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText
                     sx={{ fontSize: "5px" }}
                     primary="Manage Categories"
@@ -207,27 +205,18 @@ export default function AdminHome() {
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_brands")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Brands" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_models")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Models" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_features")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Features" />
                 </ListItemButton>
                 <ListItemButton
@@ -236,9 +225,6 @@ export default function AdminHome() {
                     router.push("/adminpage/pages/manage_services")
                   }
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Manage Services" />
                 </ListItemButton>
                 <ListItemButton
@@ -247,18 +233,12 @@ export default function AdminHome() {
                     router.push("/adminpage/pages/engine_capacities")
                   }
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Engine Capacities" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/required_docs")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Required Documents" />
                 </ListItemButton>
               </List>
@@ -282,9 +262,6 @@ export default function AdminHome() {
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_enquiries")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Enquiries" />
                 </ListItemButton>
                 <ListItemButton
@@ -293,9 +270,6 @@ export default function AdminHome() {
                     router.push("/adminpage/pages/contact_enquiries")
                   }
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Contact Enquiries" />
                 </ListItemButton>
               </List>
@@ -366,7 +340,8 @@ export default function AdminHome() {
             </Button>
           </div>
         </div>
-        <AdminCars />
+        {/* <AdminCars /> */}
+        <AdminCarTable />
       </Main>
     </Box>
   );

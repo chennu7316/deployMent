@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
 import "../required_docs/RequiredDocs.css";
 import ReqDocsDataTable from "./ReqDocsDataTable";
+import ReqDocstable from "./ReqDocstable";
 
 const drawerWidth = 240;
 
@@ -349,7 +350,8 @@ export default function RequiredDocs() {
             </Button>
           </div>
         </div>
-        <ReqDocsDataTable />
+        {/* <ReqDocsDataTable /> */}
+        <ReqDocstable />
       </Main>
     </Box>
   );

@@ -28,7 +28,8 @@ import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
 import CarDataTable from "./CarDataTable";
 import { Button } from "@mui/material";
-import './CarBrand.css';
+import "./CarBrand.css";
+import CarBrandTable from "./CarBrandTable";
 
 const drawerWidth = 240;
 
@@ -349,7 +350,8 @@ export default function CarBrands() {
             </Button>
           </div>
         </div>
-        <CarDataTable />
+        {/* <CarDataTable /> */}
+        <CarBrandTable />
       </Main>
     </Box>
   );

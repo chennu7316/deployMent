@@ -9,28 +9,55 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import React from "react";
-import { useState ,useEffect} from "react";
 import axios from "axios";
-
-// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { DateField } from "@mui/x-date-pickers/DateField";
 import { useForm, Controller } from "react-hook-form";
-import "../CarBrand.css"
+import "../CarBrand.css";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface BrandFormData {
-  name: string;
+  brand: string;
   slug: string;
   status: string;
   createdDate: string;
   updatedDate: string;
 }
 
+interface IErrors {
+  brand: boolean;
+  select: boolean;
+}
+
 const BrandForm = () => {
+  const searchParams = useSearchParams();
+  const brand = searchParams.get("brand");
+  const status = searchParams.get("status");
+  const [error, setErrors] = useState<IErrors>({ brand: false, select: false });
+  const [textName, setTextName] = useState<string>("");
+  const [select, setSelect] = useState<string>("");
+
+  useEffect(() => {
+    if (brand) {
+      setTextName(brand);
+      setSelect(status || "");
+    }
+  }, []);
+
+  const handleTextChange = (event: SelectChangeEvent<string>) => {
+    setTextName(event.target.value);
+  };
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    // debugger;
+    setSelect(event.target.value);
+  };
+
+  const router = useRouter();
+
   const [data,setdata]=useState({
     name:"",
     status:"",
@@ -45,11 +72,25 @@ const BrandForm = () => {
     formState: { errors },
   } = useForm<BrandFormData>();
 
-  const onSubmit = (data: BrandFormData) => {
-    console.log(data);
+  const onSubmit: any = (e: any) => {
+    e.preventDefault();
+    if (!textName) {
+      setErrors({ ...error, brand: true });
+    }
+    if (!select) {
+      setErrors({ ...error, select: true });
+    }
+    const payload: { brand: string; status: string } = {
+      brand: textName,
+      status: select,
+    };
+    payload.brand = textName;
+    payload.status = select;
+    console.log(payload, "payload");
+    router.push("/adminpage/pages/car_brands");
   };
 
-  const handle=(e)=>{
+  const handle=(e:any)=>{
     console.log("welcomeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     const newData:any={...data}
     newData[e.target.name]=e.target.value
@@ -57,7 +98,7 @@ const BrandForm = () => {
    console.log(newData,"newDAatattttttttttttttt")
   }
 
-  const Submit=(e)=>{
+  const Submit=(e:any)=>{
     e.preventDefault()
     axios.post("http://localhost:4000/user/createBrand",{
       name:data.name,
@@ -98,41 +139,11 @@ const BrandForm = () => {
                       sx={{ height: "50px" }}
                       onChange={(e)=>handle(e)}
                       value={data.name}
-                      error={!!errors.name}
-                      helperText={errors.name && "This name field is required"}
+                     // error={!!errors.name}
+                     // helperText={errors.name && "This name field is required"}
                     />
                   </FormControl>
                 </Grid>
-                {/* <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-select-small-label">Slug</InputLabel>
-                    <Controller
-                      name="slug"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This slug field is required" }}
-                      render={({ field }) => (
-                        <Select
-                          labelId="demo-select-small-label"
-                          id="demo-select-small"
-                          label="Slug"
-                          {...field}
-                        >
-                          <MenuItem value={"toyota"}>Toyota</MenuItem>
-                          <MenuItem value={"nissan"}>Nissan</MenuItem>
-                          <MenuItem value={"mitsubishi"}>Mitsubishi</MenuItem>
-                          <MenuItem value={"mazda"}>Mazda</MenuItem>
-                          <MenuItem value={"kia"}>kia</MenuItem>
-                          <MenuItem value={"hyundai"}>Hyundai</MenuItem>
-                          <MenuItem value={"honda"}>Honda</MenuItem>
-                        </Select>
-                      )}
-                    />
-                    <FormHelperText error>
-                      {errors.slug?.message}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid> */}
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Status</InputLabel>
@@ -161,66 +172,6 @@ const BrandForm = () => {
                     </FormHelperText>
                   </FormControl>
                 </Grid>
-                {/* <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <Controller
-                      name="createdDate"
-                      control={control}
-                      // defaultValue=""
-                      rules={{
-                        required: "This Created date field is required",
-                      }}
-                      render={({ field }) => (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DemoContainer
-                            sx={{ margin: 0 }}
-                            components={["DateField"]}
-                          >
-                            <DateField
-                              sx={{ width: "100%", padding: 0 }}
-                              label="Created Date"
-                              slotProps={{ textField: { size: "small" } }}
-                              {...field}
-                            />
-                          </DemoContainer>
-                        </LocalizationProvider>
-                      )}
-                    />
-                    <FormHelperText error>
-                      {errors.createdDate?.message}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <Controller
-                      name="updatedDate"
-                      control={control}
-                      // defaultValue=""
-                      rules={{
-                        required: "This Updated Date field is required",
-                      }}
-                      render={({ field }) => (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DemoContainer
-                            sx={{ margin: 0 }}
-                            components={["DateField"]}
-                          >
-                            <DateField
-                              sx={{ width: "100%", padding: 0 }}
-                              label="Updated Date"
-                              slotProps={{ textField: { size: "small" } }}
-                              {...field}
-                            />
-                          </DemoContainer>
-                        </LocalizationProvider>
-                      )}
-                    />
-                    <FormHelperText error>
-                      {errors.updatedDate?.message}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid> */}
               </Grid>
             </div>
             <div className="magcatbtn">
@@ -230,9 +181,13 @@ const BrandForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                Submit
+                {brand ? "Update" : "Submit"}
               </Button>
-              <Button variant="contained" color="error">
+              <Button
+                variant="contained"
+                color="error"
+                 
+              >
                 Cancel
               </Button>
             </div>

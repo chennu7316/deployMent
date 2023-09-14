@@ -28,6 +28,7 @@ import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
 import ModelsDataTable from "./ModelsDataTable";
 import { Button } from "@mui/material";
+import CarModelTable from "./CarModelTable";
 
 const drawerWidth = 240;
 
@@ -303,7 +304,8 @@ export default function CarModels() {
             </Button>
           </div>
         </div>
-        <ModelsDataTable />
+        {/* <ModelsDataTable /> */}
+        <CarModelTable />
       </Main>
     </Box>
   );

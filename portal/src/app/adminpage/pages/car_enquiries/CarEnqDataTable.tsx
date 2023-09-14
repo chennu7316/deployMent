@@ -22,14 +22,14 @@ function createData(
   return { car, name, phoneNo, email, from, to, enquiryDate };
 }
 
-const rows = [
-  createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
-  createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
-  createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
-  createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
-  createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
-  createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
-];
+// const rows = [
+//   createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
+//   createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
+//   createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
+//   createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
+//   createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
+//   createData("fortuner", "injaz", 987456123 , "injaz@gmail.com", "01/09/2023", "05/09/2023", "05/09/2023"),
+// ];
 
 export default function CarEnqDataTable() {
 
@@ -72,7 +72,7 @@ export default function CarEnqDataTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row:any) => (
             <TableRow
               key={row.car}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

@@ -36,7 +36,7 @@ export default function ReqDocsDataTable() {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell sx={{ fontWeight: "bold" }}>Capacity</TableCell>
+            <TableCell sx={{ fontWeight: "bold" }}>Title</TableCell>
             <TableCell sx={{ fontWeight: "bold" }} align="center">
               Status
             </TableCell>

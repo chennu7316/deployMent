@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
 import "./EngineCapacity.css";
 import EngCapDataTable from "./EngCapDataTable";
+import EngCapTable from "./EngCapTable";
 
 const drawerWidth = 240;
 
@@ -304,7 +305,8 @@ export default function EngineCapacities() {
             </Button>
           </div>
         </div>
-        <EngCapDataTable />
+        {/* <EngCapDataTable /> */}
+        <EngCapTable />
       </Main>
     </Box>
   );

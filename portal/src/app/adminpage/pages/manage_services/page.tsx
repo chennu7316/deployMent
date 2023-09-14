@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import ManServDataTable from "./ManServDateTable";
 import { Button } from "@mui/material";
 import './ManageServ.css'
+import ManServTable from "./ManServTable";
 
 const drawerWidth = 240;
 
@@ -349,7 +350,8 @@ export default function ManageServices() {
             </Button>
           </div>
         </div>
-        <ManServDataTable />
+        {/* <ManServDataTable /> */}
+        <ManServTable />
       </Main>
     </Box>
   );

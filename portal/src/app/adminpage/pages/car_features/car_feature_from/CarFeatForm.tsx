@@ -9,19 +9,50 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import "../CarFeatures.css"
-import { useState,useEffect } from "react";
+import "../CarFeatures.css";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import axios from "axios";
-
 interface FeatureFormData {
   title: string;
   status: string;
 }
 
+interface IErrors {
+  title: boolean;
+  select: boolean;
+}
+
 const CarFeatForm = () => {
+  const searchParams = useSearchParams();
+  const title = searchParams.get("title");
+  const status = searchParams.get("status");
+  const [error, setErrors] = useState<IErrors>({ title: false, select: false });
+  const [textName, setTextName] = useState<string>("");
+  const [select, setSelect] = useState<string>("");
+
+  useEffect(() => {
+    if (title) {
+      setTextName(title);
+      setSelect(status || "");
+    }
+  }, []);
+
+  const handleTextChange = (event: SelectChangeEvent<string>) => {
+    setTextName(event.target.value);
+  };
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    // debugger;
+    setSelect(event.target.value);
+  };
+
+  const router = useRouter();
+
   const [data,setdata]=useState({
     Title:"",
     Status:"",
@@ -35,17 +66,31 @@ const CarFeatForm = () => {
     formState: { errors },
   } = useForm<FeatureFormData>();
 
-  const onSubmit = (data: FeatureFormData) => {
-    console.log(data);
+  const onSubmit: any = (e: any) => {
+    e.preventDefault();
+    if (!textName) {
+      setErrors({ ...error, title: true });
+    }
+    if (!select) {
+      setErrors({ ...error, select: true });
+    }
+    const payload: { title: string; status: string } = {
+      title: textName,
+      status: select,
+    };
+    payload.title = textName;
+    payload.status = select;
+    console.log(payload, "payload");
+    router.push("/adminpage/pages/car_features");
   };
 
-   const handle=(e)=>{
+   const handle=(e:any)=>{
     const newdata:any={...data}
     newdata[e.target.name]=e.target.value 
     setdata(newdata)
     console.log(data)
    }
-   const handleSubmit=(e)=>{
+   const handleSubmit=(e:any)=>{
     axios.post("http://localhost:4000/user/createCarFeatures",{
       Title:data.Title,
     Status:data.Status,
@@ -87,6 +132,8 @@ const CarFeatForm = () => {
                       onChange={(e)=>handle(e)}
                       error={!!errors.title}
                       helperText={errors.title && "This name field is required"}
+                      // onChange={(e: any) => handleTextChange(e)}
+                      // value={textName}
                     />
                   </FormControl>
                 </Grid>
@@ -120,9 +167,13 @@ const CarFeatForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                Submit
+                {title ? "Update" : "Submit"}
               </Button>
-              <Button variant="contained" color="error">
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => router.push("/adminpage/pages/car_features")}
+              >
                 Cancel
               </Button>
             </div>

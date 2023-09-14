@@ -29,6 +29,7 @@ import { useRouter } from "next/navigation";
 import CarDataTable from "./FeatDataTable";
 import { Button } from "@mui/material";
 import "./CarFeatures.css"
+import CarFeatTable from "./CarFeatTable";
 
 const drawerWidth = 240;
 
@@ -304,7 +305,8 @@ export default function CarFeatures() {
             </Button>
           </div>
         </div>
-        <CarDataTable/>
+        {/* <CarDataTable/> */}
+        <CarFeatTable />
       </Main>
     </Box>
   );

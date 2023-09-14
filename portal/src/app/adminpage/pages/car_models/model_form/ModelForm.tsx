@@ -9,9 +9,12 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  SelectChangeEvent,
   TextField,
 } from "@mui/material";
 import React from "react";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState ,useEffect} from "react";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -29,7 +32,48 @@ interface ModelFormData {
   updatedDate: string;
 }
 
+interface IErrors {
+  model: boolean;
+  brand: boolean;
+  select: boolean;
+}
+
 const ModelForm = () => {
+  const searchParams = useSearchParams();
+  const model = searchParams.get("model");
+  const brand = searchParams.get("brand");
+  const status = searchParams.get("status");
+  const [error, setErrors] = useState<IErrors>({
+    model: false,
+    select: false,
+    brand: false,
+  });
+  const [textName, setTextName] = useState<string>("");
+  const [select, setSelect] = useState<string>("");
+  const [faqans, setFaqans] = useState<string>("");
+
+  useEffect(() => {
+    if (model) {
+      setTextName(model);
+      setFaqans(brand || "");
+      setSelect(status || "");
+    }
+  }, []);
+
+  const handleTextChange = (event: SelectChangeEvent<string>) => {
+    setTextName(event.target.value);
+  };
+  const handleSelectChange = (event: SelectChangeEvent<string>) => {
+    // debugger;
+    setSelect(event.target.value);
+  };
+  const handleAnswerCanage = (event: SelectChangeEvent<string>) => {
+    // debugger;
+    setFaqans(event.target.value);
+  };
+
+  const router = useRouter();
+
   const [data,setdata]=useState({
     Name:"",
     Brand:"",
@@ -45,17 +89,37 @@ const ModelForm = () => {
     formState: { errors },
   } = useForm<ModelFormData>();
 
-  const onSubmit = (data: ModelFormData) => {
-    console.log(data);
+  const onSubmit: any = (e: any) => {
+    e.preventDefault();
+    // debugger
+    if (!textName) {
+      setErrors({ ...error, model: true });
+    }
+    if (!select) {
+      setErrors({ ...error, select: true });
+    }
+    if (!faqans) {
+      setErrors({ ...error, brand: true });
+    }
+    const payload: { model: string; status: string; brand: string } = {
+      model: textName,
+      status: select,
+      brand: faqans,
+    };
+    payload.model = textName;
+    payload.status = select;
+    payload.brand = faqans;
+    console.log(payload, "payload");
+    router.push("/adminpage/pages/car_models");
   };
 
-  const handle=(e)=>{
+  const handle=(e:any)=>{
     const newData:any={...data}
     newData[e.target.name]=e.target.value
     setdata(newData)
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=(e:any)=>{
     axios.post("http://localhost:4000/user/addCarModel",{
       Name:data.Name,
       Brand:data.Brand,
@@ -101,6 +165,9 @@ const ModelForm = () => {
                       onChange={(e)=>handle(e)}
                       error={!!errors.name}
                       helperText={errors.name && "This name field is required"}
+                      // onChange={(e: any) => handleTextChange(e)}
+                      required
+                      // value={textName}
                     />
                   </FormControl>
                 </Grid>
@@ -149,66 +216,6 @@ const ModelForm = () => {
                     </FormHelperText>
                   </FormControl>
                 </Grid>
-                {/* <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <Controller
-                      name="createdDate"
-                      control={control}
-                      // defaultValue=""
-                      rules={{
-                        required: "This Created date field is required",
-                      }}
-                      render={({ field }) => (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DemoContainer
-                            sx={{ margin: 0 }}
-                            components={["DateField"]}
-                          >
-                            <DateField
-                              sx={{ width: "100%", padding: 0 }}
-                              label="Created Date"
-                              slotProps={{ textField: { size: "small" } }}
-                              {...field}
-                            />
-                          </DemoContainer>
-                        </LocalizationProvider>
-                      )}
-                    />
-                    <FormHelperText error>
-                      {errors.createdDate?.message}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <Controller
-                      name="updatedDate"
-                      control={control}
-                      // defaultValue=""
-                      rules={{
-                        required: "This Updated Date field is required",
-                      }}
-                      render={({ field }) => (
-                        <LocalizationProvider dateAdapter={AdapterDayjs}>
-                          <DemoContainer
-                            sx={{ margin: 0 }}
-                            components={["DateField"]}
-                          >
-                            <DateField
-                              sx={{ width: "100%", padding: 0 }}
-                              label="Updated Date"
-                              slotProps={{ textField: { size: "small" } }}
-                              {...field}
-                            />
-                          </DemoContainer>
-                        </LocalizationProvider>
-                      )}
-                    />
-                    <FormHelperText error>
-                      {errors.updatedDate?.message}
-                    </FormHelperText>
-                  </FormControl>
-                </Grid> */}
               </Grid>
             </div>
             <div className="magcatbtn">
@@ -218,9 +225,9 @@ const ModelForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                Submit
+                {model ? "Update" : "Submit"}
               </Button>
-              <Button variant="contained" color="error">
+              <Button variant="contained" color="error" onClick={() => router.push("/adminpage/pages/car_models")}>
                 Cancel
               </Button>
             </div>
