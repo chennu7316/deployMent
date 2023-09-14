@@ -13,6 +13,8 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import "../EngineCapacity.css"
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 interface EngCapFormData {
   capacity: string;
@@ -22,7 +24,6 @@ interface EngCapFormData {
 const EngCapForm = () => {
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<EngCapFormData>();
@@ -31,10 +32,37 @@ const EngCapForm = () => {
     console.log(data);
   };
 
+  const [data,setdata]=useState({
+    Capacity:'',
+    Status:'',
+    CreatedDate:'1/2/2023'
+  })
+const handle=(e)=>{
+  const newdata:any={...data}
+  newdata[e.target.name]=e.target.value
+  setdata(newdata)
+}
+const handleSubmit=(e)=>{
+    axios.post("http://localhost:4000/user/createcarEngineCapacities",{
+      Capacity:data.Capacity,
+        Status:data.Status,
+        CreatedDate:data.CreatedDate
+    })
+    .then(()=>{
+      setdata({
+        Capacity:'',
+        Status:'',
+        CreatedDate:''
+      })
+    })
+    .catch((err)=>{
+      console.log("errr",err)
+    })
+}
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={(e)=>handleSubmit(e)}>
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add New Engine Capacity</h1>
@@ -48,7 +76,9 @@ const EngCapForm = () => {
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
-                      {...register("capacity", { required: true })}
+                      name="Capacity"
+                      value={data.Capacity}
+                      onChange={(e)=>handle(e)}
                       error={!!errors.capacity}
                       helperText={errors.capacity && "This name field is required"}
                     />
@@ -56,24 +86,18 @@ const EngCapForm = () => {
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-select-small-label">Status</InputLabel>
-                    <Controller
-                      name="status"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This status field is required" }}
-                      render={({ field }) => (
+                    <InputLabel id="demo-select-small-label">Status</InputLabel>              
                         <Select
                           labelId="demo-select-small-label"
                           id="demo-select-small"
                           label="Status"
-                          {...field}
+                          name="Status"
+                          value={data.Status}
+                          onChange={(e)=>handle(e)}
                         >
                           <MenuItem value={"active"}>Active</MenuItem>
                           <MenuItem value={"inactive"}>Inactive</MenuItem>
                         </Select>
-                      )}
-                    />
                     <FormHelperText error>
                       {errors.status?.message}
                     </FormHelperText>

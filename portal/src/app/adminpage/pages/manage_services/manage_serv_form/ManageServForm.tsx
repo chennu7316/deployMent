@@ -13,16 +13,25 @@ import {
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 import "../ManageServ.css"
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 interface ManageServFormData {
-  title: string;
+  Title: string;
   status: string;
 }
 
 const ManageServForm = () => {
+
+  const [data,setdata]=useState({
+    Title:'',
+    Status:'',
+    CreatedDate:'1/2/2024',
+    UpdatedDate:'2/5/2025'
+  })
+
   const {
     register,
-    handleSubmit,
     control,
     formState: { errors },
   } = useForm<ManageServFormData>();
@@ -31,24 +40,53 @@ const ManageServForm = () => {
     console.log(data);
   };
 
+  const handle=(e)=>{
+    console.log("hello")
+    const newdata:any={...data}
+    newdata[e.target.name]=e.target.value
+    setdata(newdata)
+  }
+
+  const handleSubmit=(e)=>{
+    axios.post("http://localhost:4000/user/createCarServices",{
+      Title:data.Title,
+    Status:data.Status,
+    CreatedDate:data.CreatedDate,
+    UpdatedDate:data.UpdatedDate
+
+    })
+    .then((res)=>{
+      setdata({
+        Title:'',
+        Status:'',
+        CreatedDate:'1/2/2024',
+        UpdatedDate:'2/5/2025'
+      })
+    })
+    .catch((err)=>{
+      console.log(err,"error")
+    })
+  }
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={(e)=>handleSubmit(e)}>
           <Container className="catecontbox">
             <div className="newcate_head">
-              <h1>Add New Feature</h1>
+              <h1>Add New Manage Service</h1>
 
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }}>
                     <TextField
-                      id="outlined-basic"
+                      id="Title"
                       label="Title"
                       variant="outlined"
                       size="small"
                       sx={{ height: "50px" }}
-                      {...register("title", { required: true })}
+                      name="Title"
+                      value={data.Title}
+                      onChange={(e)=>handle(e)}
                       error={!!errors.title}
                       helperText={errors.title && "This name field is required"}
                     />
@@ -57,23 +95,18 @@ const ManageServForm = () => {
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Status</InputLabel>
-                    <Controller
-                      name="status"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This status field is required" }}
-                      render={({ field }) => (
+                  
                         <Select
                           labelId="demo-select-small-label"
-                          id="demo-select-small"
+                          id="Status"
                           label="Status"
-                          {...field}
+                          name="Status"
+                          value={data.Status}
+                      onChange={(e)=>handle(e)}
                         >
                           <MenuItem value={"active"}>Active</MenuItem>
                           <MenuItem value={"inactive"}>Inactive</MenuItem>
                         </Select>
-                      )}
-                    />
                     <FormHelperText error>
                       {errors.status?.message}
                     </FormHelperText>

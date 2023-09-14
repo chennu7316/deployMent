@@ -54,6 +54,7 @@ const AddNewCate = () => {
     console.log("welcomeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
     const newData:any={...data}
     newData[e.target.name]=e.target.value
+    console.log(newData[e.target.name]=e.target.value,"newData[e.target.name]=e.target.value")
     setdata(newData)
    console.log(newData,"newDAatattttttttttttttt")
   }

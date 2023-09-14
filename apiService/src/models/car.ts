@@ -181,6 +181,7 @@ export interface CarModel {
     Capacity: string;
     Status?: string;
     CreatedDate: string;
+    UpdatedDate: string;
   }
 
   export interface carDocument {

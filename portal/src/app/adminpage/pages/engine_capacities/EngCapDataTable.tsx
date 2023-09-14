@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 function createData(
   capacity: string,
@@ -17,16 +19,19 @@ function createData(
   return { capacity, status, createdDate, updatedDate };
 }
 
-const rows = [
-  createData("Service & Maintenance Free", "Active", "30/08/2023", "30/08/2023"),
-  createData("Service & Maintenance Free", "Active", "30/08/2023", "30/08/2023"),
-  createData("Service & Maintenance Free", "Active", "30/08/2023", "30/08/2023"),
-  createData("Service & Maintenance Free", "Active", "30/08/2023", "30/08/2023"),
-  createData("Service & Maintenance Free", "Active", "30/08/2023", "30/08/2023"),
-  createData("Service & Maintenance Free", "Active", "30/08/2023", "30/08/2023"),
-];
-
 export default function EngCapDataTable() {
+
+  const [rows,setrows]=useState([])
+  useEffect(()=>{
+    axios.get("http://localhost:4000/user/getAllcarEngineCapacities")
+    .then((res)=>{
+      setrows(res.data.data)
+      console.log(res.data.data,"res.data.datares.data.datares.data.datares.data.data")
+    })
+    .catch((err)=>{
+            console.log(err,"errorr")
+    })
+  },[])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -47,15 +52,15 @@ export default function EngCapDataTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.capacity}
+              key={row.Capacity}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.capacity}
+                {row.Capacity}
               </TableCell>
-              <TableCell align="center">{row.status}</TableCell>
-              <TableCell align="center">{row.createdDate}</TableCell>
-              <TableCell align="center">{row.updatedDate}</TableCell>
+              <TableCell align="center">{row.Status}</TableCell>
+              <TableCell align="center">{row.CreatedDate}</TableCell>
+              <TableCell align="center">{row.CreatedDate}</TableCell>
             </TableRow>
           ))}
         </TableBody>

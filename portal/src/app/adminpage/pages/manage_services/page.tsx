@@ -335,7 +335,7 @@ export default function ManageServices() {
         <DrawerHeader />
         <div className="mang_serv_data_table">
           <div className="mang_serv_table_text">
-            <h1>Car Features</h1>
+            <h1>Manage Services</h1>
           </div>
           <div className="mang_serv_table_btn">
             <Button

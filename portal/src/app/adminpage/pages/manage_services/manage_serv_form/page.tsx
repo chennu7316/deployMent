@@ -220,7 +220,7 @@ export default function ManageServiceForm() {
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_features")}
                 >
-                  <ListItemText primary="Car Features" />
+                  <ListItemText primary="Manage Service" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}

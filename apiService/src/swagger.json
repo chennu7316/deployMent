@@ -1685,7 +1685,10 @@
          },
          "CreatedDate":{
             "type":"string"
-         }       
+         },
+         "UpdatedDate":{
+            "type":"string"
+         }      
       }
    },
    "carDocument":{

@@ -7,6 +7,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { useState,useEffect } from "react";
+import axios from "axios";
 
 function createData(
   title: string,
@@ -27,6 +29,20 @@ const rows = [
 ];
 
 export default function ManServDataTable() {
+  const [rows,setrows]=useState([])
+  useEffect(()=>{
+
+    axios.get("http://localhost:4000/user/getAllCarServices")
+    .then((res)=>{
+      setrows(res.data.data)
+      console.log(res.data.data,"res.data.datares.data.datares.data.data")
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+
+
+  },[])
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -47,15 +63,15 @@ export default function ManServDataTable() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.title}
+              key={row.Title}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.title}
+                {row.Title}
               </TableCell>
-              <TableCell align="center">{row.status}</TableCell>
-              <TableCell align="center">{row.createdDate}</TableCell>
-              <TableCell align="center">{row.updatedDate}</TableCell>
+              <TableCell align="center">{row.Status}</TableCell>
+              <TableCell align="center">{row.CreatedDate}</TableCell>
+              <TableCell align="center">{row.UpdatedDate}</TableCell>
             </TableRow>
           ))}
         </TableBody>

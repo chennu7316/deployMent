@@ -572,6 +572,11 @@ carsRouter.post('/createCarServices', async (req: Request, res: Response) => {
     if (!data.Title || !data.CreatedDate || !data.UpdatedDate) {
       return res.status(400).send({ status: 400, message: 'Required fields are missing.' });
     }
+    const date = new Date(); 
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    data.CreatedDate=formattedDate
+    data.UpdatedDate=formattedDate
     const result = await collections.addCarServices.insertOne(data);
 
     if (result) {
@@ -610,6 +615,11 @@ carsRouter.post('/createcarEngineCapacities', async (req: Request, res: Response
     if (!data.Capacity || !data.CreatedDate) {
       return res.status(400).send({ status: 400, message: 'Required fields are missing.' });
     }
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    data.CreatedDate=formattedDate
+    data.UpdatedDate=formattedDate
     const result = await collections.addCarEngineCapacities.insertOne(data);
 
     if (result) {
@@ -648,6 +658,11 @@ carsRouter.post('/createcarDocument', async (req: Request, res: Response) => {
     if (!data.Title || !data.CreatedDate || !data.UpdatedDate) {
       return res.status(400).send({ status: 400, message: 'Required fields are missing.' });
     }
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    data.CreatedDate=formattedDate
+    data.UpdatedDate=formattedDate
     const result = await collections.addCarDocument.insertOne(data);
 
     if (result) {
@@ -686,6 +701,11 @@ carsRouter.post('/createcarLoaction', async (req: Request, res: Response) => {
     if (!data.Name || !data.CreatedDate || !data.UpdatedDate) {
       return res.status(400).send({ status: 400, message: 'Required fields are missing.' });
     }
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    data.CreatedDate=formattedDate
+    data.UpdatedDate=formattedDate
     const result = await collections.addCarLoaction.insertOne(data);
 
     if (result) {
@@ -722,6 +742,11 @@ carsRouter.post('/createFAQS', async (req: Request, res: Response) => {
     if (!data.Question || !data.Answer || !data.CreatedDate || !data.UpdatedDate) {
       return res.status(400).send({ status: 400, message: 'Required fields are missing.' });
     }
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    data.CreatedDate=formattedDate
+    data.UpdatedDate=formattedDate
     const result = await collections.addFAQS.insertOne(data);
 
     if (result) {
