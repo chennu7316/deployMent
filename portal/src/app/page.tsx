@@ -7,8 +7,8 @@ export default function Home() {
   console.log("firstttttttttttttttt");
   return (
     <>
-      <AdminHome />
-      {/* <LandingPage /> */}
+      {/* <AdminHome /> */}
+      <LandingPage />
     </>
   );
 }

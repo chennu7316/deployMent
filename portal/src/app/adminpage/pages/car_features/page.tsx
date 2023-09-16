@@ -305,8 +305,8 @@ export default function CarFeatures() {
             </Button>
           </div>
         </div>
-        {/* <CarDataTable/> */}
-        <CarFeatTable />
+        <CarDataTable/>
+        {/* <CarFeatTable /> */}
       </Main>
     </Box>
   );

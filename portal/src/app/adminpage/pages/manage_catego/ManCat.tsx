@@ -22,14 +22,14 @@ function createData(
 
 
 export default function ManCat() {
-  const [rows,setrows]=useState([])
+  const [rows2,setrows2]=useState([])
 
   useEffect(()=>{
     axios.get("http://localhost:4000/user/getAllCategoryes")
     .then((res)=>{
       console.log(res.data.data,"dataaaaaaaaaaaaaaaaaaaaa")
-      setrows(res.data.data)
-      console.log(rows,"rowssssssssssssssssssssss")
+      setrows2(res.data.data)
+      console.log(rows2,"rowssssssssssssssssssssss")
     })
     .catch((err)=>{
       console.log("ddddddddddddd")
@@ -56,7 +56,7 @@ export default function ManCat() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows2.map((row:any) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

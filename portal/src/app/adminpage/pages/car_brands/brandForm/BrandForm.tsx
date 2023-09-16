@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface BrandFormData {
-  brand: string;
+  name: string;
   slug: string;
   status: string;
   createdDate: string;
@@ -29,21 +29,21 @@ interface BrandFormData {
 }
 
 interface IErrors {
-  brand: boolean;
+  name: boolean;
   select: boolean;
 }
 
 const BrandForm = () => {
   const searchParams = useSearchParams();
-  const brand = searchParams.get("brand");
+  const name = searchParams.get("name");
   const status = searchParams.get("status");
-  const [error, setErrors] = useState<IErrors>({ brand: false, select: false });
+  const [error, setErrors] = useState<IErrors>({ name: false, select: false });
   const [textName, setTextName] = useState<string>("");
   const [select, setSelect] = useState<string>("");
 
   useEffect(() => {
-    if (brand) {
-      setTextName(brand);
+    if (name) {
+      setTextName(name);
       setSelect(status || "");
     }
   }, []);
@@ -75,7 +75,7 @@ const BrandForm = () => {
   const onSubmit: any = (e: any) => {
     e.preventDefault();
     if (!textName) {
-      setErrors({ ...error, brand: true });
+      setErrors({ ...error, name: true });
     }
     if (!select) {
       setErrors({ ...error, select: true });
@@ -117,7 +117,7 @@ const BrandForm = () => {
         updatedDate:"2/2/2023"
       })
     })
-
+    router.push("/adminpage/pages/car_brands");
   }
   return (
     <div className="addnew_cate">
@@ -181,7 +181,7 @@ const BrandForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {brand ? "Update" : "Submit"}
+                {name ? "Update" : "Submit"}
               </Button>
               <Button
                 variant="contained"

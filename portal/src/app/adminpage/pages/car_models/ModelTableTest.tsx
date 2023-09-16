@@ -21,26 +21,26 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 interface Data {
-  name: string;
-  slag: string;
-  status: string;
-  createdDate: string;
-  updatedDate: string;
+  Name: string;
+  Brand: string;
+  Status: string;
+  CreatedDate: string;
+  UpdatedDate: string;
 }
 
 function createData(
-  name: string,
-  slag: string,
-  status: string,
-  createdDate: string,
-  updatedDate: string
+    Name: string,
+    Brand: string,
+    Status: string,
+    CreatedDate: string,
+    UpdatedDate: string
 ): Data {
   return {
-    name,
-    slag,
-    status,
-    createdDate,
-    updatedDate,
+    Name,
+    Brand,
+    Status,
+    CreatedDate,
+    UpdatedDate,
   };
 }
 
@@ -100,31 +100,31 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: "name",
+    id: "Name",
     numeric: false,
     disablePadding: true,
     label: "Name",
   },
   {
-    id: "slag",
+    id: "Brand",
     numeric: true,
     disablePadding: false,
-    label: "Slug",
+    label: "Brand",
   },
   {
-    id: "status",
+    id: "Status",
     numeric: true,
     disablePadding: false,
     label: "Status",
   },
   {
-    id: "createdDate",
+    id: "CreatedDate",
     numeric: true,
     disablePadding: false,
     label: "CreatedDate",
   },
   {
-    id: "updatedDate",
+    id: "UpdatedDate",
     numeric: true,
     disablePadding: false,
     label: "UpdatedDate",
@@ -190,9 +190,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function BrandTableTest() {
+export default function ModelTableTest() {
   const [order, setOrder] = React.useState<Order>("desc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("slag");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("Brand");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -204,7 +204,7 @@ export default function BrandTableTest() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user/getAllCategoryes")
+      .get("http://localhost:4000/user/getAllCarModel")
       .then((res) => {
         console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
@@ -219,7 +219,7 @@ export default function BrandTableTest() {
   const requestSearch = (searchedVal: string) => {
     setSearched(searchedVal);
     const filteredRows = rows.filter((row1:any) => {
-      return row1.name.toLowerCase().includes(searchedVal.toLowerCase());
+      return row1.Name.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setrows(filteredRows);
     const b =Rows
@@ -246,7 +246,7 @@ export default function BrandTableTest() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = Rows.map((n:any) => n.name);
+      const newSelected = Rows.map((n:any) => n.Name);
       setSelected(newSelected);
       return;
     }
@@ -338,18 +338,18 @@ export default function BrandTableTest() {
               />
               <TableBody>
                 {visibleRows.map((row:any, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row._id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     // {Rows.map((row:any) => (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.Name)}
+                      onClick={(event) => handleClick(event, row._id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.Name}
+                      key={row._id}
                       selected={isItemSelected}
                       sx={{ cursor: "pointer" }}
                     >
@@ -360,12 +360,12 @@ export default function BrandTableTest() {
                         scope="row"
                         padding="none"
                       >
-                        {row.name}
+                        {row.Name}
                       </TableCell>
-                      <TableCell align="left">{row.slag}</TableCell>
-                      <TableCell align="left">{row.status}</TableCell>
-                      <TableCell align="left">{row.createdDate}</TableCell>
-                      <TableCell align="left">{row.updatedDate}</TableCell>
+                      <TableCell align="left">{row.Brand}</TableCell>
+                      <TableCell align="left">{row.Status}</TableCell>
+                      <TableCell align="left">{row.CreatedDate}</TableCell>
+                      <TableCell align="left">{row.UpdatedDate}</TableCell>
                       
                       <TableCell align="center">
                         <BorderColorIcon

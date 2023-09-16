@@ -10,15 +10,15 @@ import Paper from "@mui/material/Paper";
 import { useState ,useEffect} from "react";
 import axios from "axios";
 
-function createData(
-  brand: string,
-  slug: string,
-  status: string,
-  createdDate: string,
-  updatedDate: string,
-) {
-  return { brand, slug, status, createdDate, updatedDate };
-}
+// function createData(
+//   brand: string,
+//   slug: string,
+//   status: string,
+//   createdDate: string,
+//   updatedDate: string,
+// ) {
+//   return { brand, slug, status, createdDate, updatedDate };
+// }
 const CarDataTable = () => {
   const [rows,setrows]=useState([])
 
@@ -33,6 +33,7 @@ const CarDataTable = () => {
       console.log("ddddddddddddd")
     })
   },[])
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -54,7 +55,7 @@ const CarDataTable = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows.map((row:any) => (
             <TableRow
               key={row.name}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

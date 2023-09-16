@@ -103,7 +103,7 @@ const headCells: readonly HeadCell[] = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Name",
+    label: "Brand",
   },
   {
     id: "slag",
@@ -204,7 +204,7 @@ export default function BrandTableTest() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user/getAllCategoryes")
+      .get("http://localhost:4000/user/getAllBrands")
       .then((res) => {
         console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
@@ -345,11 +345,11 @@ export default function BrandTableTest() {
                     // {Rows.map((row:any) => (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.Name)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.Name}
+                      key={row.id}
                       selected={isItemSelected}
                       sx={{ cursor: "pointer" }}
                     >

@@ -118,7 +118,7 @@ const AddNewCate = () => {
         updatedDate:"2/2/2023"
       })
     })
-
+    router.push("/adminpage/pages/manage_catego");
   }
   return (
     <div className="addnew_cate">

@@ -30,6 +30,7 @@ import CarDataTable from "./CarDataTable";
 import { Button } from "@mui/material";
 import "./CarBrand.css";
 import CarBrandTable from "./CarBrandTable";
+import BrandTableTest from "./BrandTableTest";
 
 const drawerWidth = 240;
 
@@ -351,7 +352,8 @@ export default function CarBrands() {
           </div>
         </div>
         {/* <CarDataTable /> */}
-        <CarBrandTable />
+        {/* <CarBrandTable /> */}
+        <BrandTableTest />
       </Main>
     </Box>
   );
