@@ -30,6 +30,7 @@ import { Button } from "@mui/material";
 import "../required_docs/RequiredDocs.css";
 import ReqDocsDataTable from "./ReqDocsDataTable";
 import ReqDocstable from "./ReqDocstable";
+import ReqDocsTableTest from "./ReqDocsTableTest";
 
 const drawerWidth = 240;
 
@@ -351,7 +352,8 @@ export default function RequiredDocs() {
           </div>
         </div>
         {/* <ReqDocsDataTable /> */}
-        <ReqDocstable />
+        {/* <ReqDocstable /> */}
+        <ReqDocsTableTest />
       </Main>
     </Box>
   );

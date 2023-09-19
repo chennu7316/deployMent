@@ -23,6 +23,8 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { useForm, Controller } from "react-hook-form";
 import "../ModelsDataTable.css"
 import axios from "axios";
+import Swal from 'sweetalert2';
+
 
 interface ModelFormData {
   name: string;
@@ -40,6 +42,8 @@ interface IErrors {
 
 const ModelForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
+  //console.log(JSON.parse(row),"jjjjjjjjjjjjjjjjjjjjjjjjjj")
   const model = searchParams.get("model");
   const brand = searchParams.get("brand");
   const status = searchParams.get("status");
@@ -53,10 +57,26 @@ const ModelForm = () => {
   const [faqans, setFaqans] = useState<string>("");
 
   useEffect(() => {
-    if (model) {
-      setTextName(model);
-      setFaqans(brand || "");
-      setSelect(status || "");
+
+    if (id) {
+      axios.get(`http://localhost:4000/user/getCarModel/${id}`)
+    .then((res)=>{
+      debugger
+      const {Name,Brand,Status,CreatedDate,UpdatedDate,slug}=res.data.data
+      setdata({
+        _id:id,
+        Name:Name,
+        Brand:Brand,
+        Status:Status,
+        slug:slug,
+        CreatedDate:CreatedDate,
+        UpdatedDate:UpdatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -75,6 +95,7 @@ const ModelForm = () => {
   const router = useRouter();
 
   const [data,setdata]=useState({
+    _id:"",
     Name:"",
     Brand:"",
     Status:"",
@@ -120,27 +141,69 @@ const ModelForm = () => {
   }
 
   const handleSubmit=(e:any)=>{
-    axios.post("http://localhost:4000/user/addCarModel",{
-      Name:data.Name,
-      Brand:data.Brand,
-      Status:data.Status,
-      slug:"test",
-      CreatedDate:"11/09/2023",
-      UpdatedDate:"11/09/2023"
-    })
-    .then((res)=>{
-      setdata({
-        Name:"",
-        Brand:"",
-        Status:"",
+    e.preventDefault()
+    if(id){
+      axios.put("http://localhost:4000/user/updateCarModel",{
+        _id:id,
+        Name:data.Name,
+        Brand:data.Brand,
+        Status:data.Status,
+        slug:data.slug,
+        CreatedDate:data.CreatedDate,
+        UpdatedDate:data.UpdatedDate
+      })
+      .then((res)=>{
+        Swal.fire(
+          'Updated!',
+          'The car model has been updated.',
+          'success'
+        )
+        debugger
+        setdata({
+        _id:"",
+          Name:"",
+          Brand:"",
+          Status:"",
+          slug:"test",
+          CreatedDate:"11/09/2023",
+          UpdatedDate:"11/09/2023"
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+        debugger
+
+      })
+    }else{
+      axios.post("http://localhost:4000/user/addCarModel",{
+        Name:data.Name,
+        Brand:data.Brand,
+        Status:data.Status,
         slug:"test",
         CreatedDate:"11/09/2023",
         UpdatedDate:"11/09/2023"
       })
-    })
-    .catch((err)=>{
-      console.log(err)
-    })
+      .then((res)=>{
+        Swal.fire(
+          'Added!',
+          'The car model has been added.',
+          'success'
+        )
+        setdata({
+          _id:"",
+          Name:"",
+          Brand:"",
+          Status:"",
+          slug:"test",
+          CreatedDate:"11/09/2023",
+          UpdatedDate:"11/09/2023"
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
+    router.push("/adminpage/pages/car_models");
 
   }
   return (
@@ -225,7 +288,7 @@ const ModelForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {model ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button variant="contained" color="error" onClick={() => router.push("/adminpage/pages/car_models")}>
                 Cancel

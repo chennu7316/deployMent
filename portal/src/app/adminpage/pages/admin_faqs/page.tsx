@@ -27,9 +27,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
-import "./AdminFaq.css"
+import "./AdminFaq.css";
 import AdmFaqDataTable from "./AdmFaqDataTable";
 import FaqDataTableTest from "./FaqDataTableTest";
+import AdmFaqTableTest from "./AdmFaqTableTest";
 
 const drawerWidth = 240;
 
@@ -154,7 +155,11 @@ export default function AdminFaqs() {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_cars")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_cars")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -178,8 +183,8 @@ export default function AdminFaqs() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} >
-            <ListItemButton onClick={handleClick} >
+          <ListItem disablePadding sx={{ display: "block" }}>
+            <ListItemButton onClick={handleClick}>
               <ListItemIcon sx={{ minWidth: "52px" }}>
                 <SettingsIcon sx={{ marginLeft: "4px" }} />
               </ListItemIcon>
@@ -192,28 +197,53 @@ export default function AdminFaqs() {
             </ListItemButton>
             <Collapse in={topen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4, fontSize: "5px" }} onClick={()=>router.push("/adminpage/pages/manage_catego")}>
+                <ListItemButton
+                  sx={{ pl: 4, fontSize: "5px" }}
+                  onClick={() => router.push("/adminpage/pages/manage_catego")}
+                >
                   <ListItemText
                     sx={{ fontSize: "5px" }}
                     primary="Manage Categories"
                   />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_brands")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_brands")}
+                >
                   <ListItemText primary="Car Brands" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_models")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_models")}
+                >
                   <ListItemText primary="Car Models" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_features")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_features")}
+                >
                   <ListItemText primary="Car Features" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/manage_services")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/manage_services")
+                  }
+                >
                   <ListItemText primary="Manage Services" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/engine_capacities")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/engine_capacities")
+                  }
+                >
                   <ListItemText primary="Engine Capacities" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/required_docs")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/required_docs")}
+                >
                   <ListItemText primary="Required Documents" />
                 </ListItemButton>
               </List>
@@ -233,22 +263,34 @@ export default function AdminFaqs() {
             </ListItemButton>
             <Collapse in={eopen} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/car_enquiries")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() => router.push("/adminpage/pages/car_enquiries")}
+                >
                   <ListItemText primary="Car Enquiries" />
                 </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }} onClick={()=>router.push("/adminpage/pages/contact_enquiries")}>
+                <ListItemButton
+                  sx={{ pl: 4 }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/contact_enquiries")
+                  }
+                >
                   <ListItemText primary="Contact Enquiries" />
                 </ListItemButton>
               </List>
             </Collapse>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_location")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_location")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
                 justifyContent: open ? "initial" : "center",
                 px: 2.5,
-              }} 
+              }}
             >
               <ListItemIcon
                 sx={{
@@ -265,7 +307,11 @@ export default function AdminFaqs() {
               />
             </ListItemButton>
           </ListItem>
-          <ListItem disablePadding sx={{ display: "block" }} onClick={()=>router.push("/adminpage/pages/admin_faqs")}>
+          <ListItem
+            disablePadding
+            sx={{ display: "block" }}
+            onClick={() => router.push("/adminpage/pages/admin_faqs")}
+          >
             <ListItemButton
               sx={{
                 minHeight: 48,
@@ -306,7 +352,8 @@ export default function AdminFaqs() {
           </div>
         </div>
         {/* <AdmFaqDataTable /> */}
-        <FaqDataTableTest />
+        {/* <FaqDataTableTest /> */}
+        <AdmFaqTableTest />
       </Main>
     </Box>
   );

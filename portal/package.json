@@ -29,6 +29,7 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.16.0",
+    "moment": "^2.29.4",
     "next": "13.4.12",
     "npm": "^9.6.2",
     "postcss": "^8.4.27",
@@ -39,6 +40,7 @@
     "react-responsive-carousel": "^3.2.23",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.7.28",
     "swiper": "^10.1.0",
     "tailwindcss": "^3.3.3",
     "typescript": "5.1.6"

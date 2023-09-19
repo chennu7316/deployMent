@@ -8,58 +8,46 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
-import {
-  Alert,
-  Button,
-  Container,
-  IconButton,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import { Button, Container, IconButton, InputAdornment, TextField } from "@mui/material";
 import { useRouter } from "next/navigation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Swal from 'sweetalert2';
-
 
 interface Data {
-  Name: string;
-  Brand: string;
+    Name: string;
   Status: string;
   CreatedDate: string;
   UpdatedDate: string;
 }
 
 function createData(
-  Name: string,
-  Brand: string,
+    Name: string,
   Status: string,
   CreatedDate: string,
   UpdatedDate: string
 ): Data {
   return {
     Name,
-    Brand,
     Status,
     CreatedDate,
     UpdatedDate,
   };
 }
 
-const rows1 = [
-  createData("Toyota", "toyota", "Active", "5/08/2023", "5/08/2023"),
-  createData("Nissan", "nissan", "Active", "4/08/2023", "4/08/2023"),
-  createData("Mitsubishi", "mitsubishi", "Active", "3/08/2023", "3/08/2023"),
-  createData("Mazda", "mazda", "Active", "2/08/2023", "2/08/2023"),
-  createData("Kia", "kia", "Active", "1/08/2023", "1/08/2023"),
-];
+// const rows1 = [
+//   createData("Toyota", "toyota", "Active", "5/08/2023", "5/08/2023"),
+//   createData("Nissan", "nissan", "Active", "4/08/2023", "4/08/2023"),
+//   createData("Mitsubishi", "mitsubishi", "Active", "3/08/2023", "3/08/2023"),
+//   createData("Mazda", "mazda", "Active", "2/08/2023", "2/08/2023"),
+//   createData("Kia", "kia", "Active", "1/08/2023", "1/08/2023"),
+// ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -114,12 +102,12 @@ const headCells: readonly HeadCell[] = [
     disablePadding: true,
     label: "Name",
   },
-  {
-    id: "Brand",
-    numeric: true,
-    disablePadding: false,
-    label: "Brand",
-  },
+//   {
+//     id: "slag",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "Slug",
+//   },
   {
     id: "Status",
     numeric: true,
@@ -199,9 +187,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function ModelTableTest() {
+export default function AdmLocTableTest() {
   const [order, setOrder] = React.useState<Order>("desc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("Brand");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("Name");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -213,11 +201,11 @@ export default function ModelTableTest() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user/getAllCarModel")
+      .get("http://localhost:4000/user/getAllcarLoaction")
       .then((res) => {
         console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
-        setRows(res.data.data);
+        setRows(res.data.data)
         console.log(Rows, "rowssssssssssssssssssssss");
       })
       .catch((err) => {
@@ -227,20 +215,20 @@ export default function ModelTableTest() {
 
   const requestSearch = (searchedVal: string) => {
     setSearched(searchedVal);
-    const filteredRows = rows.filter((row1: any) => {
+    const filteredRows = rows.filter((row1:any) => {
       return row1.Name.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setrows(filteredRows);
-    const b = Rows;
-    debugger;
+    const b =Rows
+    debugger
   };
 
   const cancelSearch = () => {
-    const a = Rows;
-    debugger;
-    setSearched("");
+    const a =Rows
+    debugger
+    setSearched("")
     setrows(rows);
-    requestSearch(searched);
+   requestSearch(searched);
   };
   const router = useRouter();
 
@@ -255,7 +243,7 @@ export default function ModelTableTest() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = Rows.map((n: any) => n.Name);
+      const newSelected = Rows.map((n:any) => n.name);
       setSelected(newSelected);
       return;
     }
@@ -308,19 +296,8 @@ export default function ModelTableTest() {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage, searched, Rows, selected]
+    [order, orderBy, page, rowsPerPage, searched,Rows,selected]
   );
-
-  // const handleDelete = async (id: number) => {
-  //   try {
-  //     const response = await axios.delete(`http://localhost:4000/user/deleteCarModel/${id}`);
-  //     // Handle the response as needed, e.g., show a success message or trigger a reload.
-  //     console.log('Car model deleted:', response.data);
-  //   } catch (error) {
-  //     // Handle errors, e.g., display an error message.
-  //     console.error('Error deleting car model:', error);
-  //   }
-  // };
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -330,15 +307,9 @@ export default function ModelTableTest() {
           size="small"
           label="Search"
           sx={{ width: 600 }}
+          
           value={searched}
-          onChange={(e: any) => requestSearch(e.target.value)}
-          // InputProps={{
-          //   endAdornment: (
-          //     <IconButton onClick={() =>cancelSearch()}>
-          //      {searched.length > 0 ?   <DeleteTwoToneIcon /> : ''}
-          //     </IconButton>
-          //   )
-          // }}
+          onChange={(e:any) => requestSearch(e.target.value)}
         />
         <TableContainer>
           <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
@@ -356,22 +327,23 @@ export default function ModelTableTest() {
                 rowCount={Rows.length}
               />
               <TableBody>
-                {visibleRows.map((row: any, index) => {
-                  const isItemSelected = isSelected(row._id);
+                {visibleRows.map((row:any, index) => {
+                  const isItemSelected = isSelected(row.Name);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     // {Rows.map((row:any) => (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row._id)}
+                      onClick={(event) => handleClick(event, row.Name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row._id}
+                      key={row.Name}
                       selected={isItemSelected}
                       sx={{ cursor: "pointer" }}
                     >
+                        
                       <TableCell
                         component="th"
                         id={labelId}
@@ -380,58 +352,22 @@ export default function ModelTableTest() {
                       >
                         {row.Name}
                       </TableCell>
-                      <TableCell align="left">{row.Brand}</TableCell>
+                      {/* <TableCell align="left">{row.slag}</TableCell> */}
                       <TableCell align="left">{row.Status}</TableCell>
                       <TableCell align="left">{row.CreatedDate}</TableCell>
                       <TableCell align="left">{row.UpdatedDate}</TableCell>
-
+                      
                       <TableCell align="center">
                         <BorderColorIcon
                           color="success"
                           sx={{ marginRight: "5px" }}
-                          onClick={() => {
-                            localStorage.setItem(row._id, JSON.stringify(row));
+                          onClick={() =>
                             router.push(
-                              `/adminpage/pages/car_models/model_form?verify=${row._id}`
-                            );
-                          }}
+                              `/adminpage/pages/admin_location/admin_location_form?Name=${row.Name}&Status=${row.Status.toLowerCase()}`
+                            )
+                          }
                         />
-                        <DeleteIcon
-                          color="error"
-                          onClick={() => {
-                            axios
-                              .delete(
-                                `http://localhost:4000/user/deleteCarModel/${row._id}`
-                              )
-                              .then((res) => {
-                                //will integrate tostifire
-                                Swal.fire(
-                                  'Deleted!',
-                                  'The car model has been deleted.',
-                                  'success'
-                                )
-                                axios
-                              .get("http://localhost:4000/user/getAllCarModel")
-                              .then((res) => {
-                                console.log(
-                                  res.data.data,
-                                  "dataaaaaaaaaaaaaaaaaaaaa"
-                                );
-                                setrows(res.data.data);
-                                setRows(res.data.data);
-                                console.log(Rows, "rowssssssssssssssssssssss");
-                              })
-                              .catch((err) => {
-                                console.log("ddddddddddddd");
-                              });
-
-                              })
-                              .catch((err) => {
-                                console.log("ddddddddddddd");
-                              });
-                            
-                          }}
-                        />
+                        <DeleteIcon color="error" />
                       </TableCell>
                     </TableRow>
                     // ))}

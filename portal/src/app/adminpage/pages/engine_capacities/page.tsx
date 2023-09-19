@@ -30,6 +30,7 @@ import { Button } from "@mui/material";
 import "./EngineCapacity.css";
 import EngCapDataTable from "./EngCapDataTable";
 import EngCapTable from "./EngCapTable";
+import EngCapTableTest from "./EngCapTableTest";
 
 const drawerWidth = 240;
 
@@ -306,7 +307,8 @@ export default function EngineCapacities() {
           </div>
         </div>
         {/* <EngCapDataTable /> */}
-        <EngCapTable />
+        {/* <EngCapTable /> */}
+        <EngCapTableTest />
       </Main>
     </Box>
   );

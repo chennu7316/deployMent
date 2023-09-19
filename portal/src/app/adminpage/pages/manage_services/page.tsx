@@ -30,6 +30,7 @@ import ManServDataTable from "./ManServDateTable";
 import { Button } from "@mui/material";
 import './ManageServ.css'
 import ManServTable from "./ManServTable";
+import SerTableTest from "./SerTableTest.";
 
 const drawerWidth = 240;
 
@@ -351,7 +352,8 @@ export default function ManageServices() {
           </div>
         </div>
         {/* <ManServDataTable /> */}
-        <ManServTable />
+        {/* <ManServTable /> */}
+        <SerTableTest />
       </Main>
     </Box>
   );

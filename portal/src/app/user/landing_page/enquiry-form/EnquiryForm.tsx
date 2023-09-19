@@ -15,6 +15,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../enquiry-form/enquiryForm.css";
 import { Controller, useForm } from "react-hook-form";
 
+
 interface FormData {
   name: string;
   number: string;

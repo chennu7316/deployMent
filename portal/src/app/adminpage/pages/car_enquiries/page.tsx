@@ -27,6 +27,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
 import CarEnqDataTable from "./CarEnqDataTable";
+import CarEnqTableTest from "./CarEnqTableTest";
 
 const drawerWidth = 240;
 
@@ -287,7 +288,8 @@ export default function CarEnquiries() {
       <Main open={open}>
         <DrawerHeader />
         <h1>Car Enquiries</h1>
-        <CarEnqDataTable />
+        {/* <CarEnqDataTable /> */}
+        <CarEnqTableTest />
       </Main>
     </Box>
   );

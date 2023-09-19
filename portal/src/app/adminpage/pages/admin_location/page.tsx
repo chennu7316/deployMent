@@ -30,6 +30,8 @@ import { Button } from "@mui/material";
 import './AdminLocation.css'
 // import AdmLocDataTable from "./AdmLocDataTable";
 import EnhancedTable from "./dataTableTest";
+import AdmLocDataTable from "./AdmLocDataTable";
+import AdmLocTableTest from "./AdmLocTableTest";
 
 const drawerWidth = 240;
 
@@ -306,7 +308,9 @@ export default function AdminLocation() {
           </div>
         </div>
         {/* <AdmLocDataTable /> */}
-        <EnhancedTable/>
+        {/* <EnhancedTable/> */}
+        <AdmLocTableTest />
+        
       </Main>
     </Box>
   );
