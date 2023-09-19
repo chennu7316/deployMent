@@ -6,6 +6,7 @@ import "../AdminLocation.css";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface ReqDocsFormData {
   name: string;
@@ -23,7 +24,12 @@ const AdminLocForm = () => {
   const [error, setErrors] = useState<IErrors>({ name: false, select: false });
   const [textName, setTextName] = useState<string>("");
   const [select, setSelect] = useState<string>("");
-
+ const [data,setdata]=useState({
+  Name: "",
+  Status: "",
+  CreatedDate: "1/2/2023",
+  UpdatedDate: "1/2/2024"
+ })
   useEffect(() => {
     if (name) {
       setTextName(name);
@@ -63,10 +69,36 @@ const AdminLocForm = () => {
    router.push("/adminpage/pages/admin_location")
   };
 
+  const handle=(e)=>{
+    const newdata:any={...data}
+    newdata[e.target.name]=e.target.value
+    setdata(newdata)
+  }
+
+  const HandleSubmits=(e)=>{
+    axios.post("http://localhost:4000/user/createcarLoaction",{
+      Name:data.Name,
+  Status: data.Status,
+  CreatedDate: data.CreatedDate,
+  UpdatedDate: data.UpdatedDate
+
+    })
+    .then(()=>{
+      setdata({
+        Name: "",
+        Status: "",
+        CreatedDate: "",
+        UpdatedDate: ""
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+  }
   return (
     <div className="addnew_cate">
       <Box>
-        <form onSubmit={(e:any) => handleSubmit(onSubmit(e))}>
+        <form onSubmit={(e)=>HandleSubmits(e)}>
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add New Location</h1>
@@ -79,39 +111,32 @@ const AdminLocForm = () => {
                       variant="outlined"
                       size="small"
                       required
-                      value={textName}
+                      name="Name"
+                      value={data.Name}
+                      onChange={(e)=>handle(e)}
                       sx={{ height: "50 px" }}
-                      {...register("name", { required: true })}
                       error={error.name}
                       helperText={error.name && "This name field is required"}
-                      onChange={(e:any) => handleTextChange(e)}
                     />
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={6} md={6} lg={6}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
                     <InputLabel id="demo-select-small-label">Status</InputLabel>
-                    <Controller
-                      name="status"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "This status field is required" }}
-                      render={({ field }) => (
                         <Select
                           labelId="status-label"
                           id="status"
                           label="Status"
+                          name="Status"
                           // value={status??""}
-                          {...field}
-                          value={select}
-                          onChange={(e) => handleSelectChange(e)}
+                          value={data.Status}
+                          onChange={(e) => handle(e)}
                           required
                         >
                           <MenuItem value={"active"}>Active</MenuItem>
                           <MenuItem value={"inactive"}>Inactive</MenuItem>
                         </Select>
-                      )}
-                    />
+ 
                     <FormHelperText error>
                       {errors.status?.message}
                     </FormHelperText>

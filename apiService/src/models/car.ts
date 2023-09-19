@@ -203,4 +203,5 @@ export interface CarModel {
     Answer?: string;
     CreatedDate: string;
     UpdatedDate: string;
+    Status:string;
    }

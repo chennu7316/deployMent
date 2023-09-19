@@ -1742,7 +1742,11 @@
    },
    "UpdatedDate":{
       "type":"string"
-   }          
+   },
+   "Status":{
+      "type":"string"
+
+   }        
 }
 
 },
