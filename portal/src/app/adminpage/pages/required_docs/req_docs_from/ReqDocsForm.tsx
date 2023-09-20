@@ -18,6 +18,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState,useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ReqDocsFormData {
   title: string;
@@ -31,6 +32,7 @@ interface IErrors {
 
 const ReqDocsForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const title = searchParams.get("title");
   const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ title: false, select: false });
@@ -38,9 +40,23 @@ const ReqDocsForm = () => {
   const [select, setSelect] = useState<string>("");
 
   useEffect(() => {
-    if (title) {
-      setTextName(title);
-      setSelect(status || "");
+    if (id) {
+      axios.get(`http://localhost:4000/user/getCarDocument/${id}`)
+    .then((res)=>{
+      debugger
+      const {Title,Status,CreatedDate,UpdatedDate}=res.data.data
+      setdata({
+        _id:id,
+        Title:Title,
+        Status:Status,
+        CreatedDate:CreatedDate,
+        UpdatedDate:UpdatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -80,7 +96,7 @@ const ReqDocsForm = () => {
   };
 
   const [data,setdata]=useState({
-    
+    _id:"",
   Title: "",
   Status: "",
   CreatedDate: "1/2/2023",
@@ -93,23 +109,64 @@ const ReqDocsForm = () => {
     setdata(newdata)
   }
   const handleSubmit=(e:any)=>{
-    axios.post("http://localhost:4000/user/createcarDocument",{
-      Title: data.Title,
-      Status: data.Status,
-      CreatedDate: data.CreatedDate,
-     UpdatedDate: data.UpdatedDate
+    e.preventDefault()
+if(id){
+  axios.put("http://localhost:4000/user/updateCarDocument",{
+    _id:id,
+    Title:data.Title,
+    Status:data.Status,
+    CreatedDate:data.CreatedDate,
+    UpdatedDate:data.UpdatedDate
+  })
+  .then((res)=>{
+    Swal.fire(
+      'Updated!',
+      'The car Documents has been updated.',
+      'success'
+    )
+    debugger
+    setdata({
+      _id:"",
+      Title:"",
+      Status:"",
+      CreatedDate:"11/09/2023",
+      UpdatedDate:"11/09/2023"
     })
-    .then((res)=>{
-      setdata({
-        Title: "",
-        Status: "",
-        CreatedDate: "",
-        UpdatedDate: ""
-      })
+  })
+  .catch((err)=>{
+    console.log(err)
+    debugger
+  })
+
+}
+else{
+  axios.post("http://localhost:4000/user/createcarDocument",{
+    Title: data.Title,
+    Status: data.Status,
+    CreatedDate: data.CreatedDate,
+   UpdatedDate: data.UpdatedDate
+  })
+  .then((res)=>{
+    Swal.fire(
+      'Added!',
+      'The car documents has been added.',
+      'success'
+    )
+    setdata({
+      _id:"",
+      Title: "",
+      Status: "",
+      CreatedDate: "",
+      UpdatedDate: ""
     })
-    .catch((err)=>{
-      console.log(err,"errorr")
-    })
+  })
+  .catch((err)=>{
+    console.log(err,"errorr")
+  })
+
+}
+  
+router.push("/adminpage/pages/required_docs");
 
   }
   return (
@@ -169,7 +226,7 @@ const ReqDocsForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {title ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button
                 variant="contained"

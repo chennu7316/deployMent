@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ReqDocsFormData {
   name: string;
@@ -19,21 +20,31 @@ interface IErrors {
 }
 const AdminLocForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const name = searchParams.get("name");
   const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ name: false, select: false });
   const [textName, setTextName] = useState<string>("");
   const [select, setSelect] = useState<string>("");
- const [data,setdata]=useState({
-  Name: "",
-  Status: "",
-  CreatedDate: "1/2/2023",
-  UpdatedDate: "1/2/2024"
- })
+
   useEffect(() => {
-    if (name) {
-      setTextName(name);
-      setSelect(status || '');
+    if (id) {
+      axios.get(`http://localhost:4000/user/getCarLocation/${id}`)
+    .then((res)=>{
+      debugger
+      const {Name,Status,CreatedDate,UpdatedDate}=res.data.data
+      setdata({
+        _id:id,
+        Name:Name,
+        Status:Status,
+        CreatedDate:CreatedDate,
+        UpdatedDate:UpdatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
   const handleTextChange = (event: SelectChangeEvent<string>) => {
@@ -45,6 +56,13 @@ const AdminLocForm = () => {
   };
 
   const router = useRouter();
+  const [data,setdata]=useState({
+    _id:"",
+      Name: "",
+    Status: "",
+    CreatedDate: "1/2/2023",
+    UpdatedDate: "1/2/2024"
+   })
 
   const {
     register,
@@ -76,24 +94,66 @@ const AdminLocForm = () => {
   }
 
   const HandleSubmits=(e)=>{
-    axios.post("http://localhost:4000/user/createcarLoaction",{
-      Name:data.Name,
-  Status: data.Status,
-  CreatedDate: data.CreatedDate,
-  UpdatedDate: data.UpdatedDate
-
-    })
-    .then(()=>{
-      setdata({
-        Name: "",
-        Status: "",
-        CreatedDate: "",
-        UpdatedDate: ""
+    e.preventDefault()
+if(id){
+  axios.put("http://localhost:4000/user/updateCarLocation",{
+        _id:id,
+        Name:data.Name,
+        Status:data.Status,
+        CreatedDate:data.CreatedDate,
+        UpdatedDate:data.UpdatedDate
       })
+      .then((res)=>{
+        Swal.fire(
+          'Updated!',
+          'The car LOcation has been updated.',
+          'success'
+        )
+        debugger
+        setdata({
+          _id:"",
+          Name:"",
+          Status:"",
+          CreatedDate:"11/09/2023",
+          UpdatedDate:"11/09/2023"
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+        debugger
+      })
+}
+else{
+
+  axios.post("http://localhost:4000/user/createcarLoaction",{
+    Name:data.Name,
+Status: data.Status,
+CreatedDate: data.CreatedDate,
+UpdatedDate: data.UpdatedDate
+
+  })
+  .then(()=>{
+    Swal.fire(
+      'Added!',
+      'The car Location has been added.',
+      'success'
+    )
+    setdata({
+      _id:"",
+       Name: "",
+      Status: "",
+      CreatedDate: "",
+      UpdatedDate: ""
     })
-    .catch((err)=>{
-      console.log(err)
-    })
+  })
+  .catch((err)=>{
+    console.log(err)
+  })
+
+}
+
+router.push("/adminpage/pages/admin_location");
+
   }
   return (
     <div className="addnew_cate">
@@ -152,7 +212,7 @@ const AdminLocForm = () => {
                 color="primary"
                 
               >
-                {name ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button
                 variant="contained"

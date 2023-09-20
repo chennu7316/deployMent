@@ -19,6 +19,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface Data {
   name: string;
@@ -371,13 +372,53 @@ export default function BrandTableTest() {
                         <BorderColorIcon
                           color="success"
                           sx={{ marginRight: "5px" }}
-                          onClick={() =>
+                          onClick={() => {
+                            localStorage.setItem(row._id, JSON.stringify(row));
                             router.push(
-                              `/adminpage/pages/car_brands/brandForm?name=${row.name}&status=${row.status.toLowerCase()}`
-                            )
-                          }
+                              `/adminpage/pages/manage_catego/mancat_form?verify=${row._id}`
+                            );
+                          }}
                         />
-                        <DeleteIcon color="error" />
+                        {/* /adminpage/pages/car_brands/brandForm?name=${row.name}&status=${row.status.toLowerCase()}` */}
+                        <DeleteIcon
+
+color="error"
+onClick={() => {
+  axios
+    .delete(
+      `http://localhost:4000/user/deleteCategory/${row._id}`
+    )
+    .then((res) => {
+      //will integrate tostifire
+      Swal.fire(
+        'Deleted!',
+        'The car category has been deleted.',
+        'success'
+      )
+      axios
+    .get("http://localhost:4000/user/getAllCategoryes")
+    .then((res) => {
+      console.log(
+        res.data.data,
+        "dataaaaaaaaaaaaaaaaaaaaa"
+      );
+      setrows(res.data.data);
+      setRows(res.data.data);
+      console.log(Rows, "rowssssssssssssssssssssss");
+    })
+    .catch((err) => {
+      console.log("ddddddddddddd");
+    });
+
+    })
+    .catch((err) => {
+      console.log("ddddddddddddd");
+    });
+  
+}}
+                        
+                        
+                        />
                       </TableCell>
                     </TableRow>
                     // ))}

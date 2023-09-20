@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import "../EngineCapacity.css"
 import { useState,useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface EngCapFormData {
   capacity: string;
@@ -31,6 +32,7 @@ interface IErrors {
 
 const EngCapForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const capacity = searchParams.get("capacity");
   const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ capacity: false, select: false });
@@ -38,9 +40,22 @@ const EngCapForm = () => {
   const [select, setSelect] = useState<string>("");
 
   useEffect(() => {
-    if (capacity) {
-      setTextName(capacity);
-      setSelect(status || "");
+    if (id) {
+      axios.get(`http://localhost:4000/user/getCarEngineCapacities/${id}`)
+    .then((res)=>{
+      debugger
+      const {Capacity,Status,CreatedDate}=res.data.data
+      setdata({
+        _id:id,
+        Capacity:Capacity,
+        Status:Status,
+        CreatedDate:CreatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -80,6 +95,7 @@ const EngCapForm = () => {
   };
 
   const [data,setdata]=useState({
+    _id:"",
     Capacity:'',
     Status:'',
     CreatedDate:'1/2/2023'
@@ -90,13 +106,48 @@ const handle=(e:any)=>{
   setdata(newdata)
 }
 const handleSubmit=(e:any)=>{
+  e.preventDefault()
+  if(id){
+    axios.put("http://localhost:4000/user/updateCarEngineCapacities",{
+      _id:id,
+      Capacity:data.Capacity,
+      Status:data.Status,
+      CreatedDate:data.CreatedDate
+     })
+    .then((res)=>{
+      Swal.fire(
+        'Updated!',
+        'The car capacity has been updated.',
+        'success'
+      )
+      debugger
+      setdata({
+        _id:"",
+        Capacity:'',
+        Status:'',
+        CreatedDate:''
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+      debugger
+    })
+  }
+  else{
+    
     axios.post("http://localhost:4000/user/createcarEngineCapacities",{
       Capacity:data.Capacity,
         Status:data.Status,
         CreatedDate:data.CreatedDate
     })
     .then(()=>{
+      Swal.fire(
+        'Added!',
+        'The car capacity has been added.',
+        'success'
+      )
       setdata({
+        _id:"",
         Capacity:'',
         Status:'',
         CreatedDate:''
@@ -105,6 +156,10 @@ const handleSubmit=(e:any)=>{
     .catch((err)=>{
       console.log("errr",err)
     })
+
+  }
+  router.push("/adminpage/pages/engine_capacities");
+
 }
   return (
     <div className="addnew_cate">
@@ -163,7 +218,7 @@ const handleSubmit=(e:any)=>{
                 className="catsubmitbtn"
                 color="primary"
               >
-                {capacity ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button variant="contained" color="error" onClick={() => router.push("/adminpage/pages/engine_capacities")}>
                 Cancel

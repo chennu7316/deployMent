@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import "../ManageServ.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ManageServFormData {
   Title: string;
@@ -31,6 +32,7 @@ interface IErrors {
 
 const ManageServForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const title = searchParams.get("title");
   const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ title: false, select: false });
@@ -38,9 +40,23 @@ const ManageServForm = () => {
   const [select, setSelect] = useState<string>("");
 
   useEffect(() => {
-    if (title) {
-      setTextName(title);
-      setSelect(status || "");
+    if (id) {
+      axios.get(`http://localhost:4000/user/getCarServices/${id}`)
+    .then((res)=>{
+      debugger
+      const {Title,Status,CreatedDate,UpdatedDate}=res.data.data
+      setdata({
+        _id:id,
+        Title:Title,
+        Status:Status,
+        CreatedDate:CreatedDate,
+        UpdatedDate:UpdatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -55,6 +71,7 @@ const ManageServForm = () => {
   const router = useRouter();
 
   const [data, setdata] = useState({
+    _id:"",
     Title: "",
     Status: "",
     CreatedDate: "1/2/2024",
@@ -93,24 +110,64 @@ const ManageServForm = () => {
   };
 
   const handleSubmit = (e: any) => {
+    e.preventDefault()
+  if(id){
+    axios.put("http://localhost:4000/user/updateCarServices",{
+      _id:id,
+      Title:data.Title,
+      Status:data.Status,
+      CreatedDate:data.CreatedDate,
+      UpdatedDate:data.UpdatedDate
+    })
+    .then((res)=>{
+      Swal.fire(
+        'Updated!',
+        'The car service has been updated.',
+        'success'
+      )
+      debugger
+      setdata({
+        _id:"",
+        Title:"",
+        Status:"",
+        CreatedDate:"11/09/2023",
+        UpdatedDate:"11/09/2023"
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+      debugger
+    })
+  }
+  else{
     axios
-      .post("http://localhost:4000/user/createCarServices", {
-        Title: data.Title,
-        Status: data.Status,
-        CreatedDate: data.CreatedDate,
-        UpdatedDate: data.UpdatedDate,
-      })
-      .then((res) => {
-        setdata({
-          Title: "",
-          Status: "",
-          CreatedDate: "1/2/2024",
-          UpdatedDate: "2/5/2025",
-        });
-      })
-      .catch((err) => {
-        console.log(err, "error");
+    .post("http://localhost:4000/user/createCarServices", {
+      Title: data.Title,
+      Status: data.Status,
+      CreatedDate: data.CreatedDate,
+      UpdatedDate: data.UpdatedDate,
+    })
+    .then((res) => {
+      Swal.fire(
+        'Added!',
+        'The car service has been added.',
+        'success'
+      )
+      setdata({
+        _id:"",
+        Title: "",
+        Status: "",
+        CreatedDate: "1/2/2024",
+        UpdatedDate: "2/5/2025",
       });
+    })
+    .catch((err) => {
+      console.log(err, "error");
+    });
+
+  }
+  router.push("/adminpage/pages/manage_services");
+
   };
   return (
     <div className="addnew_cate">
@@ -168,7 +225,7 @@ const ManageServForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {title ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button
                 variant="contained"

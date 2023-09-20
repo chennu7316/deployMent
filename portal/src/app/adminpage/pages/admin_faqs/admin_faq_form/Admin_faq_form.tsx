@@ -18,6 +18,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface ReqDocsFormData {
   question: string;
@@ -33,6 +34,7 @@ interface IErrors {
 
 const Admin_faq_form = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const question = searchParams.get("question");
   const answer = searchParams.get("answer");
   const status = searchParams.get("status");
@@ -42,10 +44,24 @@ const Admin_faq_form = () => {
   const [faqans, setFaqans] =useState<string>("");
 
   useEffect(() => {
-    if (question) {
-      setTextName(question);
-      setFaqans(answer || '');
-      setSelect(status || '');
+    if (id) {
+      axios.get(`http://localhost:4000/user/getFAQ/${id}`)
+    .then((res)=>{
+      debugger
+      const {Question,Answer,Status,CreatedDate,UpdatedDate}=res.data.data
+      setdata({
+        _id:id,
+        Question:Question,
+        Answer:Answer,
+        Status:Status,
+        CreatedDate:CreatedDate,
+        UpdatedDate:UpdatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -91,7 +107,8 @@ const Admin_faq_form = () => {
    router.push("/adminpage/pages/admin_faqs")
   };
   const [data,setdata]=useState({
-    Question: "",
+    _id:"",
+     Question: "",
     Answer: "",
     Status:"",
     CreatedDate: "1/2/2023",
@@ -99,23 +116,62 @@ const Admin_faq_form = () => {
    })
 
    
-  const handle=(e)=>{
+  const handle=(e:any)=>{
     const newdata:any={...data}
     newdata[e.target.name]=e.target.value
     setdata(newdata)
   }
 
-  const HandleSubmits=(e)=>{
-    axios.post("http://localhost:4000/user/createFAQS",{
+  const HandleSubmits=(e:any)=>{
+    e.preventDefault()
+    if(id){
+      axios.put("http://localhost:4000/user/updateFAQ",{
+        _id:id,
+        Question:data.Question,
+      Answer: data.Answer,
+      Status:data.Status,
+       CreatedDate: data.CreatedDate,
+        UpdatedDate: data.UpdatedDate
+      })
+      .then((res)=>{
+        Swal.fire(
+          'Updated!',
+          'The FAQ has been updated.',
+          'success'
+        )
+        debugger
+        setdata({
+          _id:"",
+          Question: "",
+          Answer: "",
+          CreatedDate: "",
+          UpdatedDate: "",
+          Status:""
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+        debugger
+      })
+    }
+    else{
+
+      axios.post("http://localhost:4000/user/createFAQS",{
       Question:data.Question,
       Answer: data.Answer,
       Status:data.Status,
-  CreatedDate: data.CreatedDate,
-  UpdatedDate: data.UpdatedDate
+       CreatedDate: data.CreatedDate,
+      UpdatedDate: data.UpdatedDate
 
     })
     .then(()=>{
+      Swal.fire(
+        'Added!',
+        'The FAQS has been added.',
+        'success'
+      )
       setdata({
+        _id:"",
         Question: "",
         Answer: "",
         CreatedDate: "",
@@ -126,6 +182,9 @@ const Admin_faq_form = () => {
     .catch((err)=>{
       console.log(err)
     })
+    }
+    router.push("/adminpage/pages/admin_faqs");
+
   }
 
   return (
@@ -197,7 +256,7 @@ const Admin_faq_form = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {question ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button variant="contained" color="error" onClick={() => router.push("/adminpage/pages/admin_location")}>
                 Cancel

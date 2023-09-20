@@ -25,6 +25,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface Data {
   Capacity: string;
@@ -368,15 +369,51 @@ export default function EngCapTableTest() {
                         <BorderColorIcon
                           color="success"
                           sx={{ marginRight: "5px" }}
-                          onClick={() =>
+                          onClick={() => {
+                            localStorage.setItem(row._id, JSON.stringify(row));
                             router.push(
-                              `/adminpage/pages/engine_capacities/eng_cap_form?capacity=${
-                                row.Capacity
-                              }&Status=${row.Status.toLowerCase()}`
-                            )
-                          }
+                              `/adminpage/pages/engine_capacities/eng_cap_form?verify=${row._id}`
+                            );
+                          }}
                         />
-                        <DeleteIcon color="error" />
+                        <DeleteIcon 
+                                    onClick={() => {
+                                      axios
+                                        .delete(
+                                          `http://localhost:4000/user/deleteCarEngineCapacities/${row._id}`
+                                        )
+                                        .then((res) => {
+                                          //will integrate tostifire
+                                          Swal.fire(
+                                            'Deleted!',
+                                            'The car capacities has been deleted.',
+                                            'success'
+                                          )
+                                          axios
+                                        .get("http://localhost:4000/user/getAllcarEngineCapacities")
+                                        .then((res) => {
+                                          console.log(
+                                            res.data.data,
+                                            "dataaaaaaaaaaaaaaaaaaaaa"
+                                          );
+                                          setrows(res.data.data);
+                                          setRows(res.data.data);
+                                          console.log(Rows, "rowssssssssssssssssssssss");
+                                        })
+                                        .catch((err) => {
+                                          console.log("ddddddddddddd");
+                                        });
+            
+                                        })
+                                        .catch((err) => {
+                                          console.log("ddddddddddddd");
+                                        });
+                                      
+                                    }}
+
+                        
+                        
+                        />
                       </TableCell>
                     </TableRow>
                     // ))}

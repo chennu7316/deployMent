@@ -18,6 +18,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 interface FeatureFormData {
   title: string;
   status: string;
@@ -30,6 +31,7 @@ interface IErrors {
 
 const CarFeatForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const title = searchParams.get("title");
   const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ title: false, select: false });
@@ -37,9 +39,23 @@ const CarFeatForm = () => {
   const [select, setSelect] = useState<string>("");
 
   useEffect(() => {
-    if (title) {
-      setTextName(title);
-      setSelect(status || "");
+    if (id) {
+      axios.get(`http://localhost:4000/user/getCarFeature/${id}`)
+    .then((res)=>{
+      debugger
+      const {Title,Status,CreatedDate,UpdatedDate}=res.data.data
+      setdata({
+        _id:id,
+        Title:Title,
+        Status:Status,
+        CreatedDate:CreatedDate,
+        UpdatedDate:UpdatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -54,6 +70,7 @@ const CarFeatForm = () => {
   const router = useRouter();
 
   const [data,setdata]=useState({
+    _id:"",
     Title:"",
     Status:"",
     CreatedDate:"11/09/2023",
@@ -91,24 +108,64 @@ const CarFeatForm = () => {
     console.log(data)
    }
    const handleSubmit=(e:any)=>{
-    axios.post("http://localhost:4000/user/createCarFeatures",{
-      Title:data.Title,
-    Status:data.Status,
-    CreatedDate:"11/09/2023",
-    UpdatedDate:"11/09/2023"
+    e.preventDefault()
+    if(id){
+      axios.put("http://localhost:4000/user/updateCarFeature",{
+        _id:id,
+        Title:data.Title,
+        Status:data.Status,
+        CreatedDate:data.CreatedDate,
+        UpdatedDate:data.UpdatedDate
+      })
+      .then((res)=>{
+        Swal.fire(
+          'Updated!',
+          'The car Feature has been updated.',
+          'success'
+        )
+        debugger
+        setdata({
+          _id:"",
+          Title:"",
+          Status:"",
+          CreatedDate:"11/09/2023",
+          UpdatedDate:"11/09/2023"
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+        debugger
+      })
+    }
+    else{
+      axios.post("http://localhost:4000/user/createCarFeatures",{
+        Title:data.Title,
+        Status:data.Status,
+        CreatedDate:"11/09/2023",
+        UpdatedDate:"11/09/2023"
     })
     .then((res)=>{
+      console.log(res.data)
+      Swal.fire(
+        'Added!',
+        'The car Feature has been added.',
+        'success'
+      )
       setdata({
+        _id:"",
         Title:"",
         Status:"",
         CreatedDate:"11/09/2023",
         UpdatedDate:"11/09/2023"
       })
-      
     })
     .catch((err)=>{
-        console.log(err)
+      console.log(err)
     })
+    }
+
+    router.push("/adminpage/pages/car_features");
+
    }
   return (
     <div className="addnew_cate">
@@ -167,7 +224,7 @@ const CarFeatForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {title ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button
                 variant="contained"

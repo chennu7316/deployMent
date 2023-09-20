@@ -19,6 +19,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface Data {
     Name: string;
@@ -361,13 +362,50 @@ export default function AdmLocTableTest() {
                         <BorderColorIcon
                           color="success"
                           sx={{ marginRight: "5px" }}
-                          onClick={() =>
+                          onClick={() => {
+                            localStorage.setItem(row._id, JSON.stringify(row));
                             router.push(
-                              `/adminpage/pages/admin_location/admin_location_form?Name=${row.Name}&Status=${row.Status.toLowerCase()}`
-                            )
-                          }
+                              `/adminpage/pages/admin_location/admin_location_form?verify=${row._id}`
+                            );
+                          }}
                         />
-                        <DeleteIcon color="error" />
+                        <DeleteIcon 
+  onClick={() => {
+    axios
+      .delete(
+        `http://localhost:4000/user/deleteCarLocation/${row._id}`
+      )
+      .then((res) => {
+        //will integrate tostifire
+        Swal.fire(
+          'Deleted!',
+          'The car Location has been deleted.',
+          'success'
+        )
+        axios
+      .get("http://localhost:4000/user/getAllcarLoaction")
+      .then((res) => {
+        console.log(
+          res.data.data,
+          "dataaaaaaaaaaaaaaaaaaaaa"
+        );
+        setrows(res.data.data);
+        setRows(res.data.data);
+        console.log(Rows, "rowssssssssssssssssssssss");
+      })
+      .catch((err) => {
+        console.log("ddddddddddddd");
+      });
+
+      })
+      .catch((err) => {
+        console.log("ddddddddddddd");
+      });
+    
+  }}
+
+                        
+                        />
                       </TableCell>
                     </TableRow>
                     // ))}

@@ -19,6 +19,7 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface Data {
   Title: string;
@@ -364,13 +365,49 @@ export default function ReqDocsTableTest() {
                         <BorderColorIcon
                           color="success"
                           sx={{ marginRight: "5px" }}
-                          onClick={() =>
+                          onClick={() => {
+                            localStorage.setItem(row._id, JSON.stringify(row));
                             router.push(
-                              `/adminpage/pages/required_docs/req_docs_from?Title=${row.Title}&Status=${row.Status.toLowerCase()}`
-                            )
-                          }
+                              `/adminpage/pages/required_docs/req_docs_from?verify=${row._id}`
+                            );
+                          }}
                         />
-                        <DeleteIcon color="error" />
+                        <DeleteIcon 
+                          onClick={() => {
+                            axios
+                              .delete(
+                                `http://localhost:4000/user/deleteCarDocument/${row._id}`
+                              )
+                              .then((res) => {
+                                //will integrate tostifire
+                                Swal.fire(
+                                  'Deleted!',
+                                  'The car documents has been deleted.',
+                                  'success'
+                                )
+                                axios
+                              .get("http://localhost:4000/user/getAllcarDocument")
+                              .then((res) => {
+                                console.log(
+                                  res.data.data,
+                                  "dataaaaaaaaaaaaaaaaaaaaa"
+                                );
+                                setrows(res.data.data);
+                                setRows(res.data.data);
+                                console.log(Rows, "rowssssssssssssssssssssss");
+                              })
+                              .catch((err) => {
+                                console.log("ddddddddddddd");
+                              });
+  
+                              })
+                              .catch((err) => {
+                                console.log("ddddddddddddd");
+                              });
+                            
+                          }}
+                        
+                        />
                       </TableCell>
                     </TableRow>
                     // ))}

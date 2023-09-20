@@ -274,8 +274,10 @@ carsRouter.put("/updateCategory", async (req: Request, res: Response) => {
     console.log(req.params.id); // Corrected statement
     const objectId = new ObjectId(_id); // Convert to ObjectId
     console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
 
-    const result = await collections.carInquiry.updateOne({ _id: objectId }, { $set: { name: name, status: status, slag: slag, createdDate: createdDate, updatedDate: updatedDate } })
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    const result = await collections.carCategory.updateOne({ _id: objectId }, { $set: { name: name, status: status, slag: slag, createdDate: createdDate, updatedDate: formattedDate } })
     return res.status(201).send({ status: 201, message: `Update Categoryis done with ${req.params.id}` });
   } catch (error) {
     console.error(error);
@@ -367,8 +369,11 @@ carsRouter.put("/updateBrand", async (req: Request, res: Response) => {
     console.log(req.params.id); // Corrected statement
     const objectId = new ObjectId(_id); // Convert to ObjectId
     console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
 
-    const result = await collections.carBrands.updateOne({ _id: objectId }, { $set: { name: name, status: status, slag: slag, createdDate: createdDate, updatedDate: updatedDate } })
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
+    const result = await collections.carBrands.updateOne({ _id: objectId }, { $set: { name: name, status: status, slag: slag, createdDate: createdDate, updatedDate:formattedDate } })
     return res.status(201).send({ status: 201, message: `Update Brand done with ${req.params.id}` });
   } catch (error) {
     console.error(error);
@@ -570,8 +575,12 @@ carsRouter.put('/updateCarModel', async (req: Request, res: Response) => {
     console.log(req.params.id); // Corrected statement
     const objectId = new ObjectId(_id); // Convert to ObjectId
     console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
 
-    const result = await collections.carModel.updateOne({ _id: objectId }, { $set: { Name: Name, Brand: Brand, CreatedDate: CreatedDate, UpdatedDate: UpdatedDate } })
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    
+
+    const result = await collections.carModel.updateOne({ _id: objectId }, { $set: { Name: Name, Brand: Brand, CreatedDate: CreatedDate, UpdatedDate:formattedDate } })
     return res.status(201).send({ status: 201, message: `update carModel is done with ${req.params.id}` });
   } catch (error) {
     console.error(error);
@@ -680,8 +689,12 @@ carsRouter.put("/updateCarFeature", async (req: Request, res: Response) => {
     console.log(req.params.id); // Corrected statement
     const objectId = new ObjectId(_id); // Convert to ObjectId
     console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
 
-    const result = await collections.carFeatures.updateOne({ _id: objectId }, { $set: { Title:Title,Status:Status,CreatedDate:CreatedDate,UpdatedDate:UpdatedDate } })
+    const formattedDate = format(date, 'dd/MM/yyyy');
+    
+
+    const result = await collections.carFeatures.updateOne({ _id: objectId }, { $set: { Title:Title,Status:Status,CreatedDate:CreatedDate,UpdatedDate:formattedDate } })
     return res.status(201).send({ status: 201, message: `Update Brand done with ${req.params.id}` });
   } catch (error) {
     console.error(error);
@@ -691,7 +704,7 @@ carsRouter.put("/updateCarFeature", async (req: Request, res: Response) => {
 
 carsRouter.get("/getAllCarFeatures", async (req: Request, res: Response) => {
 
-  const result = await collections.carFeatures.find({}).toArray()
+  const result = await collections.addCarServices.find({}).toArray()
 
   if (result) {
     return res.status(200).send({ status: 200, message: "getAllCarFeatures sucessfully", data: result }
@@ -769,8 +782,11 @@ carsRouter.put("/updateCarServices", async (req: Request, res: Response) => {
     console.log(req.params.id); // Corrected statement
     const objectId = new ObjectId(_id); // Convert to ObjectId
     console.log(objectId); // Log the converted ObjectId
+    const date = new Date();
 
-    const result = await collections.addCarServices.updateOne({ _id: objectId }, { $set: { Title:Title,Status:Status,CreatedDate:CreatedDate,UpdatedDate:UpdatedDate } })
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
+    const result = await collections.addCarServices.updateOne({ _id: objectId }, { $set: { Title:Title,Status:Status,CreatedDate:CreatedDate,UpdatedDate:formattedDate } })
     return res.status(201).send({ status: 201, message: `Update CarServices done with ${req.params.id}` });
   } catch (error) {
     console.error(error);
@@ -861,8 +877,11 @@ carsRouter.put("/updateCarEngineCapacities", async (req: Request, res: Response)
     console.log(req.params.id); // Corrected statement
     const objectId = new ObjectId(_id); // Convert to ObjectId
     console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
 
-    const result = await collections.addCarEngineCapacities.updateOne({ _id: objectId }, { $set:{Capacity:Capacity,Status:Status,CreatedDate:CreatedDate,UpdatedDate:UpdatedDate,_id} })
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
+    const result = await collections.addCarEngineCapacities.updateOne({ _id: objectId }, { $set:{Capacity:Capacity,Status:Status,CreatedDate:CreatedDate,UpdatedDate: formattedDate}})
     return res.status(201).send({ status: 201, message: `Update CarServices done with ${req.params.id}` });
   } catch (error) {
     console.error(error);
@@ -885,7 +904,6 @@ carsRouter.get("/getAllcarEngineCapacities", async (req: Request, res: Response)
   }
 
 })
-
 
 
 carsRouter.post('/createcarDocument', async (req: Request, res: Response) => {
@@ -912,6 +930,57 @@ carsRouter.post('/createcarDocument', async (req: Request, res: Response) => {
     return res.status(400).send((error as Error).message);
   }
 });
+
+carsRouter.get("/getCarDocument/:id", async (req: Request, res: Response) => {
+  try {
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.addCarDocument.findOne({ _id: objectId })
+    if (result) {
+      return res.status(201).send({ status: 201, message: "data get scussfully", data: result || {} });
+    }
+
+    else {
+      return res.status(400).send({ status: 201, message: "No data found", data: result });
+
+    }
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal server Error" });
+  }
+});
+carsRouter.delete("/deleteCarDocument/:id", async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.addCarDocument.deleteOne({ _id: objectId })
+    return res.status(201).send({ status: 201, message: `Delete CarEngineCapacities is done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
+carsRouter.put("/updateCarDocument", async (req: Request, res: Response) => {
+  try {const   {Title,Status,CreatedDate,UpdatedDate,_id} = req.body;
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(_id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
+    const result = await collections.addCarDocument.updateOne({ _id: objectId }, { $set:{Title:Title,Status:Status,CreatedDate:CreatedDate,UpdatedDate: formattedDate}})
+    return res.status(201).send({ status: 201, message: `Update CarServices done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
+
 
 
 carsRouter.get("/getAllcarDocument", async (req: Request, res: Response) => {
@@ -972,6 +1041,56 @@ carsRouter.get("/getAllcarLoaction", async (req: Request, res: Response) => {
 
 })
 
+carsRouter.get("/getCarLocation/:id", async (req: Request, res: Response) => {
+  try {
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.addCarLoaction.findOne({ _id: objectId })
+    if (result) {
+      return res.status(201).send({ status: 201, message: "data get scussfully", data: result || {} });
+    }
+
+    else {
+      return res.status(400).send({ status: 201, message: "No data found", data: result });
+
+    }
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal server Error" });
+  }
+});
+carsRouter.delete("/deleteCarLocation/:id", async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.addCarLoaction.deleteOne({ _id: objectId })
+    return res.status(201).send({ status: 201, message: `Delete carLocation is done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
+
+carsRouter.put("/updateCarLocation", async (req: Request, res: Response) => {
+  try {const   {Name,Status,CreatedDate,UpdatedDate,_id} = req.body;
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(_id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
+    const result = await collections.addCarLoaction.updateOne({ _id: objectId }, { $set:{Name:Name,Status:Status,CreatedDate:CreatedDate,UpdatedDate: formattedDate}})
+    return res.status(201).send({ status: 201, message: `Update location done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
 carsRouter.post('/createFAQS', async (req: Request, res: Response) => {
   try {
     const data: addFAQS = req.body;
@@ -1010,6 +1129,57 @@ carsRouter.get("/getAllFAQS", async (req: Request, res: Response) => {
   }
 
 })
+
+carsRouter.get("/getFAQ/:id", async (req: Request, res: Response) => {
+  try {
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.addFAQS.findOne({ _id: objectId })
+    if (result) {
+      return res.status(201).send({ status: 201, message: "data get scussfully", data: result || {} });
+    }
+
+    else {
+      return res.status(400).send({ status: 201, message: "No data found", data: result });
+
+    }
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal server Error" });
+  }
+});
+carsRouter.delete("/deleteFAQ/:id", async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.addFAQS.deleteOne({ _id: objectId })
+    return res.status(201).send({ status: 201, message: `Delete FAq is done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
+carsRouter.put("/updateFAQ", async (req: Request, res: Response) => {
+  try {const   {Question,Answer,Status,CreatedDate,UpdatedDate,_id} = req.body;
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(_id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
+    const result = await collections.addFAQS.updateOne({ _id: objectId }, { $set:{Question:Question,Answer:Answer,Status:Status,CreatedDate:CreatedDate,UpdatedDate: formattedDate}})
+    return res.status(201).send({ status: 201, message: `Update location done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
+
 carsRouter.get("/dashBoard", async (req: Request, res: Response) => {
 
   const cars = await collections.carData.count()

@@ -19,6 +19,7 @@ import "../CarBrand.css";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 interface BrandFormData {
   name: string;
@@ -35,6 +36,7 @@ interface IErrors {
 
 const BrandForm = () => {
   const searchParams = useSearchParams();
+  const id = searchParams.get("verify");
   const name = searchParams.get("name");
   const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ name: false, select: false });
@@ -42,9 +44,24 @@ const BrandForm = () => {
   const [select, setSelect] = useState<string>("");
 
   useEffect(() => {
-    if (name) {
-      setTextName(name);
-      setSelect(status || "");
+    if (id) {
+      axios.get(`http://localhost:4000/user/getBrand/${id}`)
+    .then((res)=>{
+      debugger
+      const {name,status,createdDate,updatedDate,slag}=res.data.data
+      setdata({
+        _id:id,
+        name:name,
+        status:status,
+        slag:slag,
+        createdDate:createdDate,
+        updatedDate:updatedDate
+      })
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
+      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
   }, []);
 
@@ -59,6 +76,7 @@ const BrandForm = () => {
   const router = useRouter();
 
   const [data,setdata]=useState({
+    _id:"",
     name:"",
     status:"",
     slag:"testing",
@@ -100,7 +118,38 @@ const BrandForm = () => {
 
   const Submit=(e:any)=>{
     e.preventDefault()
-    axios.post("http://localhost:4000/user/createBrand",{
+    if(id){
+      axios.put("http://localhost:4000/user/updateBrand",{
+        _id:id,
+        name:data.name,
+        status:data.status,
+        slag:data.slag,
+        createdDate:data.createdDate,
+        updatedDate:data.updatedDate
+      })
+      .then((res)=>{
+        Swal.fire(
+          'Updated!',
+          'The car Brand has been updated.',
+          'success'
+        )
+        debugger
+        setdata({
+          _id:"",
+        name:"",
+        status:"",
+        slag:"testing",
+        createdDate:"1/2/2020",
+        updatedDate:"2/2/2023"
+        })
+      })
+      .catch((err)=>{
+        console.log(err)
+        debugger
+      })
+    }
+    else{
+      axios.post("http://localhost:4000/user/createBrand",{
       name:data.name,
       status:data.status,
       slag:data.slag,
@@ -109,7 +158,13 @@ const BrandForm = () => {
     })
     .then((res)=>{
       console.log(res.data)
+      Swal.fire(
+        'Added!',
+        'The car Brand has been added.',
+        'success'
+      )
       setdata({
+        _id:"",
         name:"",
         status:"",
         slag:"testing",
@@ -117,6 +172,10 @@ const BrandForm = () => {
         updatedDate:"2/2/2023"
       })
     })
+    .catch((err)=>{
+      console.log(err)
+    })
+    }
     router.push("/adminpage/pages/car_brands");
   }
   return (
@@ -181,7 +240,7 @@ const BrandForm = () => {
                 className="catsubmitbtn"
                 color="primary"
               >
-                {name ? "Update" : "Submit"}
+                {id ? "Update" : "Submit"}
               </Button>
               <Button
                 variant="contained"
