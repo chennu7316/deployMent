@@ -10,19 +10,23 @@ import PersonIcon from "@mui/icons-material/Person";
 import InputAdornment from "@mui/material/InputAdornment";
 import PhoneIcon from "@mui/icons-material/Phone";
 import EmailIcon from "@mui/icons-material/Email";
+import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import DateRangeIcon from "@mui/icons-material/DateRange";
+import MessageIcon from '@mui/icons-material/Message';
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../enquiry-form/enquiryForm.css";
 import { Controller, useForm } from "react-hook-form";
-
+import axios from "axios";
 
 interface FormData {
-  name: string;
-  number: string;
+  carName: string;
+  phoneNumber: string;
   email: string;
-  pickupDate: string;
-  pickoffDate: string;
-  city: string;
+  startDate: string;
+  endDate: string;
+  area: string;
+  name: string;
+  message: string;
 }
 
 function EnquiryForm() {
@@ -36,8 +40,8 @@ function EnquiryForm() {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
-    reset();
+    // console.log(data);
+    // reset();
   };
 
   const [open, setOpen] = React.useState(false);
@@ -50,6 +54,60 @@ function EnquiryForm() {
     setOpen(false);
   };
 
+  const [data, setdata] = React.useState({
+    carName: "",
+    phoneNumber: "",
+    email: "",
+    area: "",
+    startDate: "",
+    endDate: "",
+    name: "",
+    message: "",
+  });
+
+  const handle = (e: any) => {
+    console.log("welcomeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+    const newData: any = { ...data };
+    newData[e.target.name] = e.target.value;
+    console.log(
+      (newData[e.target.name] = e.target.value),
+      "newData[e.target.name]=e.target.value"
+    );
+    setdata(newData);
+    console.log(newData, "newDAatattttttttttttttt");
+  };
+
+  const Submit = (e: any) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:4000/user/createInquiry", {
+        carName: data.carName,
+        phoneNumber: data.phoneNumber,
+        email: data.email,
+        area: data.area,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        name: data.name,
+        message: data.message,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setdata({
+          carName: "",
+          phoneNumber: "",
+          email: "",
+          area: "",
+          startDate: "",
+          endDate: "",
+          name: "",
+          message: "",
+        });
+      });
+    // router.push("/adminpage/pages/manage_catego");
+
+    // onSubmit(data: FormData);
+  };
+
   return (
     // <Container maxWidth="sm" sx={{textAlign:"right"}}>
     <>
@@ -60,12 +118,13 @@ function EnquiryForm() {
       >
         Enquiry
       </Button>
-      <Dialog className="dialog_css"  open={open} onClose={handleClose}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <Dialog className="dialog_css" open={open} onClose={handleClose}>
+        <form onSubmit={(e) => Submit(e)}>
           <DialogTitle>Enquiry</DialogTitle>
           <DialogContent>
             <TextField
               autoFocus
+              required
               placeholder="Name"
               id="name"
               type="text"
@@ -82,11 +141,37 @@ function EnquiryForm() {
                   </InputAdornment>
                 ),
               }}
+              onChange={(e) => handle(e)}
+              value={data.name}
+            />
+          </DialogContent>
+          <DialogContent>
+            <TextField
+              autoFocus
+              required
+              placeholder="Car Name"
+              id="carName"
+              type="text"
+              fullWidth
+              variant="standard"
+              size="small"
+              {...register("carName", { required: true })}
+              error={!!errors.carName}
+              helperText={errors.carName && "name is required"}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <TimeToLeaveIcon sx={{ color: "#0c3b69" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handle(e)}
+              value={data.carName}
             />
           </DialogContent>
           <DialogContent>
             <Controller
-              name="number"
+              name="phoneNumber"
               control={control}
               rules={{
                 required: "This field is required",
@@ -102,11 +187,12 @@ function EnquiryForm() {
                   placeholder="Phone"
                   id="phone"
                   type="phone"
+                  required
                   fullWidth
                   variant="standard"
                   size="small"
-                  error={!!errors.number}
-                  helperText={errors.number?.message}
+                  error={!!errors.phoneNumber}
+                  helperText={errors.phoneNumber?.message}
                   {...field}
                   InputProps={{
                     startAdornment: (
@@ -115,6 +201,8 @@ function EnquiryForm() {
                       </InputAdornment>
                     ),
                   }}
+                  onChange={(e) => handle(e)}
+                  value={data.phoneNumber}
                 />
               )}
             />
@@ -127,6 +215,7 @@ function EnquiryForm() {
               type="Email"
               fullWidth
               variant="standard"
+              required
               size="small"
               {...register("email", {
                 required: "true",
@@ -141,11 +230,13 @@ function EnquiryForm() {
                   </InputAdornment>
                 ),
               }}
+              onChange={(e) => handle(e)}
+              value={data.email}
             />
           </DialogContent>
           <DialogContent>
             <Controller
-              name="pickupDate"
+              name="startDate"
               control={control}
               defaultValue=""
               rules={{
@@ -155,7 +246,7 @@ function EnquiryForm() {
                   message: "Invalid date format (yyyy-mm-dd)",
                 },
                 validate: (value) => {
-                  const toDateValue = getValues("pickoffDate"); // Use getValues from useForm
+                  const toDateValue = getValues("startDate"); // Use getValues from useForm
                   if (value && toDateValue) {
                     return (
                       value <= toDateValue ||
@@ -175,9 +266,10 @@ function EnquiryForm() {
                   type="date"
                   fullWidth
                   variant="standard"
+                  required
                   size="small"
-                  error={Boolean(errors.pickupDate)}
-                  helperText={errors.pickupDate?.message}
+                  error={Boolean(errors.startDate)}
+                  helperText={errors.startDate?.message}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -185,13 +277,15 @@ function EnquiryForm() {
                       </InputAdornment>
                     ),
                   }}
+                  onChange={(e) => handle(e)}
+                  value={data.startDate}
                 />
               )}
             />
           </DialogContent>
           <DialogContent>
             <Controller
-              name="pickoffDate"
+              name="endDate"
               control={control}
               defaultValue=""
               rules={{
@@ -201,7 +295,7 @@ function EnquiryForm() {
                   message: "Invalid date format (yyyy-mm-dd)",
                 },
                 validate: (value) => {
-                  const fromDateValue = getValues("pickupDate"); // Use getValues from useForm
+                  const fromDateValue = getValues("endDate"); // Use getValues from useForm
                   if (value && fromDateValue) {
                     return (
                       value >= fromDateValue ||
@@ -220,10 +314,11 @@ function EnquiryForm() {
                   id="pick-off"
                   type="date"
                   fullWidth
+                  required
                   variant="standard"
                   size="small"
-                  error={Boolean(errors.pickoffDate)}
-                  helperText={errors.pickoffDate?.message}
+                  error={Boolean(errors.endDate)}
+                  helperText={errors.endDate?.message}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -231,8 +326,34 @@ function EnquiryForm() {
                       </InputAdornment>
                     ),
                   }}
+                  onChange={(e) => handle(e)}
+                  value={data.endDate}
                 />
               )}
+            />
+          </DialogContent>
+          <DialogContent>
+            <TextField
+              autoFocus
+              placeholder="Message"
+              id="message"
+              type="text"
+              fullWidth
+              variant="standard"
+              required
+              size="small"
+              {...register("area", { required: true })}
+              error={!!errors.message}
+              helperText={errors.message && "city is required"}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <MessageIcon sx={{ color: "#0c3b69" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handle(e)}
+              value={data.area}
             />
           </DialogContent>
           <DialogContent>
@@ -243,10 +364,11 @@ function EnquiryForm() {
               type="text"
               fullWidth
               variant="standard"
+              required
               size="small"
-              {...register("city", { required: true })}
-              error={!!errors.city}
-              helperText={errors.name && "city is required"}
+              {...register("area", { required: true })}
+              error={!!errors.area}
+              helperText={errors.area && "city is required"}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -254,6 +376,8 @@ function EnquiryForm() {
                   </InputAdornment>
                 ),
               }}
+              onChange={(e) => handle(e)}
+              value={data.area}
             />
           </DialogContent>
           <DialogActions>

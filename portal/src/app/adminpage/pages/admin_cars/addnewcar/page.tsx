@@ -27,6 +27,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
 import AddCarForm from "./AddCarForm";
+import CarFormTest from "./CarFormTest";
 
 const drawerWidth = 240;
 
@@ -331,7 +332,8 @@ export default function AddCarform() {
       </Drawer>
       <Main open={open} sx={{backgroundColor:"#f1f3f4"}}>
         <DrawerHeader />
-        <AddCarForm />
+        {/* <AddCarForm /> */}
+        <CarFormTest />
       </Main>
     </Box>
   );
