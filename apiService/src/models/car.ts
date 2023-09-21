@@ -113,40 +113,60 @@ export class Categoryes{
 
     
 export interface CarData {
-    selecrCar: {
-      carBrand: string;
-      version: string;
-      makeYear: string;
-    };
-    carSpecs: {
-      AvalibleColors: number[];
-      carfeaturs: number[];
-      specs: string;
-      CruiseControl: boolean;
-      FuelType: string;
-      EngineCapacity: string;
-      BootCapacity: string;
-    };
-    PRICING: {
-      PricePerDay: string;
-      MinimumDayBooking: string;
-      PricePerWeek: string;
-      ExtraMillingCost: string;
-      CDW: string;
-    };
-    RentalTerms: {
-      Security: string;
-      ExcessClaim: string;
-      Delivery: string;
-      SpecialNote: string;
-    };
-    MonthlyPricing: {
-      '1month': number[];
-      '3months': number[];
-      '6months': number[];
-      '12months': number[];
-      CDW: string;
-    };
+    name:string,
+    brand:string,
+    model: string,
+    category: string,
+    year:string,
+    image:string,
+    location:string,
+    vehicleType:string,
+    featuredCar:string,
+    status: string,
+    services:string[],
+    description:string,
+    actualPriceDaily:string,
+    discountedPriceDaily:string,
+    actualPriceWeekly:string,
+    discountedPriceWeekly:string,
+    actualPriceMonthly:string,
+    discountedPriceMonthly:string,
+    transmission:string,
+    cruiseControl:string,
+    engineCapacity:string,
+    laggageBootCapacity:string,
+    securityDeposit:string,
+    cashType:string[],
+    carFeatures:string[],
+    unlimitedMileage:string,
+    paiInsuranceDaily:string,
+    paiInsuranceMonthly:string,
+    freeCancellation:string,
+    freeDelivery30DaysandAbove:string,
+    CustomerSupport:string,
+    scdwPerMonth:string,
+    paymentType:string,
+    engineSize:string,
+    bluetooth:string,
+    aux:string,
+    seater:string,
+    navigation:string,
+    parkingSense:string,
+    requirementsForUAEResidents:string[],
+    requirementsForTourists:string[]
+
+
+
+
+
+
+
+
+
+
+
+
+    
   
 }
 

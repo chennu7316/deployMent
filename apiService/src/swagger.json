@@ -1495,121 +1495,183 @@
          "newCar": {
             "type": "object",
             "properties": {
-              "selectCar": {
-                "type": "object",
-                "properties": {
-                  "carBrand": {
-                    "type": "string"
-                  },
-                  "version": {
-                    "type": "string"
-                  },
-                  "makeYear": {
-                    "type": "string"
-                  }
-                }
-              },
-              "carSpecs": {
-                "type": "object",
-                "properties": {
-                  "AvalibleColors": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "carfeaturs": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "specs": {
-                    "type": "string"
-                  },
-                  "CruiseControl": {
-                    "type": "boolean"
-                  },
-                  "FuelType": {
-                    "type": "string"
-                  },
-                  "EngineCapacity": {
-                    "type": "string"
-                  },
-                  "BootCapacity": {
-                    "type": "string"
-                  }
-                }
-              },
-              "PRICING": {
-                "type": "object",
-                "properties": {
-                  "PricePerDay": {
-                    "type": "string"
-                  },
-                  "MinimumDayBooking": {
-                    "type": "string"
-                  },
-                  "PricePerWeek": {
-                    "type": "string"
-                  },
-                  "ExtraMillingCost": {
-                    "type": "string"
-                  },
-                  "CDW": {
+               "name":
+               {
+                  "type":"string"
+               },
+               "brand":
+               {
+                  "type":"string"
+               },
+               "model":
+               {
+                  "type":"string"
+               },
+               "category":
+               {
+                  "type":"string"
+               },
+              "year":
+               {
+                  "type":"string"
+               },
+               "image":
+               {
+                  "type":"string"
+               },
+               "location":
+               {
+                  "type":"string"
+               },
+               "vehicleType":
+               {
+                  "type":"string"
+               },
+               "featuredCar":
+               {
+                  "type":"string"
+               },
+               "status": 
+               {
+                  "type":"string"
+               },
+               "services":{
+                  "type": "array",
+                  "items": {
                     "type": "string"
                   }
                 }
-              },
-              "RentalTerms": {
-                "type": "object",
-                "properties": {
-                  "Security": {
-                    "type": "string"
-                  },
-                  "ExcessClaim": {
-                    "type": "string"
-                  },
-                  "Delivery": {
-                    "type": "string"
-                  },
-                  "SpecialNote": {
+                ,
+               "description":
+               {
+                  "type":"string"
+               },
+               "actualPriceDaily":
+               {
+                  "type":"string"
+               },
+               "discountedPriceDaily":
+               {
+                  "type":"string"
+               },
+               "actualPriceWeekly":
+               {
+                  "type":"string"
+               },
+               "discountedPriceWeekly":
+               {
+                  "type":"string"
+               },
+               "actualPriceMonthly":
+               {
+                  "type":"string"
+               },
+               "discountedPriceMonthly":
+               {
+                  "type":"string"
+               },
+               "transmission":
+               {
+                  "type":"string"
+               },
+               "cruiseControl":
+               {
+                  "type":"string"
+               },
+               "engineCapacity":
+               {
+                  "type":"string"
+               },
+               "laggageBootCapacity":
+               {
+                  "type":"string"
+               },
+               "securityDeposit":
+               {
+                  "type":"string"
+               },
+               "cashType":{
+                  "type": "array",
+                  "items": {
                     "type": "string"
                   }
                 }
-              },
-              "MonthlyPricing": {
-                "type": "object",
-                "properties": {
-                  "1month": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "3months": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "6months": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "12months": {
-                    "type": "array",
-                    "items": {
-                      "type": "integer"
-                    }
-                  },
-                  "CDW": {
+                ,
+               "carFeatures":{
+                  "type": "array",
+                  "items": {
                     "type": "string"
                   }
                 }
-              }
+                ,
+               "unlimitedMileage":
+               {
+                  "type":"string"
+               },
+               "paiInsuranceDaily":
+               {
+                  "type":"string"
+               },
+               "paiInsuranceMonthly":
+               {
+                  "type":"string"
+               },
+               "freeCancellation":
+               {
+                  "type":"string"
+               },
+               "freeDelivery30DaysandAbove":
+               {
+                  "type":"string"
+               },
+               "customerSupport":
+               {
+                  "type":"string"
+               },
+               "scdwPerMonth":
+               {
+                  "type":"string"
+               },
+               "paymentType":{
+                  "type":"string"
+               },
+               "engineSize":
+               {
+                  "type":"string"
+               },
+               "bluetooth":
+               {
+                  "type":"string"
+               },
+               "aux":
+               {
+                  "type":"string"
+               },
+               "seater":
+               {
+                  "type":"string"
+               },
+               "navigation":
+               {
+                  "type":"string"
+               },
+               "parkingSense":{
+                  "type":"string"
+               },
+               "requirementsForUAEResidents":{
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+                ,
+               "requirementsForTourists":{
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+                
             }
           },
           "addCarModel":{
