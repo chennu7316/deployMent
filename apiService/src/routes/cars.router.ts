@@ -704,7 +704,7 @@ carsRouter.put("/updateCarFeature", async (req: Request, res: Response) => {
 
 carsRouter.get("/getAllCarFeatures", async (req: Request, res: Response) => {
 
-  const result = await collections.addCarServices.find({}).toArray()
+  const result = await collections.carFeatures.find({}).toArray()
 
   if (result) {
     return res.status(200).send({ status: 200, message: "getAllCarFeatures sucessfully", data: result }

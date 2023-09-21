@@ -55,7 +55,21 @@ const ModelForm = () => {
   const [textName, setTextName] = useState<string>("");
   const [select, setSelect] = useState<string>("");
   const [faqans, setFaqans] = useState<string>("");
+  const[drop,setdrop]=useState([])
+  const [selectedBrand, setSelectedBrand] = useState('');
+  const handleBrandChange = (e) => {
+    setSelectedBrand(e.target.value);
+  };
 
+useEffect(()=>{
+  axios.get("http://localhost:4000/user/getAllBrands")
+  .then((res)=>{
+    setdrop(res.data.data)
+  })
+  .catch((err)=>{
+    console.log(err,"error")
+  })
+})
   useEffect(() => {
 
     if (id) {
@@ -213,7 +227,6 @@ const ModelForm = () => {
           <Container className="catecontbox">
             <div className="newcate_head">
               <h1>Add New Model</h1>
-
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
                   <FormControl sx={{ minWidth: "100%" }}>
@@ -235,29 +248,26 @@ const ModelForm = () => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-select-small-label">Brand</InputLabel>
-                        <Select
-                          labelId="demo-select-small-label"
-                          id="demo-select-small"
-                          name="Brand"
-                          label="Slug"
-                          value={data.Brand}
-                          onChange={(e)=>handle(e)}
-                        >
-                          <MenuItem value={"toyota"}>Toyota</MenuItem>
-                          <MenuItem value={"nissan"}>Nissan</MenuItem>
-                          <MenuItem value={"mitsubishi"}>Mitsubishi</MenuItem>
-                          <MenuItem value={"mazda"}>Mazda</MenuItem>
-                          <MenuItem value={"kia"}>kia</MenuItem>
-                          <MenuItem value={"hyundai"}>Hyundai</MenuItem>
-                          <MenuItem value={"honda"}>Honda</MenuItem>
-                        </Select>
-                
-                    <FormHelperText error>
-                      {errors.brand?.message}
-                    </FormHelperText>
-                  </FormControl>
+                <FormControl sx={{ minWidth: '100%' }} size="small">
+      <InputLabel id="demo-select-small-label">Brand</InputLabel>
+      <Select
+        labelId="demo-select-small-label"
+        id="demo-select-small"
+        name="Brand"
+        label="Slug"
+        value={data.Brand}
+        onChange={(e)=>handle(e)}
+      >
+     {drop.length > 0 && // Check if data is not empty
+          drop.map((item) => (
+            <MenuItem key={item._id} value={item.name}>
+              {item.name}
+            </MenuItem>
+          ))}
+      </Select>
+
+      <FormHelperText error>{errors.brand?.message}</FormHelperText>
+    </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={4} md={4} lg={4}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
