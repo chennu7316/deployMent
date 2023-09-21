@@ -491,7 +491,102 @@ carsRouter.post('/createNewCar', async (req: Request, res: Response) => {
     return res.status(400).send((error as Error).message);
   }
 });
+carsRouter.get('/getAllCars', async (req: Request, res: Response) => {
+  try {
 
+    const carData: CarData[] = req.body;
+
+    // const carCollection = getDatabase().collection('cars'); // Replace with your collection name
+
+    // Insert the car data into the collection
+    const result = await collections.carData.find({}).toArray()
+
+    if (result) {
+
+      return res.status(201).send({data:result,message:"get all cars "});
+    } else {
+      return res.status(500).send({ status: 500, message: 'Failed to add car data.' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(400).send((error as Error).message);
+  }
+});
+
+carsRouter.get('/getCar/:id', async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.carData.findOne({ _id: objectId })
+    if (result) {
+      return res.status(201).send({ status: 201, message: "getCar sucessfully", data: result })
+    }
+    else {
+      return res.status(400).send({ status: 201, message: "No data found", data: result })
+
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal server Error" });
+  }
+
+});
+carsRouter.put('/updateCar', async (req: Request, res: Response) => {
+  //try {
+  //   const carData: CarModel = req.body;
+
+  //   // Validate the required fields
+  //   if (!carData.Name || !carData.Brand || !carData.CreatedDate || !carData.UpdatedDate) {
+  //     return res.status(400).send({ message: 'Required fields are missing.' });
+  //   }
+
+  //   // Get a reference to the 'cars' collection
+  //   // const carCollection = getCollection('cars'); // Adjust the collection name as needed
+
+  //   // Insert the car data into the collection
+  //   const result = await collections.carModel.insertOne(carData);
+
+  //   if (result) {
+  //     return res.status(201).send({ message: 'Car Model added successfully.' });
+  //   } else {
+  //     return res.status(500).send({ message: 'Failed to add car data.' });
+  //   }
+
+  // } catch (error) {
+  //   console.error(error);
+  //   return res.status(400).send((error as Error).message);
+  // }
+  try {
+    const { _id ,...updateObject} = req.body;
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(_id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    console.log(req.body)
+    const result = await collections.carData.updateOne({ _id: objectId }, { $set:updateObject })
+    return res.status(201).send({ status: 201, message: `update car is done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+});
+
+carsRouter.delete('/deleteCar/:id', async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.carData.deleteOne({ _id: objectId })
+    return res.status(201).send({ status: 201, message: `Delete carModel is done with ${req.params.id}` });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal Server Error" });
+  }
+
+});
 
 
 
