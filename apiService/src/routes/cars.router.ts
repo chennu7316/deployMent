@@ -6,6 +6,9 @@ import { Auth, CarInquiry, Categoryes, CarData, CarModel, carServices, carEngine
 import bcrypt from "bcrypt";
 import nodemailer from "nodemailer"
 import { format } from "date-fns";
+import fs from "fs"
+import path from "path"
+
 
 
 
@@ -473,19 +476,32 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
 carsRouter.post('/createNewCar', async (req: Request, res: Response) => {
   try {
 
-    const carData: CarData[] = req.body;
+    const carData: CarData = req.body;
+    //console.log(carData.image)
+    const formattedFilePath = path.normalize(req.body.image);
 
+    fs.readFile(formattedFilePath, async (err, data) => {
+      if (err) {
+        console.error('Error reading image file:', err);
+      } else {
+        // 'data' now contains the binary data of the image
+        const base64String = data.toString('base64');
+
+        carData.image=base64String
+        const result = await collections.carData.insertOne(carData)
+
+        if (result) {
+
+          return res.status(201).send({ status: 201, message: 'createNewCar successfully.' });
+        } else {
+          return res.status(500).send({ status: 500, message: 'Failed to add car data.' });
+        }
+      }
+    });
     // const carCollection = getDatabase().collection('cars'); // Replace with your collection name
 
     // Insert the car data into the collection
-    const result = await collections.carData.insertOne(carData)
-
-    if (result) {
-
-      return res.status(201).send({ status: 201, message: 'createNewCar successfully.' });
-    } else {
-      return res.status(500).send({ status: 500, message: 'Failed to add car data.' });
-    }
+   
   } catch (error) {
     console.error(error);
     return res.status(400).send((error as Error).message);
