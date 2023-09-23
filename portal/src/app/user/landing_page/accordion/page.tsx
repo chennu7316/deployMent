@@ -1,5 +1,5 @@
 "use client";
-import * as React from "react";
+import  React,{ useEffect, useState } from "react";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
@@ -9,6 +9,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 // import "./accordion.css";
 import "../accordion/accordion.css"
 import { Container, Typography, styled } from "@mui/material";
+import axios from "axios";
 
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -57,225 +58,42 @@ export default function CustomizedAccordions() {
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
+    const [faqData, setFaqData] = useState([]);
+    useEffect(()=>{
+      axios.get("http://localhost:4000/user/getAllFAQS")
+      .then((res)=>{
+        console.log(res.data.data,"res.data.datares.data.data")
+        setFaqData(res.data.data)
+      })
+      .catch((err)=>{
+        console.log(err,"error")
+      })
+    })
 
   return (
     <section className="accordion">
-      <div className="faq_head">
+ <div className="faq_head">
         <h1>Frequently Asked Questions</h1>
       </div>
-      <Container>
+            {faqData.map((item, index) => (
         <Accordion
-          expanded={expanded === "panel1"}
-          onChange={handleChange("panel1")}
+          key={index}
+          expanded={expanded === `panel${index}`}
+          onChange={handleChange(`panel${index}`)}
         >
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+  
+          <AccordionSummary aria-controls={`panel${index}d-content`} id={`panel${index}d-header`}>
             <Typography className="acc_head">
-              How can I rent a car using OneClickDrive?
+              {item.Question}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
+              {item.Answer}
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion
-          expanded={expanded === "panel2"}
-          onChange={handleChange("panel2")}
-        >
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography className="acc_head">
-              What is the best way to get the best car rental offer?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel3"}
-          onChange={handleChange("panel3")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              What are the advantages of renting a car compared to using public
-              transport?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel4"}
-          onChange={handleChange("panel4")}
-        >
-          <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-            <Typography className="acc_head">
-              {" "}
-              Is OneClickDrive a free service?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel5"}
-          onChange={handleChange("panel5")}
-        >
-          <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-            <Typography className="acc_head">
-              What is the best mode of transport in Dubai?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel6"}
-          onChange={handleChange("panel6")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              What is the cost of car rental in Dubai?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel7"}
-          onChange={handleChange("panel7")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              How do I book a rental car in Dubai?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel8"}
-          onChange={handleChange("panel8")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              What are my overheads (additional costs) in renting a car?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel9"}
-          onChange={handleChange("panel9")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              What is the minimum eligible age to rent a car in the UAE?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel10"}
-          onChange={handleChange("panel10")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              What is the cost of renting a car for one month?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-        <Accordion
-          expanded={expanded === "panel11"}
-          onChange={handleChange("panel11")}
-        >
-          <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-            <Typography className="acc_head">
-              Do I have to pay a booking fee or commission to rent a car?
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Suspendisse malesuada lacus ex, sit amet blandit leo lobortis
-              eget.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      </Container>
+      ))}
     </section>
   );
 }

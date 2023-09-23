@@ -1,8 +1,9 @@
 "use client";
 import { Stack, Button, Menu, MenuItem, Container, Box } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import "../navlinks/navlinks.css"
+import axios from "axios";
 
 function Navlinks() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -13,10 +14,20 @@ function Navlinks() {
     null
   );
 
+  const [drop,setdrop]=useState([])
   const open = Boolean(anchorEl);
   const openTwo = Boolean(anchorElTwo);
   const openThree = Boolean(anchorElThree);
 
+  useEffect(()=>{
+    axios.get("http://localhost:4000/user/getAllBrands")
+    .then((res)=>{
+      setdrop(res.data.data)
+    })
+    .catch((err)=>{
+      console.log(err,"error")
+    })
+  })
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -112,60 +123,12 @@ function Navlinks() {
                 "aria-labelledby": "basic-button-two",
               }}
             >
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                AUDI
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                BENTLEY
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                BMW
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                CHEVROLET
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                FERRARI
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                HYUNDAI
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                KIA
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                LAMBORGHINI
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                INFINITI
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                MITSUBISHI
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                LAND ROVER
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                MAZDA
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                MERCEDES
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                NISSAN
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                PEUGEOT
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                PORSCHE
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                ROLLS ROYCE
-              </MenuItem>
-              <MenuItem sx={{ fontSize: "14px" }} onClick={handleCloseTwo}>
-                TOYOTA
-              </MenuItem>
+               {drop.length > 0 && // Check if data is not empty
+          drop.map((item) => (
+            <MenuItem key={item._id} value={item.name}>
+              {item.name}
+            </MenuItem>
+          ))}
             </Menu>
 
             <Button
