@@ -40,7 +40,6 @@ function EnquiryForm() {
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
-    // console.log(data);
     // reset();
   };
 
@@ -66,15 +65,10 @@ function EnquiryForm() {
   });
 
   const handle = (e: any) => {
-    console.log("welcomeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
     const newData: any = { ...data };
     newData[e.target.name] = e.target.value;
-    console.log(
-      (newData[e.target.name] = e.target.value),
-      "newData[e.target.name]=e.target.value"
-    );
+   
     setdata(newData);
-    console.log(newData, "newDAatattttttttttttttt");
   };
 
   const Submit = (e: any) => {
@@ -91,7 +85,6 @@ function EnquiryForm() {
         message: data.message,
       })
       .then((res) => {
-        console.log(res.data);
         setdata({
           carName: "",
           phoneNumber: "",

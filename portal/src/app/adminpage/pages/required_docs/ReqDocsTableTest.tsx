@@ -207,10 +207,8 @@ export default function ReqDocsTableTest() {
     axios
       .get("http://localhost:4000/user/getAllcarDocument")
       .then((res) => {
-        console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
         setRows(res.data.data)
-        console.log(Rows, "rowssssssssssssssssssssss");
       })
       .catch((err) => {
         console.log("ddddddddddddd");
@@ -388,13 +386,9 @@ export default function ReqDocsTableTest() {
                                 axios
                               .get("http://localhost:4000/user/getAllcarDocument")
                               .then((res) => {
-                                console.log(
-                                  res.data.data,
-                                  "dataaaaaaaaaaaaaaaaaaaaa"
-                                );
+                               
                                 setrows(res.data.data);
                                 setRows(res.data.data);
-                                console.log(Rows, "rowssssssssssssssssssssss");
                               })
                               .catch((err) => {
                                 console.log("ddddddddddddd");

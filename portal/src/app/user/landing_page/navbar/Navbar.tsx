@@ -42,7 +42,6 @@ function Navbar(props: Props) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const router = useRouter();
-  console.log("new commit")
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);

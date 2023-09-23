@@ -91,7 +91,6 @@ const ReqDocsForm = () => {
     };
     payload.title = textName;
     payload.status = select;
-    console.log(payload, "payload");
     router.push("/adminpage/pages/required_docs");
   };
 

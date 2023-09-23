@@ -30,6 +30,7 @@ import AdminCars from "./AdminCars";
 import { Button } from "@mui/material";
 import './AdminCars.css'
 import AdminCarTable from "./AdminCarTable";
+import AdmCarTableTest from "./AdmCarTableTest";
 
 const drawerWidth = 240;
 
@@ -341,7 +342,8 @@ export default function AdminHome() {
           </div>
         </div>
         {/* <AdminCars /> */}
-        <AdminCarTable />
+        {/* <AdminCarTable /> */}
+        <AdmCarTableTest />
       </Main>
     </Box>
   );

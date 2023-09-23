@@ -29,35 +29,47 @@ import Swal from "sweetalert2";
 
 interface Data {
   name: string;
-  slag: string;
+  brand: string;
+  model: string;
+  category:string;
+  vehicleType:string;
+  featuredCar: string;
+  year: string;
   status: string;
-  createdDate: string;
-  updatedDate: string;
+  location: string;
 }
 
 function createData(
   name: string,
-  slag: string,
+  brand: string,
+  model: string,
+  category:string,
+  vehicleType:string,
+  featuredCar: string,
+  year: string,
   status: string,
-  createdDate: string,
-  updatedDate: string
+  location: string,
 ): Data {
   return {
     name,
-    slag,
+    brand,
+    model,
+    category,
+    vehicleType,
+    featuredCar,
+    year,
     status,
-    createdDate,
-    updatedDate,
+    location,
   };
 }
 
-const rows1 = [
-  createData("Toyota", "toyota", "Active", "5/08/2023", "5/08/2023"),
-  createData("Nissan", "nissan", "Active", "4/08/2023", "4/08/2023"),
-  createData("Mitsubishi", "mitsubishi", "Active", "3/08/2023", "3/08/2023"),
-  createData("Mazda", "mazda", "Active", "2/08/2023", "2/08/2023"),
-  createData("Kia", "kia", "Active", "1/08/2023", "1/08/2023"),
-];
+// const rows1 = [
+//   createData("Toyota", "toyota", "Active", "5/08/2023", "5/08/2023"),
+//   createData("Nissan", "nissan", "Active", "4/08/2023", "4/08/2023"),
+//   createData("Mitsubishi", "mitsubishi", "Active", "3/08/2023", "3/08/2023"),
+//   createData("Mazda", "mazda", "Active", "2/08/2023", "2/08/2023"),
+//   createData("Kia", "kia", "Active", "1/08/2023", "1/08/2023"),
+// ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -113,10 +125,41 @@ const headCells: readonly HeadCell[] = [
     label: "Name",
   },
   {
-    id: "slag",
+    id: "brand",
+    numeric: false,
+    disablePadding: true,
+    label: "Brand",
+  },
+  {
+    id: "model",
+    numeric: false,
+    disablePadding: true,
+    label: "Model",
+  },
+  {
+    id: "category",
+    numeric: false,
+    disablePadding: true,
+    label: "Category",
+  },
+  {
+    id: "vehicleType",
+    numeric: false,
+    disablePadding: true,
+    label: "Vehicle Type",
+  },
+  {
+    id: "featuredCar",
+    numeric: false,
+    disablePadding: true,
+    label: "Featured ?",
+  },
+  
+  {
+    id: "year",
     numeric: true,
     disablePadding: false,
-    label: "Slug",
+    label: "Year",
   },
   {
     id: "status",
@@ -125,17 +168,17 @@ const headCells: readonly HeadCell[] = [
     label: "Status",
   },
   {
-    id: "createdDate",
+    id: "location",
     numeric: true,
     disablePadding: false,
-    label: "CreatedDate",
+    label: "Location",
   },
-  {
-    id: "updatedDate",
-    numeric: true,
-    disablePadding: false,
-    label: "UpdatedDate",
-  },
+//   {
+//     id: "updatedDate",
+//     numeric: true,
+//     disablePadding: false,
+//     label: "UpdatedDate",
+//   },
 ];
 
 interface EnhancedTableProps {
@@ -197,9 +240,9 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function BrandTableTest() {
+export default function AdmCarTableTest() {
   const [order, setOrder] = React.useState<Order>("desc");
-  const [orderBy, setOrderBy] = React.useState<keyof Data>("slag");
+  const [orderBy, setOrderBy] = React.useState<keyof Data>("name");
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
@@ -211,7 +254,7 @@ export default function BrandTableTest() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/user/getAllCategoryes")
+      .get("http://localhost:4000/user/getAllCars")
       .then((res) => {
         console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
@@ -344,14 +387,14 @@ export default function BrandTableTest() {
               />
               <TableBody>
                 {visibleRows.map((row: any, index) => {
-                  const isItemSelected = isSelected(row.name);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     // {Rows.map((row:any) => (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.Name)}
+                      onClick={(event) => handleClick(event, row.name)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -367,10 +410,51 @@ export default function BrandTableTest() {
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="left">{row.slag}</TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.brand}
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.model}
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.category}
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.vehicleType}
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        id={labelId}
+                        scope="row"
+                        padding="none"
+                      >
+                        {row.featuredCar}
+                      </TableCell>
+                      {/* <TableCell align="left">{row.brand}</TableCell> */}
+                      <TableCell align="left">{row.year}</TableCell>
                       <TableCell align="left">{row.status}</TableCell>
-                      <TableCell align="left">{row.createdDate}</TableCell>
-                      <TableCell align="left">{row.updatedDate}</TableCell>
+                      <TableCell align="left">{row.location}</TableCell>
+                      {/* <TableCell align="left">{row.updatedDate}</TableCell> */}
 
                       <TableCell align="center">
                         <BorderColorIcon
@@ -379,7 +463,7 @@ export default function BrandTableTest() {
                           onClick={() => {
                             localStorage.setItem(row._id, JSON.stringify(row));
                             router.push(
-                              `/adminpage/pages/manage_catego/mancat_form?verify=${row._id}`
+                              `/adminpage/pages/admin_cars/addnewcar?verify=${row._id}`
                             );
                           }}
                         />
@@ -389,18 +473,18 @@ export default function BrandTableTest() {
                           onClick={() => {
                             axios
                               .delete(
-                                `http://localhost:4000/user/deleteCategory/${row._id}`
+                                `http://localhost:4000/user/deleteCar/${row._id}`
                               )
                               .then((res) => {
                                 //will integrate tostifire
                                 Swal.fire(
                                   "Deleted!",
-                                  "The car category has been deleted.",
+                                  "The car has been deleted.",
                                   "success"
                                 );
                                 axios
                                   .get(
-                                    "http://localhost:4000/user/getAllCategoryes"
+                                    "http://localhost:4000/user/getAllCars"
                                   )
                                   .then((res) => {
                                     console.log(

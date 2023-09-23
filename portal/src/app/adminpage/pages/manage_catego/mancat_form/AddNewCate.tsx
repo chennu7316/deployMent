@@ -37,12 +37,12 @@ interface IErrors {
 const AddNewCate = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("verify");
-  const name = searchParams.get("name");
-  const status = searchParams.get("status");
+  // const name = searchParams.get("name");
+  // const status = searchParams.get("status");
   const [error, setErrors] = useState<IErrors>({ name: false, select: false });
   const [textName, setTextName] = useState<string>("");
   const [select, setSelect] = useState<string>("");
-  const [faqans, setFaqans] = useState<string>("");
+  // const [faqans, setFaqans] = useState<string>("");
 
 
   useEffect(() => {

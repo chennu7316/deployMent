@@ -71,7 +71,6 @@ const SignupForm: React.FC = () => {
     e.preventDefault();
     if (validateForm()) {
       // Perform your form submission logic here
-      console.log("Form submitted:", values);
     }
   };
 
