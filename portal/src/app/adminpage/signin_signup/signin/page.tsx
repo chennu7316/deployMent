@@ -1,76 +1,69 @@
-"use client"
+"use client";
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Button, Container, TextField, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
-// import "../signup/SignUP.css"
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import Swal from "sweetalert2";
+import axios from "axios";
 
 type FormData = {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
 };
 
-const SignUp: React.FC = () => {
+const schema = yup.object().shape({
+  email: yup.string().email().required(),
+  password: yup.string().min(8).max(32).required(),
+});
+const SignIn: React.FC = () => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
+    getValues,
+  } = useForm<FormData>({
+     resolver: yupResolver(schema),
+  });
 
   const router = useRouter();
 
-  const onSubmit = (data: FormData) => {
-    router.push("/adminpage")
+  const onsubmit = (e: any) => {
+    e.preventDefault();
+    const values = getValues();
+   
+
+   
+    debugger;
+    axios
+      .post("http://localhost:4000/user/login", {
+        ...values,
+      })
+      .then(() => {
+        // Swal.fire("You have Logged In!")
+
+        router.push("/adminpage");
+      })
+      .catch((err) => {
+        console.log(err,"gfyhgh");
+        // Swal.fire(err.response.data.message)
+        Swal.fire({
+            icon: 'error',
+            title: 'Sorry..',
+            text: err.response.data.message,
+          })
+      });
   };
 
   return (
-    <div className="enquiry_form" style={{height:"90vh"}}>
+    <div className="enquiry_form" style={{ height: "90vh" }}>
       <Container sx={{ paddingTop: "8%" }} maxWidth="xs">
         <Typography sx={{ textAlign: "center" }} variant="h4" gutterBottom>
           Register
         </Typography>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Controller
-            name="firstName"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="First Name"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                size="small"
-                {...register("firstName", { required: true })}
-                error={!!errors.firstName}
-                helperText={errors.firstName && "First name is required"}
-              />
-            )}
-          />
-
-          <Controller
-            name="lastName"
-            control={control}
-            defaultValue=""
-            render={({ field }) => (
-              <TextField
-                {...field}
-                label="Last Name"
-                variant="outlined"
-                fullWidth
-                size="small"
-                margin="normal"
-                {...register("lastName", { required: true })}
-                error={!!errors.lastName}
-                helperText={errors.lastName && "Last name is required"}
-              />
-            )}
-          />
-
+        <form onSubmit={(e) => onsubmit(e)}>
           <Controller
             name="email"
             control={control}
@@ -112,14 +105,17 @@ const SignUp: React.FC = () => {
               />
             )}
           />
-
           <Button type="submit" variant="contained" color="primary" fullWidth>
-            Sign Up
+            Sign In
           </Button>
+          <Button sx={{marginTop:"10px"}} variant="contained" color="success" fullWidth onClick={() => router.push("/adminpage/signin_signup/signup")}>
+            Create a new Account
+          </Button>
+          
         </form>
       </Container>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

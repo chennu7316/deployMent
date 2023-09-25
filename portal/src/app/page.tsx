@@ -2,7 +2,7 @@
 import "./globals.css";
 import AdminHome from "./adminpage/AdminHome";
 import LandingPage from "./user/landing_page/LandingPage";
-import SignUp from "./adminpage/signin_signup/signup/page";
+import SignUp from "./adminpage/signin_signup/signup/pagel";
 import SignupForm from "./user/signup-form/SignupForm";
 
 export default function Home() {

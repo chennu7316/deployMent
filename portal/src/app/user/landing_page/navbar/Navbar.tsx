@@ -90,7 +90,7 @@ function Navbar(props: Props) {
             </Typography>
             
             <Box className="header_links" sx={{ display: { xs: "none", sm: "block" } }}>
-              <Button onClick={() => router.push("/adminpage/signin_signup/signup")} className="signLog_btn" variant="contained" sx={{ color: "#fff" }}><AccountCircleIcon className="login_icon"/>Login / Signup</Button>
+              <Button onClick={() => router.push("/adminpage/signin_signup/signin")} className="signLog_btn" variant="contained" sx={{ color: "#fff" }}><AccountCircleIcon className="login_icon"/>Login / Signup</Button>
             <EnquiryForm />
             </Box>
           </Toolbar>
