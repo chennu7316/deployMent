@@ -37,14 +37,23 @@ const SignIn: React.FC = () => {
 
    
     debugger;
+    console.log("vales",values)
     axios
       .post("http://localhost:4000/user/login", {
         ...values,
       })
       .then(() => {
         // Swal.fire("You have Logged In!")
+        console.log(values,"values")
+        if(values.email=="chennuganesh2@gmail.com")
+        {
+          router.push("/adminpage");
 
-        router.push("/adminpage");
+          
+        }
+        else{
+        router.push("/");
+        }
       })
       .catch((err) => {
         console.log(err,"gfyhgh");
@@ -105,7 +114,7 @@ const SignIn: React.FC = () => {
               />
             )}
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+          <Button type="submit" variant="contained" color="primary" fullWidth  >
             Sign In
           </Button>
           <Button sx={{marginTop:"10px"}} variant="contained" color="success" fullWidth onClick={() => router.push("/adminpage/signin_signup/signup")}>

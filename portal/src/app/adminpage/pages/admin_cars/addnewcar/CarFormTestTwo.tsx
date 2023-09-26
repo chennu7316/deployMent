@@ -716,6 +716,26 @@ const CarFormTestTwo = () => {
       return checkboxValue(value);
     }, [value, data]);
 
+    const handleImageChange = (e:any) => {
+
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        if (reader.result) {
+          console.log(reader.result,"reader.resultreader.resulreader.resultreader.resultreader.resultreader.resultreader.resultreader.resultt")
+          // Ensure that reader.result is not null
+          setdata({
+            ...data,
+            image: reader.result as string, // Cast reader.result to string
+          });
+        }
+      };
+
+      reader.readAsDataURL(file); // Read the file as a data URL (base64)
+    }
+  }
   return (
     <div className="addcar_form">
       <Box>
@@ -869,12 +889,12 @@ const CarFormTestTwo = () => {
                     <Button variant="outlined" component="label">
                       Upload Car Image
                       <input
-                        name="image"
-                        value={data.image}
-                        onChange={(e) => handle(e)}
-                        type="file"
-                        hidden
-                      />
+          name="image"
+          type="file"
+          accept="image/*" // Limit accepted files to images
+          onChange={handleImageChange}
+          hidden
+        />
                     </Button>
                   </FormControl>
                 </Grid>

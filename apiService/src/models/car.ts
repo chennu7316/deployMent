@@ -7,8 +7,11 @@ export default class Car {
 }
 
 export  class Auth{
-    constructor(public userName: string, public email: string, public password: string,public phoneNumber: string,public address:string,public city:string,public locality:string,public area:string,public zipcode:string) {
-        if (!this.isValidString(userName)) {
+    constructor(public firstName:string,public lastName:string, public email: string, public password: string,public phoneNumber: string,public address:string,public city:string,public locality:string,public area:string,public zipcode:string) {
+        if (!this.isValidString(firstName)) {
+            throw  Error(JSON.stringify({message:"Invalid username. Username must be a non-empty string."}));
+        }
+        if (!this.isValidString(lastName)) {
             throw  Error(JSON.stringify({message:"Invalid username. Username must be a non-empty string."}));
         }
         if (!this.isValidString(address)) {
@@ -70,16 +73,16 @@ export  class Auth{
     public returnData()
     {
         return  {
-            userName:this.userName,email:this.email,password:this.password,phoneNumber:this.phoneNumber,address:this.address,city:this.city,locality:this.locality,area:this.area,zipcode:this.zipcode
+            firstName:this.firstName,lastName:this.lastName,email:this.email,password:this.password,phoneNumber:this.phoneNumber,address:this.address,city:this.city,locality:this.locality,area:this.area,zipcode:this.zipcode
         }
     }
 }
 export class CarInquiry{
 
 
-    constructor(carName:string,startDate: Date,endDate:Date,pickUpLoc:string,dropLocation:string,phoneNumber:string,area:string){
+    constructor(name:string,carName:string,startDate: Date,endDate:Date,pickUpLoc:string,dropLocation:string,phoneNumber:string,area:string,message:string,city:string,email:string){
         return {
-            carName:carName,startDate:startDate,endDate:endDate,pickUpLoc:pickUpLoc,dropLocation:dropLocation,phoneNumber:phoneNumber,area:area
+            carName:carName,startDate:startDate,endDate:endDate,pickUpLoc:pickUpLoc,dropLocation:dropLocation,phoneNumber:phoneNumber,area:area,message:message,city:city,name:name,email:email
         }
 
     }
@@ -118,7 +121,7 @@ export interface CarData {
     model: string,
     category: string,
     year:string,
-    image:string,
+    image:ArrayBuffer,
     location:string,
     vehicleType:string,
     featuredCar:string,

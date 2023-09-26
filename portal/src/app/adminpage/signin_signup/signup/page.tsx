@@ -292,7 +292,7 @@ const SignUp: React.FC = () => {
               />
             )}
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
+          <Button type="submit" variant="contained" color="primary" fullWidth onClick={() => router.push("/adminpage/signin_signup/signin")}>
             Sign Up
           </Button>
           <Button sx={{marginTop:"10px"}} variant="contained" color="success" fullWidth onClick={() => router.push("/adminpage/signin_signup/signin")}>

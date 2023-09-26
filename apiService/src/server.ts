@@ -8,6 +8,8 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from "./swagger.json";
 dotenv.config()
 const port = process.env.PORT
+const bodyParser = require('body-parser');
+
 const app= express();
 // eslint-disable-next-line 
 
@@ -19,6 +21,9 @@ const corsOptions = {
   
   app.use(cors(corsOptions));
 
+
+app.use(bodyParser.json({ limit: '10mb' })); // Adjust the limit as needed
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 connectToDatabase()

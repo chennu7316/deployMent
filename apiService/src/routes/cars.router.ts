@@ -43,7 +43,7 @@ carsRouter.use(express.json());
 // });
 carsRouter.post("/signUp", async (req: Request, res: Response) => {
   try {
-    const { userName, email, password, phoneNumber, address, city, locality, area, zipcode } = req.body;
+    const { firstName,lastName, email, password, phoneNumber, address, city, locality, area, zipcode } = req.body;
 
     // Check if the email already exists in the database
     const existingUser = await collections.cars.findOne({ email });
@@ -53,7 +53,11 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
     }
 
     // If the email is unique, create a new Auth instance
-    const newUser = new Auth(userName, email, password, phoneNumber, address, city, locality, area, zipcode);
+    const newUser = new Auth(firstName,lastName, email, password, phoneNumber, address, city, locality, area, zipcode);
+       const date = new Date(); // Note: Months are zero-based (8 represents September)
+       
+       const formattedDate = format(date, 'dd/MM/yyyy');
+       newUser['date']=formattedDate
 
     // Save the new user to the database
     const result = await collections.cars.insertOne(newUser);
@@ -66,6 +70,29 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
   } catch (error) {
     console.error(error);
     return res.status(400).send((error as Error).message); // Respond with the error message from the validation
+  }
+});
+
+
+carsRouter.get("/getAllcontactenquiries", async (req: Request, res: Response) => {
+  try {
+    console.log(req.params.id); // Corrected statement
+    const objectId = new ObjectId(req.params.id); // Convert to ObjectId
+    console.log(objectId); // Log the converted ObjectId
+
+    const result = await collections.cars.find().toArray()
+    if (result) {
+      return res.status(201).send({ status: 201, message: "getAllcontactenquiries", data: result || {} });
+    }
+
+    else {
+      return res.status(400).send({ status: 201, message: "No data found", data: result });
+
+    }
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({ status: 500, message: "Internal server Error" });
   }
 });
 
@@ -98,11 +125,11 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
 
 carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
   try {
-    const { carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email } = req.body;
+    const { name ,carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email,message,city } = req.body;
 
     // Find the user with the provided email in the database
 
-    const inquiry = new CarInquiry(carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area)
+    const inquiry = new CarInquiry(name ,carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email,message,city)
     // Compare the provided password with the hashed password from the database
     inquiry["email"] = email
     console.log(inquiry)
@@ -112,15 +139,15 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
       const transporter = nodemailer.createTransport({
         service: `gmail`,
         auth: {
-          user: ' ',
-          pass: ' ',
+          user: 'ganesh527@sasi.ac.in',
+          pass: 'Chennu7316',
         },
       });
       const mailOptions = {
-        from: ' ',
+        from: 'chennuganesh2@gmail.com',
         to: email,
         subject: 'INQUIRY Successfully  CREATED',
-        text: `Hi inquiry is created here is the details carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area}`,
+        text: `Hi inquiry is created here is the details name:${name} carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area} message:${message} city:${city}`,
       };
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
@@ -478,26 +505,15 @@ carsRouter.post('/createNewCar', async (req: Request, res: Response) => {
 
     const carData: CarData = req.body;
     //console.log(carData.image)
-    const formattedFilePath = path.normalize(req.body.image);
 
-    fs.readFile(formattedFilePath, async (err, data) => {
-      if (err) {
-        console.error('Error reading image file:', err);
-      } else {
-        // 'data' now contains the binary data of the image
-        const base64String = data.toString('base64');
+    const result = await collections.carData.insertOne(carData)
 
-        carData.image=base64String
-        const result = await collections.carData.insertOne(carData)
+    if (result) {
 
-        if (result) {
-
-          return res.status(201).send({ status: 201, message: 'createNewCar successfully.' });
-        } else {
-          return res.status(500).send({ status: 500, message: 'Failed to add car data.' });
-        }
-      }
-    });
+      return res.status(201).send({ status: 201, message: 'createNewCar successfully.' });
+    } else {
+      return res.status(500).send({ status: 500, message: 'Failed to add car data.' });
+    }
     // const carCollection = getDatabase().collection('cars'); // Replace with your collection name
 
     // Insert the car data into the collection

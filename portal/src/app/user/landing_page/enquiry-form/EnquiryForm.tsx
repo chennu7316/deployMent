@@ -27,6 +27,7 @@ interface FormData {
   area: string;
   name: string;
   message: string;
+  city:string
 }
 
 function EnquiryForm() {
@@ -62,11 +63,13 @@ function EnquiryForm() {
     endDate: "",
     name: "",
     message: "",
+    city:""
   });
 
   const handle = (e: any) => {
     const newData: any = { ...data };
     newData[e.target.name] = e.target.value;
+    console.log(newData,"newDatatatatatatatatta")
    
     setdata(newData);
   };
@@ -83,6 +86,8 @@ function EnquiryForm() {
         endDate: data.endDate,
         name: data.name,
         message: data.message,
+        city:data.city
+
       })
       .then((res) => {
         setdata({
@@ -94,6 +99,7 @@ function EnquiryForm() {
           endDate: "",
           name: "",
           message: "",
+          city:""
         });
       });
     // router.push("/adminpage/pages/manage_catego");
@@ -335,7 +341,7 @@ function EnquiryForm() {
               variant="standard"
               required
               size="small"
-              {...register("area", { required: true })}
+              {...register("message", { required: true })}
               error={!!errors.message}
               helperText={errors.message && "city is required"}
               InputProps={{
@@ -346,7 +352,7 @@ function EnquiryForm() {
                 ),
               }}
               onChange={(e) => handle(e)}
-              value={data.area}
+              value={data.message}
             />
           </DialogContent>
           <DialogContent>
@@ -359,7 +365,7 @@ function EnquiryForm() {
               variant="standard"
               required
               size="small"
-              {...register("area", { required: true })}
+              {...register("city", { required: true })}
               error={!!errors.area}
               helperText={errors.area && "city is required"}
               InputProps={{
@@ -370,7 +376,7 @@ function EnquiryForm() {
                 ),
               }}
               onChange={(e) => handle(e)}
-              value={data.area}
+              value={data.city}
             />
           </DialogContent>
           <DialogActions>
