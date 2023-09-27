@@ -14,6 +14,8 @@ import Testimonials from "./testimonials/page";
 import CompanyOverview from "./compoverview/page";
 import Footer from "./footer/page";
 import TopBar from "./top_bar/page";
+import { CarSlider } from "./car_slider/CarSlider";
+import BannerSlider from "./car_slider/HeroSlider";
 
 const LandingPage = () => {
   return (
@@ -21,7 +23,9 @@ const LandingPage = () => {
       <Navbar />
       <TopBar />
       <Navlinks />
-      <Slider />
+      {/* <BannerSlider/> */}
+      <CarSlider/>
+      {/* <Slider /> */}
       <RecipeReviewCard />
       <CarBrands />
       <CarOffers />

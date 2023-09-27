@@ -14,7 +14,7 @@ import TimeToLeaveIcon from "@mui/icons-material/TimeToLeave";
 import DateRangeIcon from "@mui/icons-material/DateRange";
 import MessageIcon from "@mui/icons-material/Message";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
-import "../enquiry-form/enquiryForm.css";
+// import "../enquiry-form/BookNow.css";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
 
@@ -27,10 +27,9 @@ interface FormData {
   area: string;
   name: string;
   message: string;
-  city:string
 }
 
-function EnquiryForm() {
+function BookNow() {
   const {
     register,
     handleSubmit,
@@ -63,14 +62,12 @@ function EnquiryForm() {
     endDate: "",
     name: "",
     message: "",
-    city:""
   });
 
   const handle = (e: any) => {
     const newData: any = { ...data };
     newData[e.target.name] = e.target.value;
-    console.log(newData,"newDatatatatatatatatta")
-   
+
     setdata(newData);
   };
 
@@ -86,8 +83,6 @@ function EnquiryForm() {
         endDate: data.endDate,
         name: data.name,
         message: data.message,
-        city:data.city
-
       })
       .then((res) => {
         setdata({
@@ -99,7 +94,6 @@ function EnquiryForm() {
           endDate: "",
           name: "",
           message: "",
-          city:""
         });
       });
   };
@@ -107,13 +101,14 @@ function EnquiryForm() {
   return (
     <>
       <Button
-        variant="outlined"
+        variant="contained"
+        color="error"
         onClick={handleClickOpen}
-        className="enquiry_btn"
+        className="booknow_btn"
       >
-        Enquiry
+        book Now
       </Button>
-      <Dialog className="dialog_css" open={open} onClose={handleClose}>
+      <Dialog className="booknow_css" open={open} onClose={handleClose}>
         <form onSubmit={(e) => Submit(e)}>
           <DialogTitle>Enquiry</DialogTitle>
           <DialogContent>
@@ -336,7 +331,7 @@ function EnquiryForm() {
               variant="standard"
               required
               size="small"
-              {...register("message", { required: true })}
+              {...register("area", { required: true })}
               error={!!errors.message}
               helperText={errors.message && "city is required"}
               InputProps={{
@@ -347,7 +342,7 @@ function EnquiryForm() {
                 ),
               }}
               onChange={(e) => handle(e)}
-              value={data.message}
+              value={data.area}
             />
           </DialogContent>
           <DialogContent>
@@ -360,7 +355,7 @@ function EnquiryForm() {
               variant="standard"
               required
               size="small"
-              {...register("city", { required: true })}
+              {...register("area", { required: true })}
               error={!!errors.area}
               helperText={errors.area && "city is required"}
               InputProps={{
@@ -371,14 +366,14 @@ function EnquiryForm() {
                 ),
               }}
               onChange={(e) => handle(e)}
-              value={data.city}
+              value={data.area}
             />
           </DialogContent>
           <DialogActions>
             <Button variant="contained" size="small" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit" onClick={handleClose} variant="contained" size="small">
+            <Button type="submit" variant="contained" size="small">
               Submit
             </Button>
           </DialogActions>
@@ -388,4 +383,4 @@ function EnquiryForm() {
   );
 }
 
-export default EnquiryForm;
+export default BookNow;

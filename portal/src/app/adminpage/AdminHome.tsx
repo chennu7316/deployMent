@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import * as React from "react";
-import axios from 'axios'
-import { useState ,useEffect} from "react";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { styled, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
@@ -27,7 +27,14 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import LiveHelpIcon from "@mui/icons-material/LiveHelp";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardMedia, Container, Grid, Typography } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import "../adminpage/adminhome.css";
 
 const drawerWidth = 240;
@@ -82,27 +89,25 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function AdminHome() {
-
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [topen, setTopen] = useState(false);
   const [eopen, setEopen] = useState(false);
-  const[datas,setdatas]=useState({});
+  const [datas, setdatas] = useState({});
 
   const router = useRouter();
 
-  
-  useEffect(()=>{
-    axios.get("http://localhost:4000/user/dashBoard")
-    .then(res => {
-      setdatas(res.data);   
-      console.log(datas,"datasdatasdatasdatasdatasdatasdatasdatas")
-    })
-    .catch(error => {
-      console.error("Error fetching data:", error);
-    });
-
-  },[])
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/user/dashBoard")
+      .then((res) => {
+        setdatas(res.data);
+        console.log(datas, "datasdatasdatasdatasdatasdatasdatasdatas");
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   const handleClick = () => {
     setTopen(!topen);
@@ -214,9 +219,6 @@ export default function AdminHome() {
                   sx={{ pl: 4, fontSize: "5px" }}
                   onClick={() => router.push("/adminpage/pages/manage_catego")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText
                     sx={{ fontSize: "5px" }}
                     primary="Manage Categories"
@@ -226,27 +228,18 @@ export default function AdminHome() {
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_brands")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Brands" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_models")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Models" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_features")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Features" />
                 </ListItemButton>
                 <ListItemButton
@@ -255,9 +248,6 @@ export default function AdminHome() {
                     router.push("/adminpage/pages/manage_services")
                   }
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Manage Services" />
                 </ListItemButton>
                 <ListItemButton
@@ -266,18 +256,12 @@ export default function AdminHome() {
                     router.push("/adminpage/pages/engine_capacities")
                   }
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Engine Capacities" />
                 </ListItemButton>
                 <ListItemButton
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/required_docs")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Required Documents" />
                 </ListItemButton>
               </List>
@@ -301,9 +285,6 @@ export default function AdminHome() {
                   sx={{ pl: 4 }}
                   onClick={() => router.push("/adminpage/pages/car_enquiries")}
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Car Enquiries" />
                 </ListItemButton>
                 <ListItemButton
@@ -312,9 +293,6 @@ export default function AdminHome() {
                     router.push("/adminpage/pages/contact_enquiries")
                   }
                 >
-                  {/* <ListItemIcon>
-                                        <StarBorder />
-                                    </ListItemIcon> */}
                   <ListItemText primary="Contact Enquiries" />
                 </ListItemButton>
               </List>
@@ -379,7 +357,12 @@ export default function AdminHome() {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={4} md={4} lg={4}>
               <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
+                <Grid
+                  container
+                  spacing={3}
+                  sx={{ alignItems: "center", cursor: "pointer" }}
+                  onClick={() => router.push("/adminpage/pages/admin_cars")}
+                >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <CardMedia
                       component="img"
@@ -400,7 +383,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                    {datas.data?.totalCars || 0}
+                      {datas.data?.totalCars || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -413,7 +396,12 @@ export default function AdminHome() {
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={4}>
               <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
+                <Grid
+                  container
+                  spacing={3}
+                  sx={{ alignItems: "center", cursor: "pointer" }}
+                  onClick={() => router.push("/adminpage/pages/manage_catego")}
+                >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <CardMedia
                       component="img"
@@ -447,7 +435,12 @@ export default function AdminHome() {
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={4}>
               <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
+                <Grid
+                  container
+                  spacing={3}
+                  sx={{ alignItems: "center", cursor: "pointer" }}
+                  onClick={() => router.push("/adminpage/pages/car_brands")}
+                >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <CardMedia
                       component="img"
@@ -468,8 +461,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                {datas.data?.totalBrands || 0}
-
+                      {datas.data?.totalBrands || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -482,7 +474,12 @@ export default function AdminHome() {
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={4}>
               <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
+                <Grid
+                  container
+                  spacing={3}
+                  sx={{ alignItems: "center", cursor: "pointer" }}
+                  onClick={() => router.push("/adminpage/pages/car_enquiries")}
+                >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <CardMedia
                       component="img"
@@ -503,7 +500,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                         {datas.data?.totalEnquiryes || 0}
+                      {datas.data?.totalEnquiryes || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -516,7 +513,14 @@ export default function AdminHome() {
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={4}>
               <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
+                <Grid
+                  container
+                  spacing={3}
+                  sx={{ alignItems: "center", cursor: "pointer" }}
+                  onClick={() =>
+                    router.push("/adminpage/pages/contact_enquiries")
+                  }
+                >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <CardMedia
                       component="img"
@@ -537,8 +541,7 @@ export default function AdminHome() {
                         fontWeight: "bold",
                       }}
                     >
-                {datas.data?.totalContactInquires || 0}
-
+                      {datas.data?.totalContactInquires || 0}
                     </Typography>
                     <Typography
                       sx={{ fontSize: 15, textAlign: "center", color: "gray" }}
@@ -551,7 +554,12 @@ export default function AdminHome() {
             </Grid>
             <Grid item xs={12} sm={4} md={4} lg={4}>
               <Card>
-                <Grid container spacing={3} sx={{ alignItems: "center" }}>
+                <Grid
+                  container
+                  spacing={3}
+                  sx={{ alignItems: "center", cursor: "pointer" }}
+                  onClick={() => router.push("/adminpage/pages/admin_location")}
+                >
                   <Grid item xs={4} sm={4} md={4} lg={4}>
                     <CardMedia
                       component="img"

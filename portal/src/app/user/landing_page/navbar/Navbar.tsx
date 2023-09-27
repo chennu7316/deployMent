@@ -16,15 +16,14 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useState } from "react";
 import EnquiryForm from "../enquiry-form/EnquiryForm";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import {useRouter} from "next/navigation"
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useRouter } from "next/navigation";
 
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import { Container, Grid } from "@mui/material";
-
 
 interface Props {
   /**
@@ -57,7 +56,7 @@ function Navbar(props: Props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item}  />
+              <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -69,7 +68,7 @@ function Navbar(props: Props) {
     window !== undefined ? () => window().document.body : undefined;
   return (
     <>
-      <Box sx={{ display: "flex", height: "83px", backgroundColor:"black"  }}>
+      <Box sx={{ display: "flex", height: "83px", backgroundColor: "black" }}>
         <CssBaseline />
         <AppBar component="nav">
           <Toolbar>
@@ -84,14 +83,32 @@ function Navbar(props: Props) {
             </IconButton>
             <Typography
               component="div"
-              sx={{ flexGrow: 1, height: "83px" , display: { xs: "none", sm: "block" } }}
+              sx={{
+                flexGrow: 1,
+                height: "83px",
+                display: { xs: "none", sm: "block" },
+              }}
             >
               <img src="/injaz-logo-two.png" alt="logo" />
             </Typography>
-            
-            <Box className="header_links" sx={{ display: { xs: "none", sm: "block" } }}>
-              <Button onClick={() => router.push("/adminpage/signin_signup/signin")} className="signLog_btn" variant="contained" sx={{ color: "#fff" }}><AccountCircleIcon className="login_icon"/>Login / Signup</Button>
-            <EnquiryForm />
+
+            <Box
+              className="header_links"
+              sx={{ display: { xs: "none", sm: "block" } }}
+            >
+              <div style={{marginRight:"5px"}}>
+              <EnquiryForm />
+
+              </div>
+              <Button
+                onClick={() => router.push("/adminpage/signin_signup/signin")}
+                className="signLog_btn"
+                variant="contained"
+                sx={{ color: "#fff" }}
+              >
+                <AccountCircleIcon className="login_icon" />
+                Login / Signup
+              </Button>
             </Box>
           </Toolbar>
         </AppBar>
@@ -117,9 +134,7 @@ function Navbar(props: Props) {
         </Box>
         <Box component="main" sx={{ p: 3 }}>
           <Toolbar />
-          <Typography>
-            
-          </Typography>
+          <Typography></Typography>
         </Box>
       </Box>
     </>

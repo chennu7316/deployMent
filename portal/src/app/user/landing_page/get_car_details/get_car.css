@@ -1,0 +1,117 @@
+.car_imag {
+    text-align: center;
+}
+
+.car_imag img {
+    width: 100%;
+}
+
+.car_description {
+    text-align: justify;
+    font-size: 15px;
+    font-family: sans-serif;
+    border-bottom: 2px solid #b3b8bb;
+    padding-bottom: 10px;
+}
+
+._get_car_feat_head {
+    color: black;
+    background-color: #b3b8bb;
+    padding: 5px 20px;
+}
+
+.get_car_feat {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 20px;
+    align-items: center;
+    border-bottom: 2px solid #f1f3f4;
+}
+
+.feat_left h6 {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.feat_right h6 {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.car_amount {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 20px;
+    align-items: center;
+    background-color: #cfbebe85;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.amount_left h6,
+.amount_right h6 {
+    font-size: 14px;
+    margin: 0px;
+}
+
+.req_uae_head {
+    background-color: #f1f3f4;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.req_uae_head h6 {
+    margin: 0px;
+    font-size: 19px;
+    padding: 5px 20px;
+}
+
+.req_uae_list {
+    margin-top: 5px;
+    border-bottom: 2px solid #f1f3f4;
+}
+
+.req_uae_list h6 {
+    padding: 5px 20px;
+    font-size: 15px;
+    margin: 0px;
+}
+
+.rent_cost_head h6 {
+    margin: 0px;
+    font-size: 19px;
+    background-color: #b3b8bb;
+    padding: 5px 20px;
+}
+
+.daily_weekly_monthly {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 20px;
+}
+
+.daily_weekly_monthly h4 {
+    margin: 0px;
+    padding-top: 10px;
+    font-size: 18px;
+}
+
+.daily_weekly_monthly p {
+    margin: 0px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.rental_cost {
+    border: 1px solid #b3b8bb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.rental_cost_btn {
+    padding: 5px 20px;
+    text-align: center;
+}

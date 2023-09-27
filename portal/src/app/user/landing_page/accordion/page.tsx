@@ -75,7 +75,7 @@ export default function CustomizedAccordions() {
  <div className="faq_head">
         <h1>Frequently Asked Questions</h1>
       </div>
-            {faqData.map((item, index) => (
+            {faqData.map((item:any, index) => (
         <Accordion
           key={index}
           expanded={expanded === `panel${index}`}

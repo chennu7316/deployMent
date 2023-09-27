@@ -388,7 +388,7 @@ const CarFormTestTwo = () => {
         })
         .then((res) => {
           console.log(res.data);
-          Swal.fire("Added!", "The car Brand has been added.", "success");
+          Swal.fire("Added!", "The car has been added.", "success");
           setdata({
             _id: "",
             name: "",
@@ -715,6 +715,7 @@ const CarFormTestTwo = () => {
     useMemo(() => {
       return checkboxValue(value);
     }, [value, data]);
+    
 
     const handleImageChange = (e:any) => {
 
@@ -950,7 +951,7 @@ const CarFormTestTwo = () => {
                         >
                           <MenuItem value="Economy">Economy</MenuItem>
                           <MenuItem value="Luxury">Luxury</MenuItem>
-                          <MenuItem value="30">SUV</MenuItem>
+                          <MenuItem value="SUV">SUV</MenuItem>
                         </Select>
                       )}
                     />
