@@ -377,7 +377,7 @@ export default function CarEnqTableTest() {
                         {row.carName}
                       </TableCell>
                       {/* <TableCell align="left">{row.slag}</TableCell> */}
-                      <TableCell align="left">{row.carName}</TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
                       <TableCell align="left">{row.phoneNumber}</TableCell>
                       <TableCell align="left">{row.startDate}</TableCell>

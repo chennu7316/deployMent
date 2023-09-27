@@ -20,14 +20,7 @@ function createData(
 }
 
 
-const rows = [
-  createData("Subhash", +917032613796 , "Subhashmangalam786@gmail.com", "Hi, I Want To Book A Cab", "05/09/2023"),
-  createData("Subhash", +917032613796 , "Subhashmangalam786@gmail.com", "Hi, I Want To Book A Cab", "05/09/2023"),
-  createData("Subhash", +917032613796 , "Subhashmangalam786@gmail.com", "Hi, I Want To Book A Cab", "05/09/2023"),
-  createData("Subhash", +917032613796 , "Subhashmangalam786@gmail.com", "Hi, I Want To Book A Cab", "05/09/2023"),
-  createData("Subhash", +917032613796 , "Subhashmangalam786@gmail.com", "Hi, I Want To Book A Cab", "05/09/2023"),
-  createData("Subhash", +917032613796 , "Subhashmangalam786@gmail.com", "Hi, I Want To Book A Cab", "05/09/2023"),
-];
+
 
 export default function ContactEnq() {
   const [rows,setrows]=useState([])
@@ -61,11 +54,11 @@ export default function ContactEnq() {
         <TableBody>
           {rows.map((row) => (
             <TableRow
-              key={row.userName}
+              key={row.firstName}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.userName}
+                {row.firstName}
               </TableCell>
               <TableCell align="center">{row.email}</TableCell>
               <TableCell align="center">{row.phoneNumber}</TableCell>

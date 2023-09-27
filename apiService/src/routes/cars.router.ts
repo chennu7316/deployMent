@@ -46,6 +46,10 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
     const { firstName,lastName, email, password, phoneNumber, address, city, locality, area, zipcode } = req.body;
 
     // Check if the email already exists in the database
+    const date = new Date(); // Note: Months are zero-based (8 represents September)
+
+    const formattedDate = format(date, 'dd/MM/yyyy');
+
     const existingUser = await collections.cars.findOne({ email });
 
     if (existingUser) {
@@ -56,6 +60,8 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
     const newUser = new Auth(firstName,lastName, email, password, phoneNumber, address, city, locality, area, zipcode);
 
     // Save the new user to the database
+    newUser["date"]=formattedDate
+     
     const result = await collections.cars.insertOne(newUser);
 
     if (result) {
@@ -140,8 +146,8 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
         },
       });
       const mailOptions = {
-        from: 'chennuganesh2@gmail.com',
-        to: email,
+        from: 'ravirashisingh16@gmail.com',
+        to: 'ravirashisingh16@gmail.com',
         subject: 'INQUIRY Successfully  CREATED',
         text: `Hi inquiry is created here is the details name:${name} carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area} message:${message} city:${city}`,
       };
