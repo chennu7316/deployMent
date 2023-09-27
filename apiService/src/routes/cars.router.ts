@@ -54,10 +54,6 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
 
     // If the email is unique, create a new Auth instance
     const newUser = new Auth(firstName,lastName, email, password, phoneNumber, address, city, locality, area, zipcode);
-       const date = new Date(); // Note: Months are zero-based (8 represents September)
-       
-       const formattedDate = format(date, 'dd/MM/yyyy');
-       newUser['date']=formattedDate
 
     // Save the new user to the database
     const result = await collections.cars.insertOne(newUser);
