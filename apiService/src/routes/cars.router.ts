@@ -65,6 +65,26 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
     const result = await collections.cars.insertOne(newUser);
 
     if (result) {
+      const transporter = nodemailer.createTransport({
+        service: `gmail`,
+        auth: {
+          user: 'ganesh527@sasi.ac.in',
+          pass: 'Chennu7316',
+        },
+      });
+      const mailOptions = {
+        from: 'ravirashisingh16@gmail.com',
+        to: 'ravirashisingh16@gmail.com',
+        subject: 'NEW USER IS ONBORDED',
+        text: `WE HAVE ANOTHER USER CRETED FOR OUR portal`,
+      };
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error('Error sending email:', error);
+        } else {
+          console.log('Email sent:', info.response);
+        }
+      });
       return res.status(201).send({ status: 201, message: `Successfully created a new User with id ${result.insertedId}` });
     } else {
       return res.status(500).send({ status: 500, message: "Failed to create a new User." });
