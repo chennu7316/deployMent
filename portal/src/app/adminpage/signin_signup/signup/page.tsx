@@ -71,7 +71,7 @@ const SignUp: React.FC = () => {
       .then(() => {
         // Swal.fire("Added!");
 
-        router.push("/adminpage");
+        router.push("/adminpage/signin_signup/signin");
       })
       .catch((err) => {
         console.log(err);
