@@ -8,38 +8,47 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
 import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
-import { Button, Container, IconButton, InputAdornment, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  IconButton,
+  InputAdornment,
+  TextField,
+} from "@mui/material";
 import { useRouter } from "next/navigation";
 import DeleteIcon from "@mui/icons-material/Delete";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import * as XLSX from "xlsx";
 
 interface Data {
-    carName: string;
-    startDate: string;
-    endDate: string;
-    pickUpLoc: string;
-    dropLocation:string;
-    phoneNumber:string;
-    area:string;
-    email:string;
+  carName: string;
+  startDate: string;
+  endDate: string;
+  pickUpLoc: string;
+  dropLocation: string;
+  phoneNumber: string;
+  area: string;
+  email: string;
+  city: string;
 }
 
 function createData(
-    carName: string,
-    startDate: string,
-    endDate: string,
-    pickUpLoc: string,
-    dropLocation: string,
-    phoneNumber: string,
-    area: string,
-    email: string,
+  carName: string,
+  startDate: string,
+  endDate: string,
+  pickUpLoc: string,
+  dropLocation: string,
+  phoneNumber: string,
+  area: string,
+  email: string,
+  city: string
 ): Data {
   return {
     carName,
@@ -50,6 +59,7 @@ function createData(
     phoneNumber,
     area,
     email,
+    city,
   };
 }
 
@@ -130,7 +140,19 @@ const headCells: readonly HeadCell[] = [
     id: "phoneNumber",
     numeric: true,
     disablePadding: false,
-    label: "Phone No",
+    label: "Phone",
+  },
+  {
+    id: "pickUpLoc",
+    numeric: true,
+    disablePadding: false,
+    label: "Pickup",
+  },
+  {
+    id: "dropLocation",
+    numeric: true,
+    disablePadding: false,
+    label: "Drop",
   },
   {
     id: "startDate",
@@ -145,10 +167,10 @@ const headCells: readonly HeadCell[] = [
     label: "To",
   },
   {
-    id: "startDate",
+    id: "city",
     numeric: true,
     disablePadding: false,
-    label: "Enquiry Date",
+    label: "Message",
   },
 ];
 
@@ -229,7 +251,7 @@ export default function CarEnqTableTest() {
       .then((res) => {
         console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
-        setRows(res.data.data)
+        setRows(res.data.data);
         console.log(Rows, "rowssssssssssssssssssssss");
       })
       .catch((err) => {
@@ -237,22 +259,44 @@ export default function CarEnqTableTest() {
       });
   }, []);
 
+  const exportToExcel = () => {
+    const dataForExcel = Rows.map((row: any) => [
+      row.carName,
+      row.name,
+      row.email,
+      row.phoneNumber,
+      row.pickUpLoc,
+      row.dropLocation,
+      row.startDate,
+      row.endDate,
+      row.city,
+    ]);
+
+    const ws = XLSX.utils.aoa_to_sheet([
+      ["Car", "Name", "Email" ,"Phone Number","Pickup Location", "Drop Location", "From", "To", "Message"],
+      ...dataForExcel,
+    ]);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Car Enquiries");
+    XLSX.writeFile(wb, "car_enquiries.xlsx");
+  };
+
   const requestSearch = (searchedVal: string) => {
     setSearched(searchedVal);
-    const filteredRows = rows.filter((row1:any) => {
+    const filteredRows = rows.filter((row1: any) => {
       return row1.carName.toLowerCase().includes(searchedVal.toLowerCase());
     });
     setrows(filteredRows);
-    const b =Rows
-    debugger
+    const b = Rows;
+    debugger;
   };
 
   const cancelSearch = () => {
-    const a =Rows
-    debugger
-    setSearched("")
+    const a = Rows;
+    debugger;
+    setSearched("");
     setrows(rows);
-   requestSearch(searched);
+    requestSearch(searched);
   };
   const router = useRouter();
 
@@ -267,7 +311,7 @@ export default function CarEnqTableTest() {
 
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
-      const newSelected = Rows.map((n:any) => n.name);
+      const newSelected = Rows.map((n: any) => n.name);
       setSelected(newSelected);
       return;
     }
@@ -320,71 +364,77 @@ export default function CarEnqTableTest() {
         page * rowsPerPage,
         page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage, searched,Rows,selected]
+    [order, orderBy, page, rowsPerPage, searched, Rows, selected]
   );
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TextField
-          //type="search"
-          id="search"
-          size="small"
-          label="Search"
-          sx={{ width: 600 }}
-          
-          value={searched}
-          onChange={(e:any) => requestSearch(e.target.value)}
-        />
-        <TableContainer>
-          <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
-            <Table
-              sx={{ minWidth: 750, fontWeight: "700" }}
-              aria-labelledby="tableTitle"
-              size={dense ? "small" : "medium"}
-            >
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={Rows.length}
-              />
-              <TableBody>
-                {visibleRows.map((row:any, index) => {
-                  const isItemSelected = isSelected(row.carName);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+    <>
+      <div style={{ textAlign: "end" }}>
+        <Button variant="contained" color="primary" onClick={exportToExcel}>
+          Export
+        </Button>
+      </div>
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
+          <TextField
+            //type="search"
+            id="search"
+            size="small"
+            label="Search"
+            sx={{ width: 600 }}
+            value={searched}
+            onChange={(e: any) => requestSearch(e.target.value)}
+          />
+          <TableContainer>
+            <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+              <Table
+                sx={{ minWidth: 750, fontWeight: "700" }}
+                aria-labelledby="tableTitle"
+                size={dense ? "small" : "medium"}
+              >
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={Rows.length}
+                />
+                <TableBody>
+                  {visibleRows.map((row: any, index) => {
+                    const isItemSelected = isSelected(row.carName);
+                    const labelId = `enhanced-table-checkbox-${index}`;
 
-                  return (
-                    // {Rows.map((row:any) => (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.carName)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.carName}
-                      selected={isItemSelected}
-                      sx={{ cursor: "pointer" }}
-                    >
-                        
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
+                    return (
+                      // {Rows.map((row:any) => (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row.carName)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.carName}
+                        selected={isItemSelected}
+                        sx={{ cursor: "pointer" }}
                       >
-                        {row.carName}
-                      </TableCell>
-                      {/* <TableCell align="left">{row.slag}</TableCell> */}
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="left">{row.email}</TableCell>
-                      <TableCell align="left">{row.phoneNumber}</TableCell>
-                      <TableCell align="left">{row.startDate}</TableCell>
-                      <TableCell align="left">{row.endDate}</TableCell>
-                      <TableCell align="left">{row.startDate}</TableCell>
-                      
-                      {/* <TableCell align="center">
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                        >
+                          {row.carName}
+                        </TableCell>
+                        {/* <TableCell align="left">{row.slag}</TableCell> */}
+                        <TableCell align="left">{row.name}</TableCell>
+                        <TableCell align="left">{row.email}</TableCell>
+                        <TableCell align="left">{row.phoneNumber}</TableCell>
+                        <TableCell align="left">{row.pickUpLoc}</TableCell>
+                        <TableCell align="left">{row.dropLocation}</TableCell>
+                        <TableCell align="left">{row.startDate}</TableCell>
+                        <TableCell align="left">{row.endDate}</TableCell>
+                        <TableCell align="left">{row.city}</TableCell>
+
+                        {/* <TableCell align="center">
                         <BorderColorIcon
                           color="success"
                           sx={{ marginRight: "5px" }}
@@ -396,33 +446,34 @@ export default function CarEnqTableTest() {
                         />
                         <DeleteIcon color="error" />
                       </TableCell> */}
+                      </TableRow>
+                      // ))}
+                    );
+                  })}
+                  {emptyRows > 0 && (
+                    <TableRow
+                      style={{
+                        height: (dense ? 33 : 53) * emptyRows,
+                      }}
+                    >
+                      <TableCell colSpan={6} />
                     </TableRow>
-                    // ))}
-                  );
-                })}
-                {emptyRows > 0 && (
-                  <TableRow
-                    style={{
-                      height: (dense ? 33 : 53) * emptyRows,
-                    }}
-                  >
-                    <TableCell colSpan={6} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={Rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-    </Box>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={Rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Paper>
+      </Box>
+    </>
   );
 }

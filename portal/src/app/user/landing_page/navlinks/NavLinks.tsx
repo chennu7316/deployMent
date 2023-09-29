@@ -2,7 +2,7 @@
 import { Stack, Button, Menu, MenuItem, Container, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import "../navlinks/navlinks.css"
+import "../navlinks/navlinks.css";
 import axios from "axios";
 
 function Navlinks() {
@@ -14,20 +14,40 @@ function Navlinks() {
     null
   );
 
-  const [drop,setdrop]=useState([])
+  const [drop, setdrop] = useState([]);
+  const [catDrop, setCatDrop] = useState([]);
+  const [location, setLocation] = useState([]);
   const open = Boolean(anchorEl);
   const openTwo = Boolean(anchorElTwo);
   const openThree = Boolean(anchorElThree);
 
-  useEffect(()=>{
-    axios.get("http://localhost:4000/user/getAllBrands")
-    .then((res)=>{
-      setdrop(res.data.data)
-    })
-    .catch((err)=>{
-      console.log(err,"error")
-    })
-  })
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/user/getAllBrands")
+      .then((res) => {
+        setdrop(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+
+    axios
+      .get("http://localhost:4000/user/getAllCategoryes")
+      .then((res) => {
+        setCatDrop(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+    axios
+      .get("http://localhost:4000/user/getAllcarLoaction")
+      .then((res) => {
+        setLocation(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  }, []);
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -54,9 +74,21 @@ function Navlinks() {
         className="Navlink"
         style={{ backgroundColor: "#f1f3f4", padding: "10px 0px" }}
       >
-        <Box >
-          <Stack spacing={5} direction="row" sx={{justifyContent:"center"}}>
-            <Button variant="text">ABOUT US</Button>
+        <Box>
+          <Stack spacing={5} direction="row" sx={{ justifyContent: "center" }}>
+            <Button
+              onClick={() => {
+                const targetSection =
+                  document.getElementById("company_overview"); // Replace 'your-section-id' with the actual ID of the section you want to scroll to
+                if (targetSection) {
+                  const offset = targetSection.offsetTop - 100;
+                  window.scrollTo({ top: offset, behavior: "smooth" });
+                }
+              }}
+              variant="text"
+            >
+              ABOUT US
+            </Button>
             <Button
               id="basic-button"
               aria-controls={open ? "basic-menu" : undefined}
@@ -64,7 +96,7 @@ function Navlinks() {
               aria-expanded={open ? "true" : undefined}
               onClick={handleClick}
             >
-              CAR RENTAL PACKAGES
+              Location
               <ArrowDropDownIcon />
             </Button>
             <Menu
@@ -77,7 +109,19 @@ function Navlinks() {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem
+              {
+                // Check if data is not empty
+                location.map((item: any) => (
+                  <MenuItem
+                    sx={{ textTransform: "capitalize" }}
+                    key={item._id}
+                    value={item.Name}
+                  >
+                    {item.Name}
+                  </MenuItem>
+                ))
+              }
+              {/* <MenuItem
                 sx={{ width: "200px", fontSize: "14px" }}
                 onClick={handleClose}
               >
@@ -100,7 +144,7 @@ function Navlinks() {
                 onClick={handleClose}
               >
                 CUSTOMIZE
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
 
             <Button
@@ -123,12 +167,16 @@ function Navlinks() {
                 "aria-labelledby": "basic-button-two",
               }}
             >
-               {drop.length > 0 && // Check if data is not empty
-          drop.map((item) => (
-            <MenuItem key={item._id} value={item.name}>
-              {item.name}
-            </MenuItem>
-          ))}
+              {drop.length > 0 && // Check if data is not empty
+                drop.map((item: any) => (
+                  <MenuItem
+                    sx={{ textTransform: "capitalize" }}
+                    key={item._id}
+                    value={item.name}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))}
             </Menu>
 
             <Button
@@ -139,7 +187,7 @@ function Navlinks() {
               onClick={handleClickThree}
               variant="text"
             >
-              ECONOMY CARS
+              CATEGORIES
               <ArrowDropDownIcon />
             </Button>
             <Menu
@@ -151,7 +199,17 @@ function Navlinks() {
                 "aria-labelledby": "basic-button-three",
               }}
             >
-              <MenuItem
+              {catDrop.length > 0 && // Check if data is not empty
+                catDrop.map((item: any) => (
+                  <MenuItem
+                    sx={{ textTransform: "capitalize" }}
+                    key={item._id}
+                    value={item.name}
+                  >
+                    {item.name}
+                  </MenuItem>
+                ))}
+              {/* <MenuItem
                 sx={{ width: "210px", fontSize: "14px" }}
                 onClick={handleCloseThree}
               >
@@ -162,13 +220,32 @@ function Navlinks() {
                 onClick={handleCloseThree}
               >
                 SUV CARS FOR RENT
-              </MenuItem>
+              </MenuItem> */}
             </Menu>
 
             <Button variant="text">BLOGE </Button>
             <Button variant="text">PROMOTIONS</Button>
-            <Button variant="text">FAQ </Button>
-            <Button variant="text">CONTACT US</Button>
+            <Button
+              onClick={() => {
+                const targetSection =
+                  document.getElementById("accordion"); // Replace 'your-section-id' with the actual ID of the section you want to scroll to
+                if (targetSection) {
+                  const offset = targetSection.offsetTop - 100;
+                  window.scrollTo({ top: offset, behavior: "smooth" });
+                }
+              }}
+              variant="text"
+            >
+              FAQ{" "}
+            </Button>
+            <Button onClick={() => {
+                const targetSection =
+                  document.getElementById("footer"); // Replace 'your-section-id' with the actual ID of the section you want to scroll to
+                if (targetSection) {
+                  const offset = targetSection.offsetTop - 100;
+                  window.scrollTo({ top: offset, behavior: "smooth" });
+                }
+              }} variant="text">CONTACT US</Button>
           </Stack>
         </Box>
       </div>

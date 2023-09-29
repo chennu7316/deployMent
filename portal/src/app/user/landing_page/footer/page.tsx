@@ -7,7 +7,7 @@ import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 const Footer = () => {
   return (
-    <section className="footer">
+    <section id="footer" className="footer">
       <Container maxWidth="lg">
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2.4} md={2.4} lg={2.4}>

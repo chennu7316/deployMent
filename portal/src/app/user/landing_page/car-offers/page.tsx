@@ -43,7 +43,7 @@ const CarOffers = () => {
           </p>
         </div>
         <Grid container spacing={3}>
-          {cars.map((car) => (
+          {cars.map((car: any) => (
             <Grid item xs={12} md={3} sm={3} lg={3} key={car._id}>
               <Card sx={{ maxWidth: 345 }}>
                 <CardActionArea
@@ -56,21 +56,21 @@ const CarOffers = () => {
                 >
                   <CardMedia
                     component="img"
-                    height="100%"
+                    height="160"
                     image={car.image} // Assuming the image URL is provided in the API response
                     alt={car.name}
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h6" component="div">
-                      {car.name} {car.model} ({car.year})
+                      {car.name} ({car.year})
                     </Typography>
                     <Grid container spacing={3}>
                       <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <h4>AED {car.discountedPriceDaily} / day</h4>
+                        <h4>AED {car.discountedPriceDaily} / D</h4>
                         <p>{car.actualPriceDaily} km</p>
                       </Grid>
                       <Grid item xs={6} sm={6} md={6} lg={6}>
-                        <h4>AED {car.discountedPriceMonthly} / month</h4>
+                        <h4>AED {car.discountedPriceMonthly} / M</h4>
                         <p>{car.actualPriceMonthly} km</p>
                       </Grid>
                     </Grid>
@@ -80,7 +80,7 @@ const CarOffers = () => {
                       <div className="car_subint">
                         {car.laggageBootCapacity}
                       </div>
-                      <div className="car_subint">{car.location}</div>
+                      <div className="car_subint">{car.transmission}</div>
                     </div>
                     <div className="car_info_sec6">
                       <div className="int_icon">

@@ -119,7 +119,7 @@ const GetCarDetails = () => {
       <Navbar />
       <Container maxWidth="lg">
         <div className="car_name">
-          <h1>{data?.name}</h1>
+          <h1>{data?.name} <span style={{fontWeight:"400", fontSize:"16px"}}>({data?.year})</span></h1>
         </div>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={8} md={8} lg={8}>
@@ -147,6 +147,30 @@ const GetCarDetails = () => {
               >
                 Car Features
               </Typography>
+              <div className="get_car_feat">
+                <div className="feat_left">
+                  <h6>Car</h6>
+                </div>
+                <div className="feat_right">
+                  <h6>{data?.name}</h6>
+                </div>
+              </div>
+              <div className="get_car_feat">
+                <div className="feat_left">
+                  <h6>Brand</h6>
+                </div>
+                <div className="feat_right">
+                  <h6>{data?.brand}</h6>
+                </div>
+              </div>
+              <div className="get_car_feat">
+                <div className="feat_left">
+                  <h6>Model</h6>
+                </div>
+                <div className="feat_right">
+                  <h6>{data?.model}</h6>
+                </div>
+              </div>
               <div className="get_car_feat">
                 <div className="feat_left">
                   <h6>Year</h6>

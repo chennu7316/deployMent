@@ -18,7 +18,6 @@ import { useState } from "react";
 import EnquiryForm from "../enquiry-form/EnquiryForm";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useRouter } from "next/navigation";
-
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -87,7 +86,9 @@ function Navbar(props: Props) {
                 flexGrow: 1,
                 height: "83px",
                 display: { xs: "none", sm: "block" },
+                cursor:"pointer",
               }}
+              onClick={()=> router.push("/")}
             >
               <img src="/injaz-logo-two.png" alt="logo" />
             </Typography>

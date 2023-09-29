@@ -68,28 +68,31 @@ const SuvCars = () => {
                         <CardMedia
                           component="img"
                           height="100%"
-                          image="/Lamborghini_Huracan-Evo-Spyder_2022_20512_20512_13010413501-4_small.webp"
-                          alt="green iguana"
+                          image={item.image}
+                          alt={item.name}
                         />
                         <CardContent>
                           <Typography gutterBottom variant="h6" component="div">
-                            {item.name}
+                            {item.name} ({item.year})
                           </Typography>
                           <Grid container spacing={3}>
                             <Grid item xs={6} sm={6} md={6} lg={6}>
                               <h4>AED {item.actualPriceDaily}/D</h4>
-                              <p>250 km</p>
+                              <p>{item.actualPriceDaily} km</p>
                             </Grid>
                             <Grid item xs={6} sm={6} md={6} lg={6}>
                               <h4>AED {item.actualPriceMonthly}/M</h4>
-                              <p>4500</p>
+                              <p>{item.actualPriceMonthly} km</p>
                             </Grid>
                           </Grid>
                           <div className="car_interior">
-                            <div className="car_subint">{item.vehicleType}</div>
-                            <div className="car_subint">2 Doors</div>
+                          <div className="car_subint">{item.category}</div>
+                            <div className="car_subint">{item.seater}</div>
+                            <div className="car_subint">{item.laggageBootCapacity}</div>
+                            <div className="car_subint">{item.transmission}</div>
+                            {/* <div className="car_subint">2 Doors</div>
                             <div className="car_subint">2 Seater</div>
-                            <div className="car_subint">2 bags</div>
+                            <div className="car_subint">2 bags</div>  */}
                           </div>
                           <div className="car_info_sec6">
                             <div className="int_icon">

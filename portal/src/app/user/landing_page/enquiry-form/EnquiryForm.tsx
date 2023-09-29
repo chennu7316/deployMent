@@ -27,7 +27,9 @@ interface FormData {
   area: string;
   name: string;
   message: string;
-  city:string
+  city: string;
+  pickUpLoc:string;
+  dropLocation:string;
 }
 
 function EnquiryForm() {
@@ -63,14 +65,16 @@ function EnquiryForm() {
     endDate: "",
     name: "",
     message: "",
-    city:""
+    city: "",
+    pickUpLoc:"",
+    dropLocation:"",
   });
 
   const handle = (e: any) => {
     const newData: any = { ...data };
     newData[e.target.name] = e.target.value;
-    console.log(newData,"newDatatatatatatatatta")
-   
+    console.log(newData, "newDatatatatatatatatta");
+
     setdata(newData);
   };
 
@@ -86,8 +90,9 @@ function EnquiryForm() {
         endDate: data.endDate,
         name: data.name,
         message: data.message,
-        city:data.city
-
+        city: data.city,
+        pickUpLoc:data.pickUpLoc,
+        dropLocation:data.dropLocation,
       })
       .then((res) => {
         setdata({
@@ -99,9 +104,12 @@ function EnquiryForm() {
           endDate: "",
           name: "",
           message: "",
-          city:""
+          city: "",
+          pickUpLoc:"",
+          dropLocation:"",
         });
       });
+    setOpen(false);
   };
 
   return (
@@ -226,6 +234,54 @@ function EnquiryForm() {
               }}
               onChange={(e) => handle(e)}
               value={data.email}
+            />
+          </DialogContent>
+          <DialogContent>
+            <TextField
+              autoFocus
+              required
+              placeholder="Pick up Location"
+              id="pickUpLoc"
+              type="text"
+              fullWidth
+              variant="standard"
+              size="small"
+              {...register("pickUpLoc", { required: true })}
+              error={!!errors.pickUpLoc}
+              helperText={errors.pickUpLoc && "name is required"}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon sx={{ color: "#0c3b69" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handle(e)}
+              value={data.pickUpLoc}
+            />
+          </DialogContent>
+          <DialogContent>
+            <TextField
+              autoFocus
+              required
+              placeholder="Drop Location"
+              id="dropLocation"
+              type="text"
+              fullWidth
+              variant="standard"
+              size="small"
+              {...register("dropLocation", { required: true })}
+              error={!!errors.dropLocation}
+              helperText={errors.dropLocation && "name is required"}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon sx={{ color: "#0c3b69" }} />
+                  </InputAdornment>
+                ),
+              }}
+              onChange={(e) => handle(e)}
+              value={data.dropLocation}
             />
           </DialogContent>
           <DialogContent>
@@ -378,7 +434,12 @@ function EnquiryForm() {
             <Button variant="contained" size="small" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit" onClick={handleClose} variant="contained" size="small">
+            <Button
+              type="submit"
+              // onClick={handleClose}
+              variant="contained"
+              size="small"
+            >
               Submit
             </Button>
           </DialogActions>

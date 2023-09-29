@@ -6,7 +6,7 @@ import { Container, Grid } from "@mui/material";
 
 const CompanyOverview = () => {
   return (
-    <section className="company_overview">
+    <section id="company_overview" className="company_overview">
       <Container maxWidth="lg">
         <div className="faq_head">
           <h1>Find the best car rental company for you</h1>

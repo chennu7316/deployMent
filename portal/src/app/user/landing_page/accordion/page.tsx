@@ -1,5 +1,5 @@
 "use client";
-import  React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion, { AccordionProps } from "@mui/material/Accordion";
 import MuiAccordionSummary, {
@@ -7,7 +7,7 @@ import MuiAccordionSummary, {
 } from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 // import "./accordion.css";
-import "../accordion/accordion.css"
+import "../accordion/accordion.css";
 import { Container, Typography, styled } from "@mui/material";
 import axios from "axios";
 
@@ -58,39 +58,38 @@ export default function CustomizedAccordions() {
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);
     };
-    const [faqData, setFaqData] = useState([]);
-    useEffect(()=>{
-      axios.get("http://localhost:4000/user/getAllFAQS")
-      .then((res)=>{
-        console.log(res.data.data,"res.data.datares.data.data")
-        setFaqData(res.data.data)
+  const [faqData, setFaqData] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/user/getAllFAQS")
+      .then((res) => {
+        console.log(res.data.data, "res.data.datares.data.data");
+        setFaqData(res.data.data);
       })
-      .catch((err)=>{
-        console.log(err,"error")
-      })
-    })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+  });
 
   return (
-    <section className="accordion">
- <div className="faq_head">
+    <section id="accordion" className="accordion">
+      <div className="faq_head">
         <h1>Frequently Asked Questions</h1>
       </div>
-            {faqData.map((item:any, index) => (
+      {faqData.map((item: any, index) => (
         <Accordion
           key={index}
           expanded={expanded === `panel${index}`}
           onChange={handleChange(`panel${index}`)}
         >
-  
-          <AccordionSummary aria-controls={`panel${index}d-content`} id={`panel${index}d-header`}>
-            <Typography className="acc_head">
-              {item.Question}
-            </Typography>
+          <AccordionSummary
+            aria-controls={`panel${index}d-content`}
+            id={`panel${index}d-header`}
+          >
+            <Typography className="acc_head">{item.Question}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
-              {item.Answer}
-            </Typography>
+            <Typography>{item.Answer}</Typography>
           </AccordionDetails>
         </Accordion>
       ))}
