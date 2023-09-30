@@ -71,6 +71,10 @@ const CarFormTestTwo = () => {
   const searchParams = useSearchParams();
   const id = searchParams.get("verify");
   const router = useRouter();
+  const [brand, setBrand] = useState([]);
+  const [modelDrop, setModelDrop] = useState([]);
+  const [catDrop, setCatDrop] = useState([]);
+  const [locDrop, setLocDrop] = useState([]);
 
   const [data, setdata] = useState({
     _id: "",
@@ -123,99 +127,50 @@ const CarFormTestTwo = () => {
         .get(`http://localhost:4000/user/getCar/${id}`)
         .then((res) => {
           debugger;
-          const {
-            name,
-            status,
-            brand,
-            model,
-            category,
-            year,
-            location,
-            vehicleType,
-            featuredCar,
-            services,
-            description,
-            actualPriceDaily,
-            discountedPriceDaily,
-            actualPriceWeekly,
-            discountedPriceWeekly,
-            actualPriceMonthly,
-            discountedPriceMonthly,
-            transmission,
-            cruiseControl,
-            engineCapacity,
-            laggageBootCapacity,
-            securityDeposit,
-            cashType,
-            carFeatures,
-            unlimitedMileage,
-            paiInsuranceDaily,
-            paiInsuranceMonthly,
-            freeCancellation,
-            freeDelivery30DaysandAbove,
-            customerSupport,
-            scdwPerMonth,
-            paymentType,
-            engineSize,
-            bluetooth,
-            aux,
-            seater,
-            navigation,
-            parkingSense,
-            requirementsForTourists,
-            requirementsForUAEResidents,
-          } = res.data.data;
-
-          setdata({
-            id,
-            name: name,
-            status: status,
-            brand: brand,
-            model: model,
-            requirementsForTourists,
-            category: category,
-            year: year,
-            location: location,
-            vehicleType: vehicleType,
-            featuredCar: featuredCar,
-            services: services,
-            description: description,
-            actualPriceDaily: actualPriceDaily,
-            discountedPriceDaily: discountedPriceDaily,
-            actualPriceWeekly: actualPriceWeekly,
-            discountedPriceWeekly: discountedPriceWeekly,
-            actualPriceMonthly: actualPriceMonthly,
-            discountedPriceMonthly: discountedPriceMonthly,
-            transmission: transmission,
-            cruiseControl: cruiseControl,
-            engineCapacity: engineCapacity,
-            laggageBootCapacity: laggageBootCapacity,
-            securityDeposit: securityDeposit,
-            cashType: cashType,
-            carFeatures: carFeatures,
-            unlimitedMileage: unlimitedMileage,
-            paiInsuranceDaily: paiInsuranceDaily,
-            paiInsuranceMonthly: paiInsuranceMonthly,
-            freeCancellation: freeCancellation,
-            freeDelivery30DaysandAbove: freeDelivery30DaysandAbove,
-            customerSupport: customerSupport,
-            scdwPerMonth: scdwPerMonth,
-            paymentType: paymentType,
-            engineSize: engineSize,
-            bluetooth: bluetooth,
-            aux: aux,
-            seater: seater,
-            navigation: navigation,
-            parkingSense: parkingSense,
-            requirementsForUAEResidents: requirementsForUAEResidents,
-          });
+          setdata(res.data.data);
         })
         .catch((err) => {
           console.log(err);
         });
-      //'http://localhost:4000/user/getCarModel/64f9c31050e6d77e2c177787'
     }
+    axios
+      .get("http://localhost:4000/user/getAllBrands")
+      .then((res) => {
+        setBrand(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
     console.log(data, "jdfh");
+    axios
+      .get("http://localhost:4000/user/getAllCarModel")
+      .then((res) => {
+        setModelDrop(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+      axios
+      .get("http://localhost:4000/user/getAllCategoryes")
+      .then((res) => {
+        setCatDrop(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+
+      axios
+      .get("http://localhost:4000/user/getAllcarLoaction")
+      .then((res) => {
+        setLocDrop(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err, "error");
+      });
+
+
+    console.log(data, "jdfh");
+
   }, []);
 
   const {
@@ -438,98 +393,6 @@ const CarFormTestTwo = () => {
           console.log(err);
         });
     }
-
-    // axios
-    //   .post("http://localhost:4000/user/createNewCar", {
-    //     name: data.name,
-    //     brand: data.brand,
-    //     model: data.model,
-    //     category: data.category,
-    //     year: data.year,
-    //     image: data.image,
-    //     location: data.location,
-    //     vehicleType: data.vehicleType,
-    //     featuredCar: data.featuredCar,
-    //     status: data.status,
-    //     services: data.services,
-    //     description: data.description,
-    //     actualPriceDaily: data.actualPriceDaily,
-    //     discountedPriceDaily: data.discountedPriceDaily,
-    //     actualPriceWeekly: data.actualPriceWeekly,
-    //     discountedPriceWeekly: data.discountedPriceWeekly,
-    //     actualPriceMonthly: data.actualPriceMonthly,
-    //     discountedPriceMonthly: data.discountedPriceMonthly,
-    //     transmission: data.transmission,
-    //     cruiseControl: data.cruiseControl,
-    //     engineCapacity: data.engineCapacity,
-    //     laggageBootCapacity: data.laggageBootCapacity,
-    //     securityDeposit: data.securityDeposit,
-    //     cashType: data.cashType,
-    //     carFeatures: data.carFeatures,
-    //     unlimitedMileage: data.unlimitedMileage,
-    //     paiInsuranceDaily: data.paiInsuranceDaily,
-    //     paiInsuranceMonthly: data.paiInsuranceMonthly,
-    //     freeCancellation: data.freeCancellation,
-    //     freeDelivery30DaysandAbove: data.freeDelivery30DaysandAbove,
-    //     customerSupport: data.customerSupport,
-    //     scdwPerMonth: data.scdwPerMonth,
-    //     paymentType: data.paymentType,
-    //     engineSize: data.engineSize,
-    //     bluetooth: data.bluetooth,
-    //     aux: data.aux,
-    //     seater: data.seater,
-    //     navigation: data.navigation,
-    //     parkingSense: data.parkingSense,
-    //     requirementsForUAEResidents: data.requirementsForUAEResidents,
-    //     requirementsForTourists: data.requirementsForTourists,
-    //   })
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     setdata({
-    //       name: "",
-    //       brand: "",
-    //       model: "",
-    //       category: "",
-    //       year: "",
-    //       image: "",
-    //       location: "",
-    //       vehicleType: "",
-    //       featuredCar: "",
-    //       status: "",
-    //       services: [],
-    //       description: "",
-    //       actualPriceDaily: "",
-    //       discountedPriceDaily: "",
-    //       actualPriceWeekly: "",
-    //       discountedPriceWeekly: "",
-    //       actualPriceMonthly: "",
-    //       discountedPriceMonthly: "",
-    //       transmission: "",
-    //       cruiseControl: "",
-    //       engineCapacity: "",
-    //       laggageBootCapacity: "",
-    //       securityDeposit: "",
-    //       cashType: [],
-    //       carFeatures: [],
-    //       unlimitedMileage: "",
-    //       paiInsuranceDaily: "",
-    //       paiInsuranceMonthly: "",
-    //       freeCancellation: "",
-    //       freeDelivery30DaysandAbove: "",
-    //       customerSupport: "",
-    //       scdwPerMonth: "",
-    //       paymentType: [],
-    //       engineSize: "",
-    //       bluetooth: "",
-    //       aux: "",
-    //       seater: "",
-    //       navigation: "",
-    //       parkingSense: "",
-    //       requirementsForUAEResidents: [""],
-    //       requirementsForTourists: [""],
-    //     });
-    //   });
-    // console.log(res.data);
     router.push("/adminpage/pages/admin_cars");
   };
 
@@ -692,7 +555,7 @@ const CarFormTestTwo = () => {
     const value = e.target.checked;
     if (value) {
       const requirementsForTourists = data.requirementsForTourists;
-      debugger
+      debugger;
       requirementsForTourists.push(name);
       setdata({
         ...data6,
@@ -704,7 +567,6 @@ const CarFormTestTwo = () => {
       setdata({
         ...data6,
         requirementsForTourists: result,
-
       });
     }
   };
@@ -715,17 +577,18 @@ const CarFormTestTwo = () => {
     useMemo(() => {
       return checkboxValue(value);
     }, [value, data]);
-    
 
-    const handleImageChange = (e:any) => {
-
+  const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
 
       reader.onloadend = () => {
         if (reader.result) {
-          console.log(reader.result,"reader.resultreader.resulreader.resultreader.resultreader.resultreader.resultreader.resultreader.resultt")
+          console.log(
+            reader.result,
+            "reader.resultreader.resulreader.resultreader.resultreader.resultreader.resultreader.resultreader.resultt"
+          );
           // Ensure that reader.result is not null
           setdata({
             ...data,
@@ -736,7 +599,7 @@ const CarFormTestTwo = () => {
 
       reader.readAsDataURL(file); // Read the file as a data URL (base64)
     }
-  }
+  };
   return (
     <div className="addcar_form">
       <Box>
@@ -763,36 +626,37 @@ const CarFormTestTwo = () => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
-                  <FormControl sx={{ minWidth: "100%" }} size="small">
-                    <InputLabel id="demo-select-small-label">Brand</InputLabel>
-                    <Controller
-                      name="brand"
-                      control={control}
-                      defaultValue=""
-                      rules={{ required: "field is required" }}
-                      render={({ field }) => (
-                        <Select
-                          labelId="demo-select-small-label"
-                          id="demo-select-small"
-                          label="Slug"
-                          {...field}
-                          name="brand"
-                          value={data.brand}
-                          onChange={(e) => handle(e)}
-                        >
-                          <MenuItem value="Hyundai">Hyundai</MenuItem>
-                          <MenuItem value="Kia">Kia</MenuItem>
-                          <MenuItem value="Mazda">Mazda</MenuItem>
-                          <MenuItem value="Mitsubushi">Mitsubushi</MenuItem>
-                          <MenuItem value="Nissan">Nissan</MenuItem>
-                          <MenuItem value="Toyota">Toyota</MenuItem>
-                        </Select>
-                      )}
-                    />
-                    <FormHelperText error>
-                      {errors.brand?.message}
-                    </FormHelperText>
-                  </FormControl>
+                  
+                    <FormControl sx={{ minWidth: "100%" }} size="small">
+                      <InputLabel id="demo-select-small-label">
+                        Brand
+                      </InputLabel>
+                      <Controller
+                        name="brand"
+                        control={control}
+                        defaultValue=""
+                        rules={{ required: "field is required" }}
+                        render={({ field }) => (
+                          <Select
+                            labelId="demo-select-small-label"
+                            id="demo-select-small"
+                            label="Slug"
+                            {...field}
+                            name="brand"
+                            value={data.brand}
+                            onChange={(e) => handle(e)}
+                          >
+                            {brand.map((item:any) => (
+                            <MenuItem value={item.name}>{item.name}</MenuItem>
+                            ))}
+                          </Select>
+                        )}
+                      />
+                      <FormHelperText error>
+                        {errors.brand?.message}
+                      </FormHelperText>
+                    </FormControl>
+                 
                 </Grid>
                 <Grid item xs={12} sm={2} md={2} lg={2}>
                   <FormControl sx={{ minWidth: "100%" }} size="small">
@@ -805,12 +669,11 @@ const CarFormTestTwo = () => {
                       value={data.model}
                       onChange={(e) => handle(e)}
                     >
-                      <MenuItem value="test1">test1</MenuItem>
-                      <MenuItem value="test2">test2</MenuItem>
-                      <MenuItem value="test3">test3</MenuItem>
-                      <MenuItem value="test4">test4</MenuItem>
-                      <MenuItem value="test5">test5</MenuItem>
-                      <MenuItem value="test6">test6</MenuItem>
+                      {
+                        modelDrop.map((item:any)=> (
+                          <MenuItem value={item.Name}>{item.Name}</MenuItem>
+                        ))
+                      }
                     </Select>
                   </FormControl>
                 </Grid>
@@ -834,13 +697,11 @@ const CarFormTestTwo = () => {
                           value={data.category}
                           onChange={(e) => handle(e)}
                         >
-                          <MenuItem value="Crossover">Crossover</MenuItem>
-                          <MenuItem value="Hatchback">Hatchback</MenuItem>
-                          <MenuItem value="Luxury Cars">Luxury Cars</MenuItem>
-                          <MenuItem value="Luxury Suv">Luxury Suv</MenuItem>
-                          <MenuItem value="Sedan">Sedan</MenuItem>
-                          <MenuItem value="Small Sedan">Small Sedan</MenuItem>
-                          <MenuItem value="SUV">SUV</MenuItem>
+                          {
+                            catDrop.map((item:any)=>(
+                              <MenuItem value={item.name}>{item.name}</MenuItem>
+                            ))
+                          }
                         </Select>
                       )}
                     />
@@ -890,12 +751,12 @@ const CarFormTestTwo = () => {
                     <Button variant="outlined" component="label">
                       Upload Car Image
                       <input
-          name="image"
-          type="file"
-          accept="image/*" // Limit accepted files to images
-          onChange={handleImageChange}
-          hidden
-        />
+                        name="image"
+                        type="file"
+                        accept="image/*" // Limit accepted files to images
+                        onChange={handleImageChange}
+                        hidden
+                      />
                     </Button>
                   </FormControl>
                 </Grid>
@@ -919,8 +780,11 @@ const CarFormTestTwo = () => {
                           value={data.location}
                           onChange={(e) => handle(e)}
                         >
-                          <MenuItem value="Abu Dhabi">Abu Dhabi</MenuItem>
-                          <MenuItem value="Dubai">Dubai</MenuItem>
+                          {
+                            locDrop.map((item:any)=>(
+                              <MenuItem value={item.Name}>{item.Name}</MenuItem>
+                            ))
+                          }
                         </Select>
                       )}
                     />
@@ -2076,7 +1940,7 @@ const CarFormTestTwo = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        value={
+                          value={
                             data?.requirementsForTourists?.indexOf(
                               "Copy Of Emirates Id"
                             ) > -1
@@ -2090,9 +1954,9 @@ const CarFormTestTwo = () => {
                               : false
                           }
                           onChange={(e) => handleO(e)}
-                        //   name="Copy Of Emirates Id"
-                        //   onChange={(e) => handleO(e)}
-                        //   value={checkboxValue6("Copy Of Emirates Id")}
+                          //   name="Copy Of Emirates Id"
+                          //   onChange={(e) => handleO(e)}
+                          //   value={checkboxValue6("Copy Of Emirates Id")}
                         />
                       }
                       label="Copy Of Emirates Id"
@@ -2100,7 +1964,7 @@ const CarFormTestTwo = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        value={
+                          value={
                             data?.requirementsForTourists?.indexOf(
                               "Copy Of Passport"
                             ) > -1
@@ -2114,9 +1978,9 @@ const CarFormTestTwo = () => {
                               : false
                           }
                           onChange={(e) => handleO(e)}
-                        //   name="Copy Of Passport"
-                        //   onChange={(e) => handleO(e)}
-                        //   value={checkboxValue6("Copy Of Passport")}
+                          //   name="Copy Of Passport"
+                          //   onChange={(e) => handleO(e)}
+                          //   value={checkboxValue6("Copy Of Passport")}
                         />
                       }
                       label="Copy Of Passport"
@@ -2124,7 +1988,7 @@ const CarFormTestTwo = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        value={
+                          value={
                             data?.requirementsForTourists?.indexOf(
                               "Copy Of Residential Visa"
                             ) > -1
@@ -2138,9 +2002,9 @@ const CarFormTestTwo = () => {
                               : false
                           }
                           onChange={(e) => handleO(e)}
-                        //   name="Copy Of Residential Visa"
-                        //   onChange={(e) => handleO(e)}
-                        //   value={checkboxValue6("Copy Of Residential Visa")}
+                          //   name="Copy Of Residential Visa"
+                          //   onChange={(e) => handleO(e)}
+                          //   value={checkboxValue6("Copy Of Residential Visa")}
                         />
                       }
                       label="Copy Of Residential Visa"
@@ -2148,7 +2012,7 @@ const CarFormTestTwo = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        value={
+                          value={
                             data?.requirementsForTourists?.indexOf(
                               "Copy Of Visit Visa"
                             ) > -1
@@ -2162,9 +2026,9 @@ const CarFormTestTwo = () => {
                               : false
                           }
                           onChange={(e) => handleO(e)}
-                        //   name="Copy Of Visit Visa"
-                        //   onChange={(e) => handleO(e)}
-                        //   value={checkboxValue6("Copy Of Visit Visa")}
+                          //   name="Copy Of Visit Visa"
+                          //   onChange={(e) => handleO(e)}
+                          //   value={checkboxValue6("Copy Of Visit Visa")}
                         />
                       }
                       label="Copy Of Visit Visa"
@@ -2172,7 +2036,7 @@ const CarFormTestTwo = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        value={
+                          value={
                             data?.requirementsForTourists?.indexOf(
                               "Uae Driving License"
                             ) > -1
@@ -2186,9 +2050,9 @@ const CarFormTestTwo = () => {
                               : false
                           }
                           onChange={(e) => handleO(e)}
-                        //   name="Uae Driving License"
-                        //   onChange={(e) => handleO(e)}
-                        //   value={checkboxValue6("Uae Driving License")}
+                          //   name="Uae Driving License"
+                          //   onChange={(e) => handleO(e)}
+                          //   value={checkboxValue6("Uae Driving License")}
                         />
                       }
                       label="Uae Driving License"
@@ -2196,7 +2060,7 @@ const CarFormTestTwo = () => {
                     <FormControlLabel
                       control={
                         <Checkbox
-                        value={
+                          value={
                             data?.requirementsForTourists?.indexOf(
                               "Us, Canada, Eu, Gcc Or International Driving License"
                             ) > -1
@@ -2210,11 +2074,11 @@ const CarFormTestTwo = () => {
                               : false
                           }
                           onChange={(e) => handleO(e)}
-                        //   name="Us, Canada, Eu, Gcc Or International Driving License"
-                        //   onChange={(e) => handleO(e)}
-                        //   value={checkboxValue6(
-                        //     "Us, Canada, Eu, Gcc Or International Driving License"
-                        //   )}
+                          //   name="Us, Canada, Eu, Gcc Or International Driving License"
+                          //   onChange={(e) => handleO(e)}
+                          //   value={checkboxValue6(
+                          //     "Us, Canada, Eu, Gcc Or International Driving License"
+                          //   )}
                         />
                       }
                       label="Us, Canada, Eu, Gcc Or International Driving License"

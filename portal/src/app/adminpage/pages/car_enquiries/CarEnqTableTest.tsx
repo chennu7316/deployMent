@@ -26,6 +26,7 @@ import "../car_models/ModelsDataTable.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import * as XLSX from "xlsx";
+import Swal from "sweetalert2";
 
 interface Data {
   carName: string;
@@ -249,6 +250,7 @@ export default function CarEnqTableTest() {
     axios
       .get("http://localhost:4000/user/getInquirys")
       .then((res) => {
+        Swal.fire("Updated!", "The car Brand has been updated.", "success");
         console.log(res.data.data, "dataaaaaaaaaaaaaaaaaaaaa");
         setrows(res.data.data);
         setRows(res.data.data);

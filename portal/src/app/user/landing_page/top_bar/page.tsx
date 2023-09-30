@@ -9,32 +9,36 @@ import CallIcon from "@mui/icons-material/Call";
 import "../top_bar/TopBar.css";
 
 const TopBar = () => {
+  const handleInstagramClick =()=>{
+    window.open('https://www.instagram.com/', '_blank');
+  }
+  const handleFacebookClick= () => {
+    window.open('https://www.facebook.com/', '_blank');
+  }
+  const handleTwitterClick = ()=> {
+    window.open('https://twitter.com/', '_blank')
+  }
+  const handleLinkedInClick = () => {
+    window.open('https://www.linkedin.com/home', '_blank')
+  }
   return (
     <div className="top_Bar_section">
-      {/* <Container maxWidth="lg"> */}
-      {/* <Grid container spacing={2}> */}
-        {/* <Grid item xs={6} sm={6} md={6} lg={6}> */}
-          <div className="top_bar_icon">
-            <InstagramIcon className="topbar_icons" />
-            <FacebookIcon className="topbar_icons" />
-            <TwitterIcon className="topbar_icons" />
-            <LinkedInIcon className="topbar_icons" />
-          </div>
-        {/* </Grid> */}
-        {/* <Grid item xs={6} sm={6} md={6} lg={6}> */}
-          <div className="top_email_n">
-            <div className="top_email">
-              <MailOutlineIcon className="top_mail_icon" />
-              <p>info@injaz.ae</p>
-            </div>
-            <div className="top_num">
-              <CallIcon className="top_mail_icon" />
-              <p>+97150 996 1569</p>
-            </div>
-          </div>
-        {/* </Grid> */}
-      {/* </Grid> */}
-      {/* </Container> */}
+      <div className="top_bar_icon">
+        <InstagramIcon onClick={handleInstagramClick} className="topbar_icons" />
+        <FacebookIcon onClick={handleFacebookClick} className="topbar_icons" />
+        <TwitterIcon onClick={handleTwitterClick} className="topbar_icons" />
+        <LinkedInIcon onClick={handleLinkedInClick} className="topbar_icons" />
+      </div>
+      <div className="top_email_n">
+        <div className="top_email">
+          <MailOutlineIcon className="top_mail_icon" />
+          <p><a href="mailto:your-email@gmail.com">info@injaz.ae</a></p>
+        </div>
+        <div className="top_num">
+          <CallIcon className="top_mail_icon" />
+          <p><a href="tel:+97150 996 1569">+97150 996 1569</a></p>
+        </div>
+      </div>
     </div>
   );
 };

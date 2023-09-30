@@ -110,7 +110,6 @@ function Navlinks() {
               }}
             >
               {
-                // Check if data is not empty
                 location.map((item: any) => (
                   <MenuItem
                     sx={{ textTransform: "capitalize" }}
@@ -121,30 +120,6 @@ function Navlinks() {
                   </MenuItem>
                 ))
               }
-              {/* <MenuItem
-                sx={{ width: "200px", fontSize: "14px" }}
-                onClick={handleClose}
-              >
-                MONTHLY
-              </MenuItem>
-              <MenuItem
-                sx={{ width: "200px", fontSize: "14px" }}
-                onClick={handleClose}
-              >
-                WEEKLY
-              </MenuItem>
-              <MenuItem
-                sx={{ width: "200px", fontSize: "14px" }}
-                onClick={handleClose}
-              >
-                DAILY
-              </MenuItem>
-              <MenuItem
-                sx={{ width: "200px", fontSize: "14px" }}
-                onClick={handleClose}
-              >
-                CUSTOMIZE
-              </MenuItem> */}
             </Menu>
 
             <Button
@@ -209,22 +184,7 @@ function Navlinks() {
                     {item.name}
                   </MenuItem>
                 ))}
-              {/* <MenuItem
-                sx={{ width: "210px", fontSize: "14px" }}
-                onClick={handleCloseThree}
-              >
-                MIDSIZE CARS FOR RENT
-              </MenuItem>
-              <MenuItem
-                sx={{ width: "210px", fontSize: "14px" }}
-                onClick={handleCloseThree}
-              >
-                SUV CARS FOR RENT
-              </MenuItem> */}
             </Menu>
-
-            <Button variant="text">BLOGE </Button>
-            <Button variant="text">PROMOTIONS</Button>
             <Button
               onClick={() => {
                 const targetSection =

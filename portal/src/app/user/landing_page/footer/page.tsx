@@ -2,7 +2,7 @@
 import { CardActionArea, CardMedia, Container, Grid } from "@mui/material";
 import React from "react";
 // import "./footer.css";
-import "../footer/footer.css"
+import "../footer/footer.css";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 
 const Footer = () => {
@@ -20,8 +20,10 @@ const Footer = () => {
               />
             </CardActionArea>
             <p className="foot_text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate
-              ratione, blanditiis corporis temporibus ducimus adipisci.
+              INJAZ is the first-ever global car rental and leasing marketplace.
+              We work with 200+ local car rental companies in Dubai. You can
+              choose among their 2000+ verified cars to find the best rental car
+              for you.
             </p>
             <div className="foot_icons">
               <Grid container>

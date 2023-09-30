@@ -63,14 +63,6 @@ function createData(
   };
 }
 
-// const rows1 = [
-//   createData("Toyota", "toyota", "Active", "5/08/2023", "5/08/2023"),
-//   createData("Nissan", "nissan", "Active", "4/08/2023", "4/08/2023"),
-//   createData("Mitsubishi", "mitsubishi", "Active", "3/08/2023", "3/08/2023"),
-//   createData("Mazda", "mazda", "Active", "2/08/2023", "2/08/2023"),
-//   createData("Kia", "kia", "Active", "1/08/2023", "1/08/2023"),
-// ];
-
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -173,12 +165,6 @@ const headCells: readonly HeadCell[] = [
     disablePadding: false,
     label: "Location",
   },
-//   {
-//     id: "updatedDate",
-//     numeric: true,
-//     disablePadding: false,
-//     label: "UpdatedDate",
-//   },
 ];
 
 interface EnhancedTableProps {
@@ -362,13 +348,6 @@ export default function AdmCarTableTest() {
           sx={{ width: 600 }}
           value={searched}
           onChange={(e: any) => requestSearch(e.target.value)}
-          // InputProps={{
-          //   endAdornment: (
-          //     <IconButton onClick={() =>cancelSearch()}>
-          //      {searched.length > 0 ?   <DeleteTwoToneIcon /> : ''}
-          //     </IconButton>
-          //   )
-          // }}
         />
         <TableContainer>
           <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
@@ -391,7 +370,6 @@ export default function AdmCarTableTest() {
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
-                    // {Rows.map((row:any) => (
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.name)}
@@ -450,12 +428,9 @@ export default function AdmCarTableTest() {
                       >
                         {row.featuredCar}
                       </TableCell>
-                      {/* <TableCell align="left">{row.brand}</TableCell> */}
                       <TableCell align="left">{row.year}</TableCell>
                       <TableCell align="left">{row.status}</TableCell>
                       <TableCell align="left">{row.location}</TableCell>
-                      {/* <TableCell align="left">{row.updatedDate}</TableCell> */}
-
                       <TableCell align="center">
                         <BorderColorIcon
                           color="success"
@@ -467,7 +442,6 @@ export default function AdmCarTableTest() {
                             );
                           }}
                         />
-                        {/* /adminpage/pages/car_brands/brandForm?name=${row.name}&status=${row.status.toLowerCase()}` */}
                         <DeleteIcon
                           color="error"
                           onClick={() => {

@@ -52,3 +52,15 @@
 .top_bar_icon {
     width: 93%;
 }
+
+.top_email p a {
+    color: white;
+    text-decoration: none;
+    font-family: monospace;
+}
+
+.top_num p a {
+    color: white;
+    text-decoration: none;
+    font-family: fangsong;
+}

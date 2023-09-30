@@ -17,6 +17,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../enquiry-form/enquiryForm.css";
 import { Controller, useForm } from "react-hook-form";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 interface FormData {
   carName: string;
@@ -95,6 +96,7 @@ function BookNow() {
         dropLocation:data.dropLocation,
       })
       .then((res) => {
+        Swal.fire("Sent!", "Your Booking has been Sent.", "success");
         setdata({
           carName: "",
           phoneNumber: "",
