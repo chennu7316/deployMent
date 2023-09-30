@@ -80,9 +80,9 @@ export  class Auth{
 export class CarInquiry{
 
 
-    constructor(name:string,carName:string,startDate: Date,endDate:Date,pickUpLoc:string,dropLocation:string,phoneNumber:string,area:string,message:string,city:string,email:string){
+    constructor(name:string,carName:string,startDate: Date,endDate:Date,pickUpLoc:string,dropLocation:string,phoneNumber:string,area:string,message:string,city:string,email:string,packages:string){
         return {
-            carName:carName,startDate:startDate,endDate:endDate,pickUpLoc:pickUpLoc,dropLocation:dropLocation,phoneNumber:phoneNumber,area:area,message:message,city:city,name:name,email:email
+            carName:carName,startDate:startDate,endDate:endDate,pickUpLoc:pickUpLoc,dropLocation:dropLocation,phoneNumber:phoneNumber,area:area,message:message,city:city,name:name,email:email,packages:packages,
         }
 
     }

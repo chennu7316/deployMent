@@ -75,9 +75,54 @@ carsRouter.post("/signUp", async (req: Request, res: Response) => {
       const mailOptions = {
         from: 'ravirashisingh16@gmail.com',
         to: 'ravirashisingh16@gmail.com',
-        subject: 'NEW USER IS ONBORDED',
-        text: `WE HAVE ANOTHER USER CRETED FOR OUR portal`,
+        subject: 'New Customer Information',
+        html: `
+          <html>
+            <body>
+              <h2>New Customer Information:</h2>
+              <table>
+                <tr>
+                  <td><strong>First Name:</strong></td>
+                  <td>${firstName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Last Name:</strong></td>
+                  <td>${lastName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Email:</strong></td>
+                  <td>${email}</td>
+                </tr>
+                <tr>
+                  <td><strong>Phone Number:</strong></td>
+                  <td>${phoneNumber}</td>
+                </tr>
+                <tr>
+                  <td><strong>Address:</strong></td>
+                  <td>${address}</td>
+                </tr>
+                <tr>
+                  <td><strong>City:</strong></td>
+                  <td>${city}</td>
+                </tr>
+                <tr>
+                  <td><strong>Locality:</strong></td>
+                  <td>${locality}</td>
+                </tr>
+                <tr>
+                  <td><strong>Area:</strong></td>
+                  <td>${area}</td>
+                </tr>
+                <tr>
+                  <td><strong>Zipcode:</strong></td>
+                  <td>${zipcode}</td>
+                </tr>
+              </table>
+            </body>
+          </html>
+        `,
       };
+      
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.error('Error sending email:', error);
@@ -147,11 +192,11 @@ carsRouter.post("/login", async (req: Request, res: Response) => {
 
 carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
   try {
-    const { name ,carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email,message,city } = req.body;
+    const { name ,carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email,message,city,packages} = req.body;
 
     // Find the user with the provided email in the database
 
-    const inquiry = new CarInquiry(name ,carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email,message,city)
+    const inquiry = new CarInquiry(name ,carName, startDate, endDate, pickUpLoc, dropLocation, phoneNumber, area, email,message,city,packages)
     // Compare the provided password with the hashed password from the database
     inquiry["email"] = email
     console.log(inquiry)
@@ -168,9 +213,54 @@ carsRouter.post("/createInquiry", async (req: Request, res: Response) => {
       const mailOptions = {
         from: 'ravirashisingh16@gmail.com',
         to: 'ravirashisingh16@gmail.com',
-        subject: 'INQUIRY Successfully  CREATED',
-        text: `Hi inquiry is created here is the details name:${name} carName:${carName} startDate:${startDate} endDate:${endDate} pichUpLoc:${pickUpLoc} dropLoc:${dropLocation} phoneNumber:${phoneNumber} area:${area} message:${message} city:${city}`,
+        subject: 'INQUIRY Successfully CREATED',
+        html: `
+          <html>
+            <body>
+              <h2>Inquiry Details:</h2>
+              <table>
+                <tr>
+                  <td><strong>Name:</strong></td>
+                  <td>${carName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Car Name:</strong></td>
+                  <td>${carName}</td>
+                </tr>
+                <tr>
+                  <td><strong>Start Date:</strong></td>
+                  <td>${startDate}</td>
+                </tr>
+                <tr>
+                  <td><strong>End Date:</strong></td>
+                  <td>${endDate}</td>
+                </tr>
+                <tr>
+                  <td><strong>Pickup Location:</strong></td>
+                  <td>${pickUpLoc}</td>
+                </tr>
+                <tr>
+                  <td><strong>Drop Location:</strong></td>
+                  <td>${dropLocation}</td>
+                </tr>
+                <tr>
+                  <td><strong>Phone Number:</strong></td>
+                  <td>${phoneNumber}</td>
+                </tr>
+                <tr>
+                  <td><strong>Message:</strong></td>
+                  <td>${message}</td>
+                </tr>
+                <tr>
+                  <td><strong>City:</strong></td>
+                  <td>${city}</td>
+                </tr>
+              </table>
+            </body>
+          </html>
+        `,
       };
+      
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
           console.error('Error sending email:', error);
