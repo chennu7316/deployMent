@@ -1,0 +1,66 @@
+.top_Bar_section {
+    padding: 5px 15px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
+
+.topbar_icons {
+    font-size: 40px;
+    padding: 5px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.topbar_icons:hover {
+    padding-bottom: 10px;
+    color: #1976d2;
+}
+
+.top_mail_icon {
+    color: white;
+    margin-right: 15px;
+    font-size: 28px;
+}
+
+.top_email p {
+    color: white;
+}
+
+.top_num p {
+    color: white;
+}
+
+.top_email {
+    display: flex;
+    align-items: center;
+}
+
+.top_num {
+    display: flex;
+    align-items: center;
+}
+
+.top_email_n {
+    text-align: right;
+    width: 40%;
+    display: flex;
+    column-gap: 30px;
+}
+
+.top_bar_icon {
+    width: 93%;
+}
+
+.top_email p a {
+    color: white;
+    text-decoration: none;
+    font-family: monospace;
+}
+
+.top_num p a {
+    color: white;
+    text-decoration: none;
+    font-family: fangsong;
+}

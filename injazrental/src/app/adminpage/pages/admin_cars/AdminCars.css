@@ -1,0 +1,94 @@
+.cartexhead {
+    display: flex;
+    align-items: center;
+}
+
+.carheadtext {
+    width: 100%;
+}
+
+.carheadbtn {
+    width: 100%;
+    text-align: right;
+}
+
+/* ***********Add car form****************** */
+.car_description {
+    margin-bottom: 20px;
+}
+
+.carformbtn {
+    margin: 20px 0px;
+}
+
+.submitbtn {
+    margin-right: 20px;
+}
+
+.formcontbox {
+    border: 1px solid #dee1e6;
+    border-radius: 5px;
+    background-color: white;
+}
+
+
+.pageheading h1 {
+    border-bottom: 2px solid #f1f3f4;
+}
+
+.car_services {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f1f3f4;
+}
+
+
+.car_description {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.car_pricing {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.car_specification {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.rental_terms {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.car_features {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+
+.car_details {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.payment_type {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.other_features {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.required_documents {
+    border-bottom: 2px solid #f1f3f4;
+    padding-bottom: 20px;
+}
+
+.pageheading {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f1f3f4;
+}
