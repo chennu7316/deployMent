@@ -1,3 +1,4 @@
+"use client"
 import { Container, Grid } from "@mui/material";
 import React from "react";
 import InstagramIcon from "@mui/icons-material/Instagram";

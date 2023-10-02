@@ -573,10 +573,10 @@ const CarFormTestTwo = () => {
   //CheckBox wale component pe le kr ja
   console.log(data, "jdfh");
 
-  const checkhandler = (value: any) =>
-    useMemo(() => {
-      return checkboxValue(value);
-    }, [value, data]);
+  // const checkhandler = (value: any) =>
+  //   useMemo(() => {
+  //     return checkboxValue(value);
+  //   }, [value, data]);
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
@@ -647,7 +647,7 @@ const CarFormTestTwo = () => {
                             onChange={(e) => handle(e)}
                           >
                             {brand.map((item:any) => (
-                            <MenuItem value={item.name}>{item.name}</MenuItem>
+                            <MenuItem key={item.name} value={item.name}>{item.name}</MenuItem>
                             ))}
                           </Select>
                         )}
@@ -671,7 +671,7 @@ const CarFormTestTwo = () => {
                     >
                       {
                         modelDrop.map((item:any)=> (
-                          <MenuItem value={item.Name}>{item.Name}</MenuItem>
+                          <MenuItem key={item.Name} value={item.Name}>{item.Name}</MenuItem>
                         ))
                       }
                     </Select>
@@ -699,7 +699,7 @@ const CarFormTestTwo = () => {
                         >
                           {
                             catDrop.map((item:any)=>(
-                              <MenuItem value={item.name}>{item.name}</MenuItem>
+                              <MenuItem key={item.name} value={item.name}>{item.name}</MenuItem>
                             ))
                           }
                         </Select>
@@ -782,7 +782,7 @@ const CarFormTestTwo = () => {
                         >
                           {
                             locDrop.map((item:any)=>(
-                              <MenuItem value={item.Name}>{item.Name}</MenuItem>
+                              <MenuItem key={item.Name} value={item.Name}>{item.Name}</MenuItem>
                             ))
                           }
                         </Select>
