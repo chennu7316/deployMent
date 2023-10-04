@@ -1425,7 +1425,7 @@ carsRouter.get("/dashBoard", async (req: Request, res: Response) => {
   const Categoryes = await collections.carCategory.count()
   const brands = await collections.carBrands.count()
   const enquiryes = await collections.carInquiry.count()
-  const contactInquires = await collections.contactInfo.count()
+  const contactInquires = await collections.users.count()
   const location = await collections.addCarLoaction.count()
   const result = {
     totalCars: cars,
