@@ -119,6 +119,8 @@ export interface CarData {
     name:string,
     brand:string,
     model: string,
+    interirorColor:string,
+    exteriorColor:string
     category: string,
     year:string,
     image:ArrayBuffer,
