@@ -1696,6 +1696,12 @@
                {
                   "type":"string"
                },
+            "interiorColor":{
+                  "type":"string"
+               },
+               "exteriorColor":{
+                  "type":"string"
+               },
                "discountedPriceDaily":
                {
                   "type":"string"
